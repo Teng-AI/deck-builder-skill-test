@@ -217,6 +217,14 @@ def main():
         if body_n == 0:
             sys.exit("no empty body brand slots found")
 
+    # A brand slot left empty shows the template's dashed BRAND SLOT box, a
+    # drafting aid; a shipped deck renders empty slots as clean whitespace.
+    hide = ('    <style id="brand-slot-final">.brand-slot:not(:has(img, svg))'
+            "::after { content: none; }</style>\n")
+    html, n = re.subn(r"(?=  </head>)", hide, html, count=1)
+    if n != 1:
+        sys.exit("could not find </head> to carry the brand-slot style")
+
     # --- folios -------------------------------------------------------------
     counter = {"n": 0}
 
@@ -258,6 +266,11 @@ def main():
     out = pathlib.Path(sys.argv[sys.argv.index("--out") + 1]) \
         if "--out" in sys.argv else deck_path.with_suffix(".html")
     out.write_text(html)
+    skill_root = HERE.parent
+    if skill_root in out.resolve().parents:
+        print(f"WARN: output written inside the skill install ({skill_root}); "
+              "uninstalling the skill deletes this deck. Write deck.json in "
+              "the working directory instead.", file=sys.stderr)
     pages_out = len(re.findall(r'<section class="slide', html))
     body = html[html.find("<section"):]
     masked = len(re.findall(r"\[x[x,.]*\]", re.sub(r"<[^>]+>", " ", body)))
@@ -267,6 +280,9 @@ def main():
     if masked:
         print(f"  figures still masked: {masked} sites (chart figures stay "
               "masked by design; tell the user which pages hold the rest)")
+    if not marks:
+        print("  brand slots: empty (no mark supplied; the placeholder box "
+              "is suppressed in the build)")
     print(f"  slots filled: {len(filled)}   tokens: {len(tokens)}")
     if cta_line:
         print(f"  CTA: {cta_line}")

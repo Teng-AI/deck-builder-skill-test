@@ -13,7 +13,7 @@ the closing credit line, and never restyle anything to make content fit. That
 division is the point: the template's geometry is measured, the build is
 reproducible, and a failed check names exactly what to change.
 
-Runs on Claude Code and Codex CLI. Everything needed ships in this bundle;
+Runs on Claude Code and Codex, CLI or desktop app. Everything needed ships in this bundle;
 the scripts are plain `python3`, standard library only.
 
 ## What you need from the user
@@ -74,6 +74,13 @@ Fill slots from the outline, obeying:
   `[x,xxx]`-style mask; never invent one. Chart figures have no slots on
   purpose: the bar geometry is illustrative, and the build report counts
   every site left masked so you can tell the user.
+- **Mask means TODO; dash means confirmed absent.** When the user confirms a
+  cell has no data (a comparison period the outline does not cover, a spare
+  row's figures), fill it with a plain en dash, the genre's null marker.
+  Leave a site masked only while the user might still supply it. Fill the
+  chart period axes (`lang-cat-*`) and the snapshot bullets heading with the
+  deck's own period language; their defaults are calendar years and
+  "Quarterly Highlights".
 - **Nested slots ride their outer.** Where slots.json marks a slot with
   `"outer"`, write the full sentence into the outer slot and skip the inner.
 - **Brand colour rethemes everything or nothing.** If the user gave colours,
@@ -86,6 +93,15 @@ Fill slots from the outline, obeying:
   Whenever a fallback branch fires, say so in your summary.
   Fills ship with their paired inks. Logo files go in `marks` as paths
   relative to deck.json.
+
+**Output contract.** Write deck.json in the user's working directory (an
+`outputs/` folder there is fine), NEVER inside this skill's install folder:
+uninstalling deletes that folder, decks and all, and the builder warns if you
+do it anyway. Name it `<issuer-or-project>-<period>.deck.json` (e.g.
+`harborline-2q26.deck.json`); the builder emits the matching `.deck.html`
+beside it. Those two files are the guaranteed deliverables on every platform.
+A PDF is a bonus, not a promise: produce it only when step 5's render check
+runs, with the same basename.
 
 ### 4. Check, then build
 

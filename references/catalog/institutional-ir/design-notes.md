@@ -69,6 +69,46 @@ Families:
 explicitly kept.** The template's neutral defaults describe a fictional issuer; a
 default leaking into a user deck is a defect the checks fail on, not a fallback.
 
+**Chart period axes are slotted** (`lang-cat-cs-1..5`, `lang-cat-hc-1..5`,
+`lang-cat-pr-1..6` in panel order, `lang-cat-mod-1..3`; added 2026-08-05 after a
+fiscal-year deck rendered calendar-year axes). Fill them with the deck's own
+period labels. The snapshot bullets heading is `lang-ss-high-head` ("Quarterly
+Highlights" by default); an annual deck renames it.
+
+## Page micro-structures the generator must respect
+
+Found in calibration run 3; each of these is invisible to the checks and shows
+up only in the render.
+
+- **The checklist claim band is segment-bracketed.** Cells 1-3 sit under a
+  `segment-1` bracket, cells 4-6 under `segment-2`. Fill each cell with a fact
+  that belongs to that segment; a group-level fact under a segment bracket reads
+  as mis-attribution. Cells 1-2 carry `#[x]` rank badges (fig, maskable); cells
+  3-6 carry worded badges (`lang-band-v1..4`) that pair with their captions.
+- **The recon table is two column groups**: "Average for the" (columns 1-2,
+  with `lang-rec-ended-1/2` + `lang-th-rec-4/5` as their heads) and "As of"
+  (columns 3-5, heads `lang-th-rec-1..3`). Average-balance figures belong in
+  the average columns; period-end balances in the as-of columns.
+- **Recon rows 1 and 6 are currency rows** (baked `$` signs). Only dollar
+  amounts sit there; a ratio result belongs in the reconciliation prose note,
+  not in the table.
+
+## Placeholders in a shipped deck: mask vs dash
+
+A visible mask (`[x,xxx]`) means "awaiting data", a TODO. That is right while
+drafting and wrong in a deck being shipped, where the genre's marker for
+"confirmed not available or not applicable" is the en dash. The rule:
+
+- A figure the user may still supply stays MASKED, and the build report counts
+  it so the user can fill it.
+- A cell the user has confirmed has no data (a comparison period the outline
+  does not cover, a spare row's figures) is FILLED with an en dash (a plain
+  `–`), which renders as the genre's null marker.
+- Chart bar labels stay masked either way in v1: the bar geometry is synthetic,
+  and a bare unlabelled chart would read as real data. The honest paths are the
+  mask, dropping the page, or v1.1 data-driven charts (user-supplied series
+  values drive both heights and labels).
+
 ## Density budgets
 
 `budgets.json` carries three numbers per ceiling; **`budget` is the only one a

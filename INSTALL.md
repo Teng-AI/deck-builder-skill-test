@@ -1,7 +1,8 @@
 # Installing deck-builder
 
-Works on **Claude Code** and **Codex CLI**. Everything the skill needs is in
-this folder; the scripts run on plain `python3` (standard library only).
+Works on **Claude Code** and **Codex**, CLI or desktop app. Everything the
+skill needs is in this folder; the scripts run on plain `python3` (standard
+library only).
 
 ## The one-sentence install
 
@@ -13,7 +14,7 @@ were given:
 > Clone REPO_URL and copy its contents into `~/.claude/skills/deck-builder/`,
 > then read that SKILL.md and confirm the deck-builder skill is ready.
 
-**Codex CLI**
+**Codex**
 
 > Clone REPO_URL and copy its contents into `~/.codex/skills/deck-builder/`,
 > then read that SKILL.md and confirm the deck-builder skill is ready.
@@ -29,7 +30,7 @@ mkdir -p ~/.claude/skills
 cp -R deck-builder-skill ~/.claude/skills/deck-builder
 ```
 
-For Codex CLI use `~/.codex/skills/deck-builder` instead. **Codex note:** if
+For Codex use `~/.codex/skills/deck-builder` instead. **Codex note:** if
 `~/.codex/skills` exists at all, Codex reads only it and silently ignores
 `~/.agents/skills`, so put the skill where the rest of yours already live.
 

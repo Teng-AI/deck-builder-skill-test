@@ -3,7 +3,7 @@
     "template": "template.html",
     "blank_profile": "placeholder-heavy.json",
     "what": "Derived slot map: page -> slots in DOM (display) order, labelled by the blank form's fill-types. Regenerate with research/tools/make-slots.py; never hand-edit.",
-    "slot_sites": 377
+    "slot_sites": 394
   },
   "pages": {
     "cover": [
@@ -109,45 +109,75 @@
         "markup_prefix": "<i class=\"sw sw--1\"></i>"
       },
       {
+        "slot": "lang-cat-cs-1",
+        "label": "2021",
+        "n": 15,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-cs-2",
+        "label": "2022",
+        "n": 16,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-cs-3",
+        "label": "2023",
+        "n": 17,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-cs-4",
+        "label": "2024",
+        "n": 18,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-cs-5",
+        "label": "2025",
+        "n": 19,
+        "default_len": 4
+      },
+      {
         "slot": "lang-cs-tgt-title",
         "label": "[Targets headline] 13",
-        "n": 15,
+        "n": 20,
         "default_len": 22
       },
       {
         "slot": "lang-cs-tgt-k1",
         "label": "[Metric #1]",
-        "n": 16,
+        "n": 21,
         "default_len": 14
       },
       {
         "slot": "target-margin-prior",
         "label": "[xx]%",
-        "n": 17,
+        "n": 22,
         "default_len": 5
       },
       {
         "slot": "target-margin-updated",
         "label": "[xx]%",
-        "n": 18,
+        "n": 23,
         "default_len": 5
       },
       {
         "slot": "lang-cs-tgt-k2",
         "label": "[Metric #2]",
-        "n": 19,
+        "n": 24,
         "default_len": 7
       },
       {
         "slot": "target-returns-prior",
         "label": "[xx]%",
-        "n": 20,
+        "n": 25,
         "default_len": 5
       },
       {
         "slot": "target-returns-updated",
         "label": "[xx]%",
-        "n": 21,
+        "n": 26,
         "default_len": 5
       }
     ],
@@ -189,33 +219,69 @@
         "default_len": 35
       },
       {
+        "slot": "lang-cat-pr-1",
+        "label": "2020",
+        "n": 7,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-pr-2",
+        "label": "2025",
+        "n": 8,
+        "default_len": 4
+      },
+      {
         "slot": "lang-pr-box-resil",
         "label": "[Outcome #1]",
-        "n": 7,
+        "n": 9,
         "default_len": 19
       },
       {
         "slot": "lang-pr-chart-principal",
         "label": "[Metric #2] 5,6 ([units])",
-        "n": 8,
-        "default_len": 41
+        "n": 10,
+        "default_len": 35
+      },
+      {
+        "slot": "lang-cat-pr-3",
+        "label": "2020",
+        "n": 11,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-pr-4",
+        "label": "2025",
+        "n": 12,
+        "default_len": 4
       },
       {
         "slot": "lang-pr-box-capital",
         "label": "[Outcome #2]",
-        "n": 9,
+        "n": 13,
         "default_len": 23
       },
       {
         "slot": "lang-pr-chart-stress",
         "label": "[Metric #3]",
-        "n": 10,
+        "n": 14,
         "default_len": 21
+      },
+      {
+        "slot": "lang-cat-pr-5",
+        "label": "2020",
+        "n": 15,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-pr-6",
+        "label": "2025",
+        "n": 16,
+        "default_len": 4
       },
       {
         "slot": "lang-pr-box-stress",
         "label": "[Outcome #3]",
-        "n": 11,
+        "n": 17,
         "default_len": 26
       }
     ],
@@ -505,39 +571,69 @@
         "default_len": 17
       },
       {
+        "slot": "lang-cat-hc-1",
+        "label": "2021",
+        "n": 8,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-hc-2",
+        "label": "2022",
+        "n": 9,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-hc-3",
+        "label": "2023",
+        "n": 10,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-hc-4",
+        "label": "2024",
+        "n": 11,
+        "default_len": 4
+      },
+      {
+        "slot": "lang-cat-hc-5",
+        "label": "2025",
+        "n": 12,
+        "default_len": 4
+      },
+      {
         "slot": "lang-hc-bracket",
         "label": "[Forward opportunity statement]",
-        "n": 8,
+        "n": 13,
         "default_len": 36
       },
       {
         "slot": "lang-hc-box-1",
         "label": "[Growth channel #1]",
-        "n": 9,
+        "n": 14,
         "default_len": 17
       },
       {
         "slot": "lang-hc-box-2",
         "label": "[Growth channel #2]",
-        "n": 10,
+        "n": 15,
         "default_len": 23
       },
       {
         "slot": "lang-hc-box-3",
         "label": "[Growth channel #3]",
-        "n": 11,
+        "n": 16,
         "default_len": 15
       },
       {
         "slot": "lang-hc-box-4",
         "label": "[Growth channel #4]",
-        "n": 12,
+        "n": 17,
         "default_len": 23
       },
       {
         "slot": "lang-hc-box-5",
         "label": "[Growth channel #5]",
-        "n": 13,
+        "n": 18,
         "default_len": 21
       }
     ],
@@ -851,60 +947,66 @@
         "default_len": 6
       },
       {
+        "slot": "lang-ss-high-head",
+        "label": "Quarterly Highlights",
+        "n": 37,
+        "default_len": 20
+      },
+      {
         "slot": "lang-blank-ss-1",
         "label": "[Highlight #1]",
-        "n": 37,
+        "n": 38,
         "default_len": 105
       },
       {
         "slot": "lang-blank-ss-2",
         "label": "[Highlight #2]",
-        "n": 38,
+        "n": 39,
         "default_len": 137
       },
       {
         "slot": "segment-1",
         "label": "[Segment #1]",
-        "n": 39,
+        "n": 40,
         "default_len": 21,
         "outer": "lang-blank-ss-2"
       },
       {
         "slot": "lang-blank-ss-3",
         "label": "[Highlight #3]",
-        "n": 40,
+        "n": 41,
         "default_len": 138
       },
       {
         "slot": "rank-league-primary",
-        "label": "#[x]",
-        "n": 41,
-        "default_len": 4,
-        "outer": "lang-blank-ss-3"
-      },
-      {
-        "slot": "rank-league-ig",
         "label": "#[x]",
         "n": 42,
         "default_len": 4,
         "outer": "lang-blank-ss-3"
       },
       {
+        "slot": "rank-league-ig",
+        "label": "#[x]",
+        "n": 43,
+        "default_len": 4,
+        "outer": "lang-blank-ss-3"
+      },
+      {
         "slot": "lang-blank-ss-6",
         "label": "[Highlight #4]",
-        "n": 43,
+        "n": 44,
         "default_len": 49
       },
       {
         "slot": "lang-blank-ss-4",
         "label": "[Highlight #5]",
-        "n": 44,
+        "n": 45,
         "default_len": 155
       },
       {
         "slot": "lang-blank-ss-5",
         "label": "[Highlight #6]",
-        "n": 45,
+        "n": 46,
         "default_len": 72
       }
     ],

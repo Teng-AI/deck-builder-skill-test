@@ -1,0 +1,2623 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Institutional IR · Results Presentation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Institutional IR font stack. Three roles, three faces, chosen on COPYFIT
+      against a real bulge-bracket deck rather than on resemblance: the stage is
+      a fixed box and nothing reflows, so a substitute that sets the same string
+      wider overflows and invalidates every density ceiling in this file.
+
+        Oswald        - condensed grotesque, the running page title only (1.011)
+        IBM Plex Sans - text grotesque, everything else (0.988)
+        Spectral      - light transitional serif, exactly two slots (0.986)
+
+      Spectral's two slots are the cover title and the quote panel. Nothing else
+      in the deck is ever set in serif. Copyfit was measured at text sizes and
+      drifts to about 1.02 at 130px, so a cover title near its ceiling wants a
+      look before it ships.
+    -->
+    <!--
+      THE REQUEST HAS TO NAME EVERY COMBINATION THE CSS SETS, not every weight
+      and every style separately. It asked for italic at 400 only, while
+      .frame--board > h3 takes font-weight from .frame > h3 and font-style from
+      itself and computes to italic 600. One leaf in the deck, the stat-board
+      lede, and Chromium was smearing the 400 italic into a fake bold for it:
+      italic 400 and italic 600 both set that string at exactly 596.41px, where
+      the two upright weights differ by 3.6% (610.97 against 632.84). An
+      identical advance is only possible when no distinct face was selected.
+
+      Nothing could have caught it. Faux bold moves no geometry, so
+      verify-render.py passes; font-gate.py measures bold on upright only and
+      tests italic by existence, never the combination.
+
+      Oswald lost its 500 for the opposite reason: it was requested and primed
+      and no leaf in the deck sets it. All 11 title leaves are 400.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400;1,600&family=Spectral:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE A · TOKENS                                                     ║
+         ║                                                                      ║
+         ║  Institutional IR: bulge-bracket reporting. Banded tables, hairline  ║
+         ║  rules, zero ornament, read at desk distance rather than projected.  ║
+         ║                                                                      ║
+         ║  Replace ONLY this block to retheme. Every colour and every type     ║
+         ║  size in this file reads from these properties, and NO RAW HEX EVER  ║
+         ║  APPEARS OUTSIDE THIS BLOCK.                                         ║
+         ║                                                                      ║
+         ║  Raw px is different, and the distinction matters. ZONE E is full of ║
+         ║  it, because those numbers are MEASURED off a real deck: 137.4 is    ║
+         ║  where a module rule lands, not a spacing preference. Tokenising them ║
+         ║  would hide the fact that they are evidence. Tokens carry what a      ║
+         ║  retheme should change; ZONE E carries what a retheme must not.       ║
+         ║                                                                      ║
+         ║  The palette is STRUCTURAL, not borrowed. The anchor's own values    ║
+         ║  are trade dress and do not ship; what ships is the role each colour ║
+         ║  plays and the ratio between them.                                   ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      :root {
+        /* ── Stage ────────────────────────────────────────────────────────── */
+        --stage-bg: #eceef0;        /* behind the letterbox. Never leave unset:
+                                       an unset value renders hard black bars
+                                       around a white deck on any non-16:9 screen */
+
+        /* ── Palette ──────────────────────────────────────────────────────── */
+        --c-ground: #ffffff;        /* page ground                              */
+        --c-band: #f5f6f7;          /* table body row fill, a near-white panel  */
+        --c-header: #1f3346;        /* table and tile header bands. FILL ONLY:
+                                       this colour is never used for type and
+                                       never used for a rule                    */
+        --c-emphasis: #94a9bd;      /* subtotal and total rows                  */
+        --c-panel: #6d8ba6;         /* the quote panel, the deck's only
+                                       full-bleed colour field                  */
+        /* Rules AND the bracket label. #5b7f9e until it was measured: as a rule
+           it has no contrast requirement, but .bracket sets it as 16.7px type on
+           white, where it scored 4.22:1 against a 4.5 bar. That is the identical
+           value and the identical number this file already records rejecting for
+           --c-s2 (see .seg--on-light) - rejected for a fill, kept for type.
+           Darkened to 4.53:1. The rules move by L 0.582 -> 0.566 and nothing
+           else in the deck can tell. */
+        --c-accent: #567a99;
+        --c-ink: #101418;
+        --c-ink-reverse: #ffffff;
+        --c-hairline: #b8bcc0;      /* row dividers                             */
+
+        /* Chart ramp: TWO PAIRS, not one slope. A blue pair (s1, s2) and a
+           teal pair (s3, s4), each running dark to light. The legend reads left
+           to right in this order and a stacked bar reads TOP to bottom in the
+           same order. Label colour switches inside each pair, not once part-way
+           down the four; the measured numbers are at `.seg--on-light`. */
+        /* EACH SWATCH SHIPS WITH ITS OWN INK. The label colour used to be a
+           hand-applied .seg--on-light class on 16 of the 42 segments in the
+           markup, which meant a retheme done properly from ZONE A repainted
+           every fill and left the ink decision stale: darkening --c-s2 alone
+           takes its 8 labelled segments from 5.03:1 to 1.12:1, moves no
+           geometry, and passes verify-render.py. Pairing the ink WITH the fill
+           makes the two impossible to change apart. research/tools/
+           palette-gate.py re-measures every pair. */
+        --c-s1: #1f3346;  --c-s1-ink: var(--c-ink-reverse);   /* 12.96 : 1 */
+        --c-s2: #6689a9;  --c-s2-ink: var(--c-ink);           /*  5.03 : 1 */
+        --c-s3: #1d6b62;  --c-s3-ink: var(--c-ink-reverse);   /*  6.30 : 1 */
+        --c-s4: #63a89f;  --c-s4-ink: var(--c-ink);           /*  6.72 : 1 */
+        /* The cover field ships with its own ink for the same reason the
+           swatches do: retheming the field without its ink strands the title,
+           moves no geometry, and passes verify-render.py. palette-gate.py
+           re-measures the pair (the cover pair is judged at the 3.0 display
+           bar; everything on the field is 26.7px+). #acd4f1 is Teng's call,
+           2026-08-01, for BOTH builds - it replaced the teal default from the
+           same morning's Q2 decision. A light field forces dark ink: white on
+           it measures 1.56:1. The ink stays exactly --c-ink: TYPE-08 caps
+           this system's text colours at three and any tint adds a fourth. */
+        --c-cover-field: #acd4f1;  --c-cover-ink: var(--c-ink);  /* 11.84 : 1 */
+        --c-baseline: #494949;      /* the single axis line a chart is allowed  */
+
+        /* ── Two roles the narrative section adds ─────────────────────────────
+           Both are SEMANTIC, not decorative, and the anchor holds the pairing
+           on every narrative page that shows a before and an after: the prior
+           period is muted to grey, the forward-looking or target figure is set
+           in the one bright colour the deck owns. Never use --c-forward for an
+           actual, reported number. That is the whole point of it.              */
+        /* --c-prior IS A FILL. Muting the earlier period is the argument, but
+           the same grey set as TYPE scores 2.64:1 on white, which fails the 3:1
+           large-text bar as well as the 4.5 body one - it was doing the arguing
+           by being close to illegible. Two tokens, one rule: a prior-period BAR
+           takes --c-prior, a prior-period WORD takes --c-prior-ink. Deliberately
+           not a size-conditional rule; the last size-conditional colour rule in
+           this file ("s2 or lighter takes ink") got --c-s4 wrong. */
+        --c-prior: #9aa0a6;         /* the earlier period, as a bar fill        */
+        --c-prior-ink: #71777d;     /* the earlier period, as type. 4.53 : 1    */
+        --c-forward: #1d6b62;       /* a target, an outlook, a CAGR annotation  */
+        /* --c-forward currently equals --c-s3. That is deliberate reuse of one
+           value by two roles, not a duplicate to be collapsed: retheming the
+           chart ramp must not silently restyle every target figure in the deck,
+           so both stay declared. */
+        --c-ink-soft: #5f666d;      /* the evidence line under an assertion     */
+
+        /* ── Typefaces ────────────────────────────────────────────────────────
+           TWO ROLES ARE FREE AND ONE IS GATED. Measured, not assumed: 19 faces
+           swapped into each role with every keep-out bound re-run.
+
+             --f-title  FREE   11 page titles, one line each. 8 of 8 passed.
+             --f-voice  GATED  the 130px cover title and the quote panel.
+                               CALLED FREE AT FIRST AND THAT WAS WRONG. The
+                               sweep that cleared 12 of 12 was measuring against
+                               a bound set at the quote panel's own edge, back
+                               when the panel had no bottom padding, so an
+                               attribution sitting ON the boundary of a colour
+                               field counted as a pass. Against the corrected
+                               floor, 10 of 11 pass and Libre Baskerville does
+                               not: it takes the quote to 16 lines.
+             --f-body   GATED  every table, bullet, note, legend, label and
+                               stat. 17 of 19 passed, but the failures are the
+                               point: this face decides whether the deck fits.
+
+           TO SWAP THE BODY FACE, RUN THE GATE. research/tools/font-gate.py
+           renders all twelve slides and checks three things, two of which no
+           geometry test can see:
+
+             loads     a face that fails to load substitutes the local fallback
+                       and nothing errors. This deck shipped every page title in
+                       Arial Narrow that way. See .font-prime.
+             weights   a real bold and a real italic. Without a distinct bold,
+                       the table's rule that bold means the current period and
+                       regular means a prior one stops communicating, and
+                       nothing overflows to give it away.
+             fits      every bound on every slide.
+
+           THERE IS NO COPYFIT THRESHOLD AND THERE CANNOT BE ONE. It was tried:
+           Special Elite breaks at a ratio of 1.074 while Libre Baskerville
+           passes at 1.089. A single reference string cannot predict how a face
+           wraps in a bullet column. Render, do not estimate.
+
+           And there is no slack to spend: the table zone sits at -0.3px, the
+           snapshot quote panel at 0, and checklist has zero headroom by design.
+           Widening the house content would cost the swap tolerance.           */
+        --f-title: "Oswald", "Arial Narrow", sans-serif;
+        --f-body: "IBM Plex Sans", system-ui, sans-serif;
+        --f-voice: "Spectral", Georgia, serif;
+
+        /* ── Type scale ───────────────────────────────────────────────────────
+           Twelve tiers. Every size is a whole or half point off a 12pt base,
+           which is why the ladder survives a face swap: the ratios are simple
+           fractions of the 20px body, not arbitrary numbers.
+
+           The twelfth is --sz-display, and it exists because the stat-board
+           archetype is DEFINED by type at or above 48px with no chart and no
+           table on the page. The anchor sets 48px and 60px in that slot. The
+           next tier down is 50px, which is also the page title, so borrowing it
+           would have made the defining element of the pattern the same size as
+           the chrome. 3x the body is the cleanest ratio in the ladder.
+
+           Annual titles are full-sentence assertions rather than noun labels
+           and were the obvious candidate for a thirteenth tier. Measured
+           instead: the longest real one sets 1686px of the 1800px measure at
+           50px, so they all fit on one line and no tier was needed. The
+           practical ceiling is about 95 characters.                            */
+        --sz-cover: 130px;          /* 6.5x  · cover title, serif               */
+        --sz-display: 60px;         /* 3x    · stat-board display value         */
+        --sz-title: 50px;           /* 2.5x  · running page title, condensed    */
+        --sz-stat: 40px;            /* 2x    · big-stat callout                 */
+        --sz-quote: 33.3px;         /* 1.665x· pull quote, serif                */
+        --sz-date: 26.7px;          /* 1.335x· cover date                       */
+        --sz-head: 23.3px;          /* 1.165x· module and panel heading         */
+        --sz-body: 20px;            /* 1x    · BODY, loose table, chart legend  */
+        --sz-dense: 18.3px;         /* 0.915x· dense table body                 */
+        --sz-note: 17.5px;          /* 0.875x· footnote paragraph               */
+        --sz-caption: 16.7px;       /* 0.835x· unit caption, folio              */
+        --sz-mark: 13.3px;          /* 0.665x· superscript, bullet glyph        */
+        --sz-total: 22px;           /* 1.1x  · the total above a bar column     */
+        /* --sz-sub (19.2px) IS GONE. It set the second bullet level 4% smaller
+           than the first, a step no reader resolves when the indent and a
+           different marker already carry the demotion, and it was one of two
+           sizes off the whole-or-half-point grid the ladder claims to be on.
+           The record settles it: TYPE-27 lists the anchor's own defects under
+           do-not-replicate, and (c) is "p06 sets its whole bullet block at
+           19.2px (0.96x of 20px) instead of 20px - a PowerPoint autofit shrink,
+           not a design tier". Reproducing it made an artifact into a token. */
+
+        /* ── Leading ──────────────────────────────────────────────────────── */
+        --lh-cover: 132.6px;
+        --lh-quote: 37.3px;
+        --lh-body: 24px;
+        --lh-note: 21px;
+        /* 1.2, not 1.42. TYPE-12 in the extraction record reads "1.20x, exact,
+           at every prose size", measured over 66+ successive-line gaps, with
+           "exceptions: none among prose". Body at 20px sets 24.0px and footnotes
+           at 17.5px set 21.0px, both of which this file already had right. The
+           bullets were at 1.42 and were the only prose leading in the deck that
+           deviated, and the only one carrying no note saying where it came from.
+
+           A RATIO WHERE THE OTHER FOUR ARE PX, and that is deliberate: this one
+           token serves both bullet levels, 20px and 19.2px, and the record gives
+           them 24.0 and 23.0 respectively. A fixed px would put the sub-bullet
+           at 1.25x. research/tools/invariants.py checks this now. */
+        --lh-loose: 1.2;            /* bullets, which wrap, at both levels      */
+
+        /* ── Grid ─────────────────────────────────────────────────────────────
+           Everything on every page snaps to these. The one documented exception
+           is the footnote numeral on the reconciliation page, which hangs left
+           of the margin at 55.1px and is the only ink left of 60 in the deck.  */
+        /* DERIVED, so the block keeps the promise ZONE A makes. These were five
+           written-out constants that happened to agree at a 60px margin, and
+           editing --g-margin on its own - the one thing the header invites -
+           left the page with three different right edges: .page-rule is
+           left-anchored plus --g-width, .folio is right-anchored off the same
+           token, and --g-col-r was a literal 996 that did not move at all. At
+           --g-margin: 40px the rule ended at 1840, the folio at 1880, and the
+           right column stayed where it was with a 92px gutter.
+
+           Chromium resolves these at layout, so no measured ZONE E number
+           changes at the shipped 60px. */
+        --g-margin: 60px;           /* x_f 0.0312, left and right               */
+        --g-gutter: 72px;           /* between the two columns                  */
+        --g-width: calc(1920px - 2 * var(--g-margin));            /* 1800       */
+        --g-col: calc((var(--g-width) - var(--g-gutter)) / 2);    /*  864       */
+        --g-col-r: calc(var(--g-margin) + var(--g-col) + var(--g-gutter));  /* 996 */
+
+        --g-rule-y: 32.4px;         /* the page rule, above the title           */
+        --g-title-y: 43.2px;
+        --g-notes-hang: 4.9px;      /* the footnote numeral, left of the margin */
+        /* MODULE RULE, where a column begins, AND THE DECK'S BODY-START LINE.
+           The first body object under the page title used to land on five
+           different heights: 128 (notes), 132.2 (prose), 137.4 (eight slides),
+           140.4 (snapshot) and 141 (checklist, stat-board). Two of those are
+           reasoned - prose has no module rule, and the notes page starts higher
+           still - but 137.4 / 140.4 / 141 is a 3.6px spread across objects
+           doing the identical job, which is one page's measurement noise rather
+           than three decisions.
+
+           NORMALISED, and this is a judgment call against the file's usual rule
+           that a ZONE E number is evidence. A template generates pages; drift
+           carried into it repeats on every page it makes, and the edge a reader
+           tracks from page to page is exactly this one. To restore the
+           extraction, put .quote-panel and .kpi-grid back to 140.4px and
+           .bracket-pair and .bracket--page back to 141px.                     */
+        --g-module-y: 137.4px;
+        --g-table-floor: 858.6px;   /* y_f 0.795 · footnotes sit below it       */
+        --g-narrative-floor: 1004.4px; /* y_f 0.930                             */
+
+        /* ── The footer band ──────────────────────────────────────────────────
+           ONE LINE, and both ends of the band hang from it. The folio sat at a
+           flat top of 1021 and the brand slot at a flat top of 1007.2, so the
+           two objects at opposite ends of the same band shared nothing: tops
+           13.8px apart, centres 5.9px apart, and the logo box bottom 7.0px
+           below the folio's baseline.
+
+           --g-foot-base is the shared bottom. The brand slot is derived from it
+           MINUS its own height, so raising --brand-h for a logo with a taller
+           minimum size lifts the keep-out floor with it instead of quietly
+           letting a bigger mark grow up into the body.
+
+           Box bottoms, not baselines: a baseline moves with the loaded face and
+           a box bottom does not. The folio takes line-height 1 so its box
+           bottom sits within a descender of its baseline.                     */
+        --g-foot-base: 1045px;
+        --brand-h: 37.8px;
+        --brand-max-w: 260px;       /* a ceiling for a real mark, not a size    */
+        --g-mark-y: calc(var(--g-foot-base) - var(--brand-h));  /* = 1007.2px,
+                                       the floor for any full-bleed element
+                                       that crosses the brand slot's column    */
+
+        /* ── Weights and rules ────────────────────────────────────────────────
+           WHOLE PIXELS, AND THAT IS NOT A ROUNDING PREFERENCE. Blink resolves
+           border-width to a whole pixel, clamped to a 1px minimum for any
+           non-zero value, while a box HEIGHT keeps 1/64px precision. So the
+           point sizes these tokens were extracted at painted like this:
+
+             declared        as a border      as a box height
+             0.83px  (0.5pt)      1px             0.828px
+             1.25px  (0.75pt)     1px             1.25px
+             1.40px               1px             1.391px
+             1.67px  (1.0pt)      1px             1.656px
+             2.92px  (1.75pt)     2px             2.906px
+
+           Four of the five collapsed onto 1px as borders, which is how most of
+           them are drawn. .recon tr.rule-heavy rendered identically to an
+           ordinary row divider: the heavy/hairline distinction that carries the
+           meaning in an accounting table was not on screen at all. The same
+           token also painted two different widths depending on which property
+           used it - --w-rule-heavy is a 1px border on .stat hr and a 1.656px
+           box on .cover-rule, a difference that reaches the pixels.
+
+           A rule hierarchy has to survive being drawn, so it is now three whole
+           steps that paint the same either way: 1 hairline, 2 heavy, 3 page.  */
+        --w-page-rule: 3px;         /* the page rule, above the title           */
+        --w-module-rule: 1px;       /* module top rule, chart heading           */
+        --w-hairline: 1px;          /* table row divider, box and frame edge    */
+        --w-rule-heavy: 2px;        /* group head, deduction group, reference   */
+        --w-arrow: 1px;             /* the trend leader and the compare arrow   */
+
+        /* The deck's one ornament, at one size. Used by both bullet levels'
+           parent, the assertion and the thesis strip. */
+        --mark-sq: 9px;
+
+        /* ── The bold weight ──────────────────────────────────────────────────
+           A TOKEN, not the literal 600, because 600 is not universal. Google
+           serves Lato with no 600 at all: its bold is 700, and a request for
+           600 returns HTTP 200 with the weight silently dropped, so every bold
+           in the deck would render identically to regular. Nothing overflows
+           and nothing errors; the table just stops distinguishing the current
+           period from a prior one.
+
+           A substituted body face declares its own bold here. research/tools/
+           font-gate.py reports which value to set.                            */
+        --fw-bold: 600;
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE B · STAGE · DO NOT MODIFY                                      ║
+         ║                                                                      ║
+         ║  Fixed 1920x1080, scaled uniformly, letterboxed. Nothing reflows, so ║
+         ║  every density ceiling in ZONE E is a hard limit rather than advice. ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      /* Without these a PDF export strips every fill: banded rows go white and
+         the header bands disappear. */
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      @page { size: 1920px 1080px; margin: 0; }
+
+      html, body { height: 100%; overflow: hidden; }
+      body { font-family: var(--f-body); color: var(--c-ink); }
+
+      .deck {
+        position: fixed; inset: 0;
+        background: var(--stage-bg);
+        overflow: hidden;
+      }
+      /* .slide is the positioned ancestor for every absolute child in ZONE E.
+         Anchoring them to .deck instead looks correct on screen and then sends
+         the page rule, folio and brand mark to page 1 stacked on each other the
+         moment the deck is printed. */
+      /* Centred by an explicit offset, NOT by grid or flex alignment. A 1920px
+         box is wider than almost every window it opens in, and an overflowing
+         grid item resolves `center` to the start edge, which parks a quarter of
+         the slide off screen. Scaling from the top left and translating by a
+         measured offset is the only version that lands where it is told. */
+      .slide {
+        position: absolute; left: 0; top: 0;
+        width: 1920px; height: 1080px;
+        background: var(--c-ground);
+        overflow: hidden;
+        transform-origin: top left;
+        transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(var(--z, 1));
+        display: none;
+      }
+      .slide.is-active { display: block; }
+
+      @media print {
+        html, body, .deck { position: static; overflow: visible; display: block; height: auto; }
+        /* drop the letterbox colour: on paper there is nothing to letterbox, and
+           leaving it set paints a redundant full-page fill under every slide
+           that shows as a grey edge wherever the page size rounds */
+        .deck { background: var(--c-ground); }
+        /* stays POSITIONED on paper. Dropping it to static would hand every
+           absolute child in ZONE E to the initial containing block, which is
+           the stacking failure invariant 1 exists to prevent. */
+        .slide {
+          position: relative; left: auto; top: auto;
+          display: block !important; transform: none; page-break-after: always;
+        }
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE C · TYPOGRAPHY                                                 ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      .t-title {
+        font-family: var(--f-title); font-weight: 400;
+        font-size: var(--sz-title); line-height: 1.24; letter-spacing: 0.002em;
+      }
+      .t-cover {
+        font-family: var(--f-voice); font-weight: 300;
+        font-size: var(--sz-cover); line-height: var(--lh-cover);
+      }
+      /* RAGGED RIGHT, AND THIS IS A DEPARTURE FROM THE ANCHOR, not a correction
+         to this file. TYPE-24 in the record reads "Bullet prose and legal prose
+         are JUSTIFIED, not ragged-right... The 33.3px pull-quote on p02 is
+         justified too (word gaps visibly stretched)". The extraction measured
+         the stretch and recorded it as a property of the system. TYPE-27 is the
+         do-not-replicate list for the anchor's own defects and carries three
+         entries; this is not among them. We are arguing it should be.
+
+         The case for departing: the panel measure is 672.5px, which sets 43.6
+         characters a line at 33.3px. Justifying that few characters gives the
+         algorithm too few word spaces to absorb the slack, so it stretches the
+         ones it has. Measured across the 13 house lines, inter-word spaces run
+         0.97x to 3.15x the face's natural space, averaging 1.76x. The worst
+         line sets six words with 27px gaps against a natural 8.59px, which is a
+         river down the middle of the largest block of type in the deck, and
+         this template is used to generate other people's content rather than to
+         reproduce one page.
+
+         Recorded in deviations.json against type/TYPE-24 and
+         chart_table_mark/TYPE-04. invariants.py reports it as `deviation`, and
+         it reverts to `fail` the moment that entry is removed.
+
+         The long-measure blocks keep their justification and get hyphenation
+         instead. This comment first claimed the prose page was fine at 1.33x
+         worst, which was measured off its FIRST PARAGRAPH ONLY. Over every
+         justified paragraph in the deck the worst line reached 1.79x and four
+         paragraphs passed 1.5x, the footnote pages among them. With
+         `hyphens: auto` the worst is 1.35x and none do.
+
+         Justification is not the problem. Justification at 44 characters, with
+         no hyphenation to absorb the slack, is. */
+      .t-quote {
+        font-family: var(--f-voice); font-weight: 300;
+        font-size: var(--sz-quote); line-height: var(--lh-quote);
+        text-align: left;
+        /* HANG THE WHOLE MARK OR NONE OF IT, and this too is a departure. The
+           record measures the anchor's own hang: "line 1 ink x 90, following
+           lines x 95-96", which is the 5px this file used to set, so the notch
+           below is the anchor's as well as ours.
+
+           At -5px the indent did a third of the job: the opening “ has a
+           14.09px advance at 33.3px Spectral, so 5px poked the mark out of the
+           measure without clearing it, and line 1's first letter sat 8.9px
+           right of every line under it. A notch produced by a rule meant to
+           remove one. Recorded in deviations.json against COL-05.
+
+           Face-dependent by nature - 14.09 is a Spectral metric - which is one
+           more reason the voice face is gated. Re-measure the advance if it
+           ever changes. */
+        text-indent: -14.09px;
+      }
+      .t-head { font-size: var(--sz-head); font-weight: var(--fw-bold); }
+      .t-caption { font-size: var(--sz-caption); font-style: italic; font-weight: 400; }
+      /* DERIVED FROM ITS HOST, NOT A TIER. The record is explicit that the
+         marker is "0.65 x the size of the text it hangs off", exact in 37 of 37
+         cases across four distinct marker sizes. This file set a flat 13.3px
+         instead, which is right on 20px body text and wrong everywhere else: on
+         a 23.3px heading it came out 0.571x and on a 16.7px caption 0.796x, so
+         13 of 25 markers in the deck were the wrong size. 0.65em also lands the
+         table marker on 11.9px over an 18.3px host, which is the record's own
+         measured pair. */
+      sup { font-size: 0.65em; vertical-align: super; line-height: 0; }
+      .num { font-variant-numeric: tabular-nums; }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE D · CHROME                                                     ║
+         ║                                                                      ║
+         ║  Every body page carries all four. The COVER carries none of them    ║
+         ║  except its own larger brand slot: no page rule, no folio.           ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      .page-rule {
+        position: absolute; left: var(--g-margin); top: var(--g-rule-y);
+        width: var(--g-width); height: var(--w-page-rule); background: var(--c-accent);
+      }
+      .page-title {
+        position: absolute; left: var(--g-margin); top: var(--g-title-y);
+        color: var(--c-ink);
+      }
+      /* CONSECUTIVE FROM 1, AND THE COVER IS UNNUMBERED. Measured across both
+         annual decks: 43 numbered pages, offset page-minus-one, zero gaps.
+         This file first carried folios spaced like positions in a 31-page deck
+         (1, 2, 3, 6, 14, ...) to signal that it is a sampler. Wrong twice: it
+         contradicts the anchor's own invariant, and the PDF export is a real
+         12-page document whose page numbers would simply skip. That the real
+         deck is longer belongs in the ZONE E page plan, not in fake numbers.
+         verify-render.py fails the file if these ever go non-consecutive. */
+      /* Bottom-anchored to the shared footer line, and line-height 1 so the box
+         bottom tracks the baseline instead of carrying whatever descender space
+         the loaded face happens to declare. Colour is a token rather than
+         opacity: opacity mixes with whatever is behind it, so it cannot be
+         rethemed and it changes value on a page that ever gains a tinted
+         ground. --c-ink-soft is what the old ink-at-0.7 was resolving to. */
+      .folio {
+        position: absolute; right: var(--g-margin);
+        bottom: calc(1080px - var(--g-foot-base));
+        font-size: var(--sz-caption); line-height: 1; color: var(--c-ink-soft);
+      }
+
+      /* ── The brand slot ────────────────────────────────────────────────────
+         EMPTY BY DEFAULT, AND THAT STAYS TRUE. Shipping a wordmark puts a live
+         trademark in every downloaded copy of the file, including the copies
+         where whoever used it forgot to swap it out. The dashed box is what
+         ships; a real mark is something the user drops in.
+
+         To place one, put an <img> inside the slot:
+             <div class="brand-slot"><img src="acme.svg" alt="Acme" /></div>
+         The slot keeps its height and the mark scales into it, so a 4:1
+         wordmark and a 1:1 monogram both land on the same optical line and
+         neither can push the keep-out floor around. Marks are normalised by
+         HEIGHT, which is how a logo is sized next to type; --brand-max-w is
+         only a stop for an unusually wide lockup.
+
+         An <img> suppresses the placeholder automatically - :has() means the
+         dashed border and the label disappear the moment a real mark is
+         present, rather than showing through a transparent PNG.               */
+      .brand-slot {
+        position: absolute; left: var(--g-margin); top: var(--g-mark-y);
+        width: var(--brand-max-w); height: var(--brand-h);
+        display: flex; align-items: flex-end; justify-content: flex-start;
+      }
+      /* the placeholder is the EMPTY state only */
+      .brand-slot:not(:has(img, svg))::after {
+        content: "brand slot"; width: 86.4px; height: 100%;
+        display: grid; place-items: center;
+        border: var(--w-hairline) dashed var(--c-hairline);
+        font-size: var(--sz-mark); letter-spacing: 0.06em; text-transform: uppercase;
+        color: var(--c-hairline);
+      }
+      /* height 100%, NOT height auto. An SVG that carries only a viewBox has an
+         intrinsic RATIO but no intrinsic SIZE, so with both dimensions auto the
+         browser falls back to a default box and the element ends up a different
+         shape from the artwork. object-fit keeps the artwork itself undistorted
+         either way, but the box would then letterbox it, and a logo floating
+         inside its own box no longer sits on the margin. Pinning the height and
+         letting the width follow the ratio makes box and artwork the same
+         shape. object-position keeps the mark on the left margin and the footer
+         line if a very wide lockup hits --brand-max-w and has to shrink. */
+      .brand-slot > img, .brand-slot > svg {
+        height: 100%; width: auto; max-width: 100%;
+        object-fit: contain; object-position: left bottom;
+      }
+      .brand-slot--cover {
+        --brand-h: 57.6px; --brand-max-w: 392px;
+        top: 50.4px; height: var(--brand-h); width: var(--brand-max-w);
+      }
+      .brand-slot--cover:not(:has(img, svg))::after { width: 130.8px; }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE E · LAYOUT PATTERNS                                            ║
+         ║                                                                      ║
+         ║  Twelve patterns, one per archetype, and TWO page plans. Both plans   ║
+         ║  share this file: same tokens, same grid, same type ladder. Only the  ║
+         ║  page plan differs, which is why they are not two templates.         ║
+         ║                                                                      ║
+         ║  THE SLIDES ARE IN DECK ORDER, and the deck they are in is the       ║
+         ║  ANNUAL one, because the annual plan is the quarterly plan plus a     ║
+         ║  section. Delete patterns 2 to 6 and what is left IS the quarterly    ║
+         ║  deck: nothing else changes, which is the clearest statement of how   ║
+         ║  the two relate.                                                     ║
+         ║                                                                      ║
+         ║   1  cover           ─┐                                              ║
+         ║   2  chart-split      │  narrative section, ANNUAL ONLY, 15 pages:    ║
+         ║   3  panel-row        │  8-9 chart-split, 2-3 panel-row, 2 checklist, ║
+         ║   4  checklist        │  2 stat-board, 1 hero-chart                   ║
+         ║   5  hero-chart       │                                              ║
+         ║   6  stat-board      ─┘                                              ║
+         ║   7  snapshot        ─┐                                              ║
+         ║   8  module           │  results section, EVERY DECK:                 ║
+         ║   9  split            │  1 snapshot, 9-10 module, 1 split             ║
+         ║  10  prose           ─┤                                              ║
+         ║  11  recon            │  back matter: 1-3 prose, 1 recon,             ║
+         ║  12  notes-continued ─┘  1-3 notes-continued                          ║
+         ║                                                                      ║
+         ║  QUARTERLY runs 14-17 pages, ANNUAL 25-31.                           ║
+         ║                                                                      ║
+         ║  These are page plans, not menus. Four of the six quarterly patterns  ║
+         ║  appear exactly once in every deck. Dropping one is a decision, not   ║
+         ║  a default.                                                          ║
+         ║                                                                      ║
+         ║  THE SEAM AT 6/7 IS A CHANGE OF REGISTER, NOT A PAGE. Measured over  ║
+         ║  52 titles in the two annual decks: a narrative title runs a median   ║
+         ║  of 9 words and makes a CLAIM; a results title runs a median of 4 and ║
+         ║  NAMES A LINE ITEM. Split at 6 words and 23 of 25 narrative titles    ║
+         ║  and 21 of 27 results titles land on the right side.                  ║
+         ║                                                                      ║
+         ║  A TENDENCY, THEN, NOT AN INVARIANT, and the distributions do         ║
+         ║  overlap. Pattern 6 ships the anchor's own exception on purpose; see  ║
+         ║  the note there. Write to the tendency and the seam reads; treat it   ║
+         ║  as a rule and you will fight the one page that needs a plain title.  ║
+         ║                                                                      ║
+         ║  Do not add a divider, an agenda, or a closing page: all three are    ║
+         ║  zero of 174 pages, and that one IS an invariant. Reasoning under     ║
+         ║  `considered_and_declined`.                                          ║
+         ║                                                                      ║
+         ║  EVERY CEILING BELOW IS TWO NUMBERS. `capacity` is what the geometry ║
+         ║  holds, found by growing content until the floor broke. `house` is    ║
+         ║  what a real institutional deck sets, which is often far lower. The   ║
+         ║  first is a limit; the second is restraint, and is worth copying.     ║
+         ║                                                                      ║
+         ║  A COUNT IS ONLY A CEILING ALONGSIDE THE SIZE OF THE THING COUNTED.  ║
+         ║  The split page holds 20 one-line bullets and 10 two-line ones, and   ║
+         ║  both were measured on this file. Read every count below as "of the   ║
+         ║  item as written on that slide", and re-measure after changing the    ║
+         ║  length of anything. research/tools/capacity.py does exactly that:    ║
+         ║  it clones the last item until a floor breaks, so the number it       ║
+         ║  reports is reproducible from the markup rather than remembered.      ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      /* ── The module rule ──────────────────────────────────────────────────
+         THE RULE SITS ABOVE ITS HEADING AND THE HEADING HANGS BELOW IT. It is
+         the top edge of a module, not a decoration on a heading. Drawing it as
+         an underline inverts the relationship and moves every column down 4.6px. */
+      .module {
+        border-top: var(--w-module-rule) solid var(--c-accent);
+        padding-top: 4px;
+      }
+      /* line-height is explicit because the heading's box height sets where the
+         module's content starts. Leaving it to `normal` hands that number to
+         whichever face is loaded, which moved the snapshot's bullets 5px down
+         and pushed the block past its floor. */
+      .module > h2 {
+        font-size: var(--sz-head); font-weight: var(--fw-bold); line-height: 1.25;
+        margin-bottom: 16px;
+      }
+
+      .col { position: absolute; top: var(--g-module-y); }
+      /* heights come off the floor tokens rather than repeating 721.2 and 867,
+         so moving a floor moves the column that respects it */
+      .col--l { left: var(--g-margin); width: var(--g-col);
+                height: calc(var(--g-table-floor) - var(--g-module-y)); }
+      .col--r { left: var(--g-col-r); width: var(--g-col);
+                height: calc(var(--g-narrative-floor) - var(--g-module-y)); }
+      /* The two columns DO NOT share a floor. The table stops at 858.6 because
+         footnotes sit under it; the narrative runs on to 1004.4. */
+
+      /* ── 1 · cover ─────────────────────────────────────────────────────────
+         capacity 3 title lines · house 2. A 4th overflows the rule by 99.6px.
+         Set from rendered ink, not from a font's ascent box: at 130px the two
+         differ by 28px.                                                        */
+      /* The one full-bleed colour field the deck owns besides the quote panel.
+         Everything that sits on it reads --c-cover-ink, the rule included: a
+         rule has no contrast requirement, but a bar in the WRONG ink vanishes
+         on a filled field exactly as the type would, so the pair travels as
+         one. A profile that lightens or darkens the field re-picks both. */
+      .slide--cover { background: var(--c-cover-field); }
+      .cover-title { position: absolute; left: var(--g-margin); top: 351.6px; width: var(--g-width);
+                     color: var(--c-cover-ink); }
+      /* Optical alignment: the wordmark, rule and date all put INK on the
+         60px margin, but Spectral Light's side bearings at 130px start the
+         title's ink 7px (S) and 8px (E) right of its box. text-indent hangs
+         the ink back onto the margin WITHOUT moving any rect, so GRID-01 and
+         every geometry check read the same boxes as before. The values are
+         measured for these two glyphs; a retitled cover re-measures them.
+         brand.py re-wraps a slot fill into these spans automatically. */
+      .cover-title .hang { display: block; }
+      .cover-title .hang-l1 { text-indent: -7px; }
+      .cover-title .hang-l2 { text-indent: -8px; }
+      /* An inline slot is one token and never breaks internally. Found the
+         hard way: "#[x]" landed on a line wrap, the browser broke between
+         "#" and "[x]", and the span's fragment-union rect swallowed a line
+         and a half - verify-render read it as two overlaps. Block-level
+         slots (the cover title) are untouched by this selector. */
+      span[data-slot] { white-space: nowrap; }
+      .cover-rule { position: absolute; left: var(--g-margin); top: 782.4px;
+                    width: 245.8px; height: var(--w-rule-heavy); background: var(--c-cover-ink); }
+      .cover-date { position: absolute; left: var(--g-margin); top: 791px;
+                    font-size: var(--sz-date); font-weight: var(--fw-bold);
+                    color: var(--c-cover-ink); }
+      /* the empty slot's placeholder follows the ink so it stays visible on
+         the field; a dropped-in mark suppresses it either way */
+      .brand-slot--cover:not(:has(img, svg))::after {
+        border-color: var(--c-cover-ink); color: var(--c-cover-ink);
+      }
+
+      /* ══ THE ANNUAL NARRATIVE SECTION ══════════════════════════════════════
+         Patterns 2 to 6. All five annual archetypes were measured on the
+         SUPERSEDED system B, which is the only system that ever set them, so
+         every one of them is a port rather than an extraction. Three devices
+         were dropped on the way across and the calls are recorded at the
+         pattern that used them:
+
+           rounded stat banner       -> square. 0 rounded corners in system A.
+           check-ringed headline     -> the deck's own square bullet.
+           continuous pane divider   -> nothing, per the anchor-split carve-out.
+
+         The first two are the pictographic-ornament class that `absences` calls
+         the most reliable tell of a generated deck. The third is a correction
+         system A already made on the quarterly pages, so leaving it in on the
+         annual ones would have put two different rules in one file.
+
+         Three more were dropped as trade dress rather than as style: the swirl
+         device in the p04 banner, the diamond pinwheel that is the whole centre
+         of one stat board, and a row of named partner logos. Signature layouts
+         and third-party marks are do-not-adopt regardless of how well they work.
+                                                                                */
+
+      /* ── 2 · chart-split ───────────────────────────────────────────────────
+         8-9 per annual deck and 14 of the 24 narrative pages, so this is the
+         narrative section's workhorse the way `module` is the quarterly one.
+         Two zones with DIFFERENT roles: one quantitative, one qualitative. That
+         is what separates it from `panel-row`, whose panels are interchangeable.
+         capacity 6 assertions a zone · house 3. capacity 6 bar categories · house 5. */
+      /* The zones flow from the top and stop where their content stops. THE
+         SHORTER ZONE LEAVES A VOID AT THE BOTTOM AND THAT IS CORRECT: every
+         chart-split page in the corpus has one. Pinning the last module to the
+         floor to fill it was tried and reads worse, because it opens a 200px
+         hole in the middle of the zone instead of a clean margin under it. */
+      .zone { position: absolute; top: var(--g-module-y); width: var(--g-col); }
+      .zone--l { left: var(--g-margin); }
+      .zone--r { left: var(--g-col-r); }
+      .zone .module + .module { margin-top: 56px; }
+      .zone .assert + .assert { margin-top: 30px; }
+      .zone .chart + .frame { margin-top: 34px; }
+
+      /* ── 3 · panel-row ─────────────────────────────────────────────────────
+         3 equal panels repeating one identical element sequence. The test is
+         that deleting any panel leaves the page grammatical. Equal widths here
+         where the anchor ran 517/580/580: the unevenness is one page's accident,
+         not a rule, and an n-up whose columns disagree reads as a mistake.
+         capacity 3 panels · house 3, and the two numbers agree for once: the
+         grid is three fixed 552px columns, so a 4th panel wraps and leaves the
+         right margin. Four panels is a different column count, not more of this
+         one. Measured, after this comment first claimed a 4th would fit.       */
+      /* 705px, not the extracted 725: at 725 the floor-pinned boxes sat 6.8px
+         off the brand mark, the worst clearance in the deck (the extraction's
+         own floor-to-mark gap is 2.8px). The 20px comes out of each pane's
+         auto margin, so the charts hold their size and the three boxes stay
+         level; MARK-CLEAR in verify-render.py now holds every slide to 24px. */
+      .panel-row {
+        position: absolute; left: var(--g-margin); top: 275.4px;
+        width: var(--g-width); height: 705px;
+        display: grid; grid-template-columns: repeat(3, 552px); column-gap: 72px;
+      }
+      /* every pane is a column of the same height with its closing box pinned
+         to the floor. Letting the box follow its chart instead would step the
+         three boxes at three different heights the moment one title wraps. */
+      .panel-row > .pane { min-width: 0; display: flex; flex-direction: column; }
+      .panel-row > .pane > .box { margin-top: auto; }
+      .panel-row > .pane > h3 { margin-bottom: 4px; }
+
+      /* ── 4 · checklist ─────────────────────────────────────────────────────
+         A full-width summary band over a 2-column grid of assertions. The band
+         is the page's claim and the grid is the evidence for it, which is why
+         the band comes first and is the only full-width object.
+         capacity 6 grid assertions plus the coda · house 6 plus the coda, so the
+         page ships full. capacity 3 sub-lines on the tallest row · house 3. Both
+         numbers are set by the coda rule at y 844.6, which is why this is the
+         one pattern in the file with no headroom anywhere.                     */
+      .band {
+        position: absolute; left: var(--g-margin);
+        top: var(--band-y, 196px); height: var(--band-h, 128px);
+        width: var(--g-width);
+        background: var(--c-band); border: var(--w-hairline) solid var(--c-hairline);
+        display: grid; grid-template-columns: repeat(6, 1fr);
+      }
+      /* SQUARE. The anchor's banner is a rounded rectangle and system A carries
+         0 rounded corners in 14 pages, so the corner goes when the page does. */
+      .band-cell {
+        display: flex; flex-direction: column; align-items: center;
+        justify-content: center; gap: 7px; padding: 0 18px; text-align: center;
+      }
+      .band-cell + .band-cell { border-left: var(--w-hairline) solid var(--c-hairline); }
+      .band-cell .v { font-size: var(--sz-stat); font-weight: var(--fw-bold); line-height: 1; }
+      .band-cell .k { font-size: var(--sz-caption); font-style: italic; line-height: 1.25; }
+      /* the same strip carrying claims instead of stats, which is how the two
+         pages that open a narrative section state their thesis before arguing it */
+      .band-cell--claim {
+        flex-direction: row; gap: 14px; justify-content: flex-start; text-align: left;
+        font-size: var(--sz-body); font-weight: var(--fw-bold); line-height: 1.2;
+      }
+      .band-cell--claim::before {
+        content: ""; flex: none;
+        width: var(--mark-sq); height: var(--mark-sq); background: var(--c-header);
+      }
+      .band--thesis {
+        --band-y: var(--g-module-y); --band-h: 84px;
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      /* 900px each, so the split between them lands on the band's own cell edge
+         at x 960 rather than in the column gutter at 924. */
+      .bracket-pair {
+        position: absolute; left: var(--g-margin); top: var(--g-module-y); width: var(--g-width);
+        display: grid; grid-template-columns: 900px 900px;
+      }
+      .bracket--page {
+        position: absolute; left: var(--g-margin); top: var(--g-module-y); width: var(--g-width);
+      }
+
+      .checklist-grid {
+        position: absolute; left: var(--g-margin); top: 401.8px;
+        width: var(--g-width);
+        display: grid; grid-template-columns: var(--g-col) var(--g-col);
+        column-gap: var(--g-gutter); row-gap: 40px;
+      }
+      /* the 7th item sits alone under a full-width rule, centred. It is the
+         page's conclusion, and the rule is what says so. */
+      .checklist-coda {
+        position: absolute; left: var(--g-margin); top: 844.6px; width: var(--g-width);
+        border-top: var(--w-module-rule) solid var(--c-hairline); padding-top: 34px;
+      }
+      .checklist-coda .assert { margin: 0 auto; width: 940px; }
+
+      /* ── 5 · hero-chart ───────────────────────────────────────────────────
+         One chart across the whole measure, with a legend above and a labelled
+         row of boxes below. No vertical divider anywhere, which is the formal
+         test: a chart-split caps its chart zone at 40% of the page.
+         capacity 7 bar categories · house 5. capacity 5 boxes · house 5. The box
+         row runs out first, and it runs out sideways rather than downwards.    */
+      .hero { position: absolute; left: var(--g-margin); top: var(--g-module-y);
+              width: var(--g-width); }
+      /* 1620, not the full 1800: the reference line's label hangs off the right
+         end of the plot, and on a full-measure plot it lands outside the right
+         margin, which is the one edge in this deck nothing crosses. */
+      .hero-plot { width: 1620px; }
+      .hero .bracket { margin-top: 44px; }
+      .hero > .box-row { margin-top: 26px; }
+
+      /* ── 6 · stat-board ───────────────────────────────────────────────────
+         Display numerals ARE the content. No chart, no table, no bullets: the
+         moment one appears this is a different archetype. The page carries the
+         deck's largest body type and its lowest word count, and that contrast
+         is the entire device.
+         3 stats when the frame is present and 6 in two rows when it is not: the
+         second row of stats and the frame want the same 200px.
+         capacity 3 boxes in the frame · house 3.
+
+         THIS SLIDE CARRIES A NOUN-LABEL TITLE INSIDE THE NARRATIVE SECTION, and
+         that is deliberate. "Firmwide financial targets" is 3 words, the
+         shortest narrative title in the corpus, and it is the anchor's own
+         wording on the same page type: the closing targets page states its
+         subject plainly instead of arguing it. The register tendency is real
+         and this is where it breaks, so the template ships the break rather
+         than tidying it away.                                                  */
+      .stat-row {
+        position: absolute; left: var(--g-margin); top: 216px;
+        width: var(--g-width);
+        display: grid; grid-template-columns: repeat(3, 552px); column-gap: 72px;
+      }
+      /* the board's closing frame: an italic lede over stacked boxes, inset so
+         the boxes read as a list rather than as three more full-width bands */
+      .frame--board {
+        position: absolute; left: var(--g-margin); top: 486px; width: var(--g-width);
+      }
+      .frame--board > h3 { font-style: italic; text-align: center; }
+      /* 245, not 158. The boxes spanned 249 to 1671, which lands on no column
+         edge and no column centre: 87px off the nearest, on the one page that is
+         otherwise a strict three-column grid. 245 puts them on the centres of
+         the outer stat columns, 336 and 1584, so the closing frame is tied to
+         the three figures above it. */
+      .frame--board .box-row { --box-h: 108px; row-gap: 34px; margin: 0 245px; }
+
+      /* ══ THE RESULTS SECTION ═══════════════════════════════════════════════
+         Patterns 7 to 12, and the whole of a quarterly deck. Everything above
+         is annual-only, so DELETING PATTERNS 2 TO 6 LEAVES THE QUARTERLY DECK
+         and nothing else has to change.
+
+         Read the page titles across this boundary. Above it they make claims
+         and run long; below it they name line items and run short. Median 9
+         words against 4, over 52 titles in two annual decks. That change of
+         register is the only thing marking the seam, in this file and in the
+         decks it was measured from. There is no divider page.                  */
+
+      /* ── 7 · snapshot ──────────────────────────────────────────────────────
+         The only page with a full-bleed colour field, and the only page where
+         both columns share a floor (1004.4).
+         capacity 15 quote lines · house 13.  capacity 9 bullet lines · house 9.
+         House still equals capacity on the bullets, but the page is no longer on
+         the edge: it ended 0.2px inside its floor and now ends 8.9px inside it,
+         because the record's leading and bullet pitch are tighter than what this
+         file had. A tenth bullet needs 30.7px and still does not fit.          */
+      .quote-panel {
+        position: absolute; left: var(--g-margin); top: var(--g-module-y);
+        width: 744px; height: 809.9px;
+        background: var(--c-panel);
+        /* The bottom padding was 0, and the keep-out bound was set at the panel
+           edge, so the checker happily passed an attribution sitting ON the
+           boundary of a colour field. A wider serif takes the quote to 16 lines
+           and the last line lands exactly there: 950.4 against a floor of
+           950.3. Passes, looks broken.
+
+           37px matches the horizontal padding, which is the minimum a filled
+           panel needs on every side. The anchor's own composition leaves 116.2px
+           here, because its quote runs 13 lines; that is its content, not its
+           rule, so the rule is the padding. */
+        padding: 101px 37px 37px 34.5px;   /* 672.5px measure, 44-46 characters */
+      }
+      .quote-rule { width: 335px; height: var(--w-module-rule);
+                    background: var(--c-ink); opacity: 0.65; margin-top: 30px; }
+      .quote-name { font-size: var(--sz-head); font-weight: var(--fw-bold); margin-top: 26px; }
+      .quote-role { font-size: var(--sz-body); }
+      /* attribution flows under the quote rather than pinning to the panel
+         floor, which is why a longer quote costs title lines rather than
+         silently overlapping the name */
+
+      /* 994.8, not 993.1: the extraction put the tile grid's right edge on
+         1858.28 and the highlights block's on 1858.78, against a right margin of
+         1860 that everything else in the deck lands on exactly. Three edges
+         within 1.7px of each other in one column is measurement noise carried
+         through as though it meant something, and it is the sort of thing that
+         reads as imprecision on the one page that has to look most exact.
+         Column width follows from the measure so the gutter stays as extracted. */
+      .kpi-grid {
+        position: absolute; left: 865.2px; top: var(--g-module-y); width: 994.8px;
+        display: grid; grid-template-columns: 468.35px 468.35px;
+        column-gap: 58.1px; row-gap: 16.7px;
+      }
+      /* 6 tiles x 2 rows, fixed. Not a ceiling: no 4-tile, 8-tile or 3-row
+         variant exists, so a 7th tile is a new pattern rather than more of
+         this one. Absolute measures left, ratio measures right. */
+      .tile { height: 153.8px; }
+      .tile-head {
+        height: 53.8px; background: var(--c-header); color: var(--c-ink-reverse);
+        padding: 0 14.9px; display: flex; flex-direction: column; justify-content: center;
+      }
+      .tile-head .lab { font-size: var(--sz-body); font-weight: var(--fw-bold); line-height: 1.05; }
+      .tile-head .cap { font-size: var(--sz-caption); font-style: italic;
+                        font-weight: 400; line-height: 1.15; }
+      .tile-row {
+        height: 50px; background: var(--c-band); padding: 0 14.9px;
+        display: flex; align-items: center; justify-content: space-between;
+        font-size: var(--sz-body); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums;
+      }
+      /* every string in a tile is bold, labels included. The weight semantics
+         that carry meaning in a data table are switched off inside a tile. */
+      .tile-row + .tile-row { border-top: var(--w-hairline) solid var(--c-hairline); }
+
+      .highlights { position: absolute; left: 865.2px; top: 646.8px; width: 994.8px; }
+      /* 11px under the heading, not the module default of 16. The floor binds on
+         this page and the extra 5px puts the last bullet over it. */
+      .highlights > h2 { margin-bottom: 11px; }
+
+      /* ── 8 · module ────────────────────────────────────────────────────────
+         The workhorse: 9-10 per deck, one per business segment, 46% of all pages.
+         Table left, narrative right, always.
+         capacity 12 table rows.
+         capacity 3 top-level bullets WITH a chart, 20 without. The bullets and
+         the chart share the column, which is what makes the ceiling conditional. */
+
+      /* ── 9 · split ─────────────────────────────────────────────────────────
+         The module without its chart. Same table, narrative runs the full column.
+         capacity 13 of the two-line bullets this slide actually sets · house 7.
+         Was 10 before the bullet leading came down to the record's 1.20x and the
+         inter-bullet gap to its 1.28x; conforming bought three more. Restraint
+         on this page is a choice rather than a limit.                          */
+
+      /* ── 10 · prose ─────────────────────────────────────────────────────────
+         The widest measure in the deck at 1800px, about 190 characters a line,
+         which is readable only because it is justified. No module rule, so the
+         text starts at 132.2 and this is the one body page beginning above 137.
+         It bleeds to both margins and therefore crosses the brand mark's column,
+         so its floor is the mark at 1007 rather than the usual 1004.4.
+         capacity 36 lines across two paragraphs · house 31.                     */
+      .prose {
+        position: absolute; left: var(--g-margin); top: 132.2px; width: var(--g-width);
+        font-size: var(--sz-body); line-height: var(--lh-body);
+        text-align: justify; hyphens: auto;
+      }
+      .prose p + p { margin-top: 23.4px; }
+
+      /* ── 11 · recon ─────────────────────────────────────────────────────────
+         Full-width numbered notes that a table interrupts and resumes under.
+         Runs the deck's SECOND, denser table system: 28.8px rows against 50px.
+         capacity 9 notes · house 5, with one of them carrying the table. Past
+         that the page breaks to pattern 12 rather than shrinking.              */
+      /* THE HANG IS THE NUMERAL, NOT THE BLOCK. The block was positioned at
+         left 55.1 while keeping the deck's standard 1800px measure, so its
+         right edge landed at 1855.1 where every other full-width object on
+         every other page ends at 1860. These two pages are the deck's only
+         justified full-measure text, so that 4.9px shortfall showed as a hard
+         flush-right column not lining up with the page rule directly above it.
+         The block now spans the hang as well, which puts the right edge back on
+         1860 and leaves the numeral exactly where it was measured. */
+      .notes {
+        position: absolute; top: 128px;
+        left: calc(var(--g-margin) - var(--g-notes-hang));
+        width: calc(var(--g-width) + var(--g-notes-hang));
+        font-size: var(--sz-note); line-height: var(--lh-note);
+      }
+      .notes ol { list-style: none; counter-reset: note; }
+      /* The numeral gets its own right-aligned column so the periods line up and
+         the gap to the text is constant. Left flush, it collapsed mid-page: at
+         17.5px "6." is 15.26px wide and "10." is 25.76px, so the first four
+         items on a continuation page had 14.7px of air and the next seven had
+         4.2px, with no rule or spacing to explain the change. Aligning the
+         period is also the convention in the back matter this is extracted
+         from. 26px holds three characters. */
+      .notes li { position: relative; padding-left: 34px; margin-bottom: 6.7px;
+                  counter-increment: note; }
+      .notes li::before { content: counter(note) "."; position: absolute; left: 0; top: 0;
+                          width: 26px; text-align: right; }
+      /* hyphenated for the same reason as .prose: at 206 characters a line one
+         footnote paragraph was stretching word spaces to 1.59x, worse than the
+         prose average the justification rule was originally derived from. */
+      .notes p { text-align: justify; hyphens: auto; }
+      .notes p + p { margin-top: 6.7px; }
+
+      /* ── 12 · notes-continued ──────────────────────────────────────────────
+         Back matter that exceeds one page does NOT shrink its type or spill. It
+         breaks, and the second page repeats the title with a ` - Continued`
+         suffix and resumes the numbering. This is the genre's answer to content
+         over a ceiling, which is the first question anyone using this template
+         will hit, and it is the reason the pattern is worth a slide.
+
+         Set --note-start to the number of the LAST note on the previous page.
+         CSS counters start at 0, so the reset value is the last used number and
+         the first item on this page increments to the next one.                */
+      /* capacity 15 notes · house 11. The house number is close to capacity
+         here and should be: a continuation page exists because the previous one
+         filled up, so shipping one half empty means the break was in the wrong
+         place. */
+      .notes--continued ol { counter-reset: note var(--note-start, 0); }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE F · COMPONENTS                                                 ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      /* ── Data table ────────────────────────────────────────────────────────
+         74px header + 12 x 50px rows = 674px, which is the table zone exactly.
+         A 13th row overflows. WEIGHT CARRIES MEANING here: bold is the current
+         period and any total, regular is a prior period or a change column.    */
+      .data { width: 100%; border-collapse: collapse;
+              font-size: var(--sz-dense); font-variant-numeric: tabular-nums; }
+      .data thead th {
+        background: var(--c-header); color: var(--c-ink-reverse); font-weight: var(--fw-bold);
+        height: 74px; padding: 0 14px 12px; text-align: right; vertical-align: bottom;
+        font-size: var(--sz-dense);
+      }
+      .data thead th:first-child { text-align: left; }
+      .data tbody td {
+        height: 50px; padding: 0 14px; text-align: right;
+        background: var(--c-band); border-bottom: var(--w-hairline) solid var(--c-hairline);
+      }
+      /* BETWEEN every pair of rows, which means not under the last one. TABLE-06
+         says "1px between every pair of rows"; a trailing border is a rule under
+         the table, which RULE-05 says does not exist. It also cost real space:
+         with border-collapse the outer half of that border is added to the table
+         height, and 74 + 12x50 + that half landed the block 0.3px past its own
+         floor. The file had normalised the overshoot as "ON THE LINE". */
+      .data tbody tr:last-child td { border-bottom: 0; }
+      .data tbody td:first-child { text-align: left; font-weight: 400; }
+      .data tbody tr.emph td { background: var(--c-emphasis); font-weight: var(--fw-bold); }
+      .data td.cur { font-weight: var(--fw-bold); }
+      .data td.chg { font-weight: 400; }
+      /* 46.05, not 47.3. The module rule is a border on the column, so an
+         absolutely positioned child measures from the padding box and starts
+         1.25px lower than the offset taken off the page. 137.4 + 1.25 + 46.05
+         puts the table at 184.7, and 74 + 12 x 50 fills the zone exactly. */
+      .table-zone { position: absolute; left: 0; top: 46.05px; width: 100%; }
+
+      /* ── Reconciliation table ──────────────────────────────────────────────
+         table-layout MUST be fixed with the widths in a colgroup. On auto layout
+         the cell content wins and a table this wide with this many spans runs
+         past the right margin. Column pairs are deliberately uneven, and the
+         spacer column between the two groups is part of the design.            */
+      .recon {
+        table-layout: fixed; width: 1768.7px; margin: 14px 0 14px 1.3px;
+        border-collapse: collapse;
+        font-size: var(--sz-dense); font-variant-numeric: tabular-nums;
+      }
+      .recon th, .recon td { height: 28.8px; padding: 0 8px; overflow: hidden; }
+      .recon thead th {
+        background: var(--c-header); color: var(--c-ink-reverse); font-weight: var(--fw-bold);
+        text-align: center; vertical-align: middle; font-size: var(--sz-dense);
+      }
+      .recon thead th.lbl { text-align: left; vertical-align: bottom; padding-bottom: 6px; }
+      .recon thead th.gap { padding: 0; }
+      /* the spanning group head is underlined to show what it spans */
+      .recon thead th.grp { border-bottom: var(--w-rule-heavy) solid var(--c-hairline); }
+      /* the accounting split: currency mark right-aligned in the wide cell, the
+         figure right-aligned in the narrow one, which is what keeps the marks in
+         a column instead of letting them ride against the digits */
+      .recon td.mark { text-align: right; padding-right: 0; }
+      .recon td.num { text-align: right; }
+      .recon td.lbl { text-align: left; }
+      .recon td.gap { padding: 0; }
+      .recon tbody tr { background: var(--c-band); }
+      .recon tbody tr.emph { background: var(--c-emphasis); }
+      .recon tbody td { border-bottom: var(--w-hairline) solid var(--c-hairline); }
+      .recon tbody tr:last-child td { border-bottom: 0; }   /* TABLE-06, as above */
+      .recon tbody tr.rule-heavy td { border-bottom: var(--w-rule-heavy) solid var(--c-hairline); }
+
+      /* ── Bullets ───────────────────────────────────────────────────────────
+         A filled square at top level and a short dash below it. Two levels and
+         no third: the deck has no third-level bullet anywhere.                 */
+      /* THE GAP BETWEEN BULLETS IS DERIVED FROM THE WRAP PITCH, not chosen.
+         TYPE-14: "New bullet pitch = 1.28x the wrap pitch. At 20px: wrap 24.0px,
+         new-bullet 30.7px", which is wrap plus a third of a line. So the margin
+         is 30.7 - 24.0 = 6.7px, and the same figure the footnote list already
+         used. It was 13px, which put the pitch at 1.54x, and nothing had ever
+         checked this rule against the file. */
+      .bullets { list-style: none; font-size: var(--sz-body); line-height: var(--lh-loose); }
+      .bullets > li { position: relative; padding-left: 22px; margin-bottom: 6.7px; }
+      /* ONE SQUARE, ONE SIZE. It shipped at 7px here, 9px on the assertion,
+         9.297px on the tight variant and 9px in the thesis strip, under a
+         comment claiming the assertion reuses the bullet's own mark. 9px is
+         also closer to the record: TYPE-23 sets level 1 as a 13.3px U+25A0
+         glyph, whose ink is about 0.72em.
+         0.375em puts it on the cap of 20px text in a 24px line box. */
+      .bullets > li::before {
+        content: ""; position: absolute; left: 2px; top: 0.375em;
+        width: var(--mark-sq); height: var(--mark-sq); background: var(--c-header);
+      }
+      .bullets ul { list-style: none; margin-top: 8px; }
+      /* Second level inherits 20px now, so it takes the same 6.7px gap. */
+      .bullets ul > li { position: relative; padding-left: 20px; margin-bottom: 6.7px; }
+      .bullets ul > li::before {
+        content: ""; position: absolute; left: 0; top: 0.62em;
+        width: 9px; height: 1.4px; background: var(--c-accent);
+      }
+      /* The tight variant for the snapshot, where the floor binds. It has almost
+         nothing left to do: once the base list took the record's own 1.20x
+         leading and 1.28x pitch, the "tight" leading and margin were the same
+         numbers. What remains is the ink-coloured marker and the last-child
+         zero, which is what actually buys the last bullet its room. */
+      .bullets--tight > li { padding-left: 23.3px; }
+      .bullets--tight > li:last-child { margin-bottom: 0; }
+      .bullets--tight > li::before { left: 3.3px; background: var(--c-ink); }
+
+      /* ── Chart ─────────────────────────────────────────────────────────────
+         ONE line: the category baseline. Zero gridlines, zero tick marks, zero
+         value-axis labels, zero y-axis. Every bar is labelled in place and the
+         column total sits above the stack, which is what replaces the axis.
+         Zero-based always: the plot ceiling is the largest total.              */
+      .chart { position: relative; margin-top: 22px; }
+      /* a module rule used as a chart heading: the rule and title belong to the
+         chart, so the heading's own bottom margin goes and the legend supplies
+         the gap instead */
+      .chart-head { margin-top: 6px; }
+      .chart-head > h2 { margin-bottom: 0; }
+      .chart-head + .legend { margin-top: 16px; }
+      .legend { display: flex; gap: 26px; font-size: var(--sz-dense);
+                margin-bottom: 16px; flex-wrap: wrap; }
+      .legend span { display: flex; align-items: center; gap: 9px; }
+      .legend .trend { margin-left: auto; }
+      .legend i { width: 19px; height: 19px; display: block; }
+      /* the plot box reserves room for the total ABOVE the tallest bar, or the
+         label rides up into the legend */
+      /* --bar-w is set per chart, not per bar. A stacked column is 167px in a
+         half-page zone and 232px across the full measure, and the label row
+         under the plot has to agree with it or the categories drift off centre. */
+      /* --bar-w and --plot-h are the ONLY inline overrides in the markup, and
+         they are set on .chart rather than on .plot so one declaration covers
+         the plot and the category row under it. Everything else a chart carries
+         is either a class or a bar height, and a bar height is data. */
+      .plot { position: relative;
+              display: flex; align-items: flex-end; justify-content: space-between;
+              height: var(--plot-h, 310px); padding: 0 4px; }
+      .cat { width: var(--bar-w, 167px); display: flex; flex-direction: column; align-items: center; }
+      .cat .total { font-size: var(--sz-total); font-weight: var(--fw-bold); margin-bottom: 5px; }
+      .bar { width: var(--bar-w, 167px); display: flex; flex-direction: column; }
+      .seg { font-weight: 400; font-size: var(--sz-dense);
+             display: grid; place-items: center;
+             border-top: var(--w-hairline) solid var(--c-ground); }
+      /* ── The four series ──────────────────────────────────────────────────
+         ONE CLASS SETS THE FILL AND THE INK TOGETHER, on the segment and on the
+         legend swatch. Both used to be set from the markup - the fill as an
+         inline background and the ink as a hand-applied .seg--on-light on 16 of
+         the 42 segments - so a swatch and its label could drift apart. They
+         cannot now: there is no way to state one without the other.
+
+         THE RAMP IS TWO PAIRS, NOT ONE SLOPE: a blue pair (s1, s2) and a teal
+         pair (s3, s4), each running dark to light. So the ink does not switch
+         once part-way down the four. It switches inside each pair, which is why
+         the pairing lives on the token in ZONE A and not in a rule here. An
+         earlier version read "s2 or lighter takes ink" and got s4 wrong,
+         because s4 is lighter than s3 but the rule was written as if the four
+         were one slope.
+
+         All four clear 4.5:1 at 18.3px regular. s2 was nudged 3% lighter when
+         #5b7f9e scored 4.22 reversed and 4.38 in ink, clearing neither.
+         research/tools/palette-gate.py re-measures every pair. */
+      .seg--1, .sw--1 { background: var(--c-s1); color: var(--c-s1-ink); }
+      .seg--2, .sw--2 { background: var(--c-s2); color: var(--c-s2-ink); }
+      .seg--3, .sw--3 { background: var(--c-s3); color: var(--c-s3-ink); }
+      .seg--4, .sw--4 { background: var(--c-s4); color: var(--c-s4-ink); }
+      .sw--prior { background: var(--c-prior); }
+      .baseline { height: 1px; background: var(--c-baseline); }
+      .cats { display: flex; justify-content: space-between; padding: 0 4px; margin-top: 11px; }
+      .cats--pair { justify-content: space-around; }
+      .cats div { width: var(--bar-w, 167px); text-align: center;
+                  font-size: var(--sz-dense); font-weight: var(--fw-bold); }
+
+      /* ── Comparison pair ───────────────────────────────────────────────────
+         Two periods, one measure, and the earlier one muted. The greying is the
+         argument: it says which number the page wants read. Used unstacked in a
+         panel and stacked in a zone; the muting rule is the same either way.   */
+      .plot--pair { justify-content: space-around; }
+      .bar--solid { background: var(--c-s1); }
+      .bar--prior { background: var(--c-prior); }
+      .plot--pair .cat--prior .total { color: var(--c-prior-ink); }
+
+      /* ── Trend note ────────────────────────────────────────────────────────
+         The delta between the first and last category, stated once.
+
+         RESTYLED, and this is the one place a device changed shape rather than
+         being dropped. The anchor floats it diagonally across the plot as a
+         rotated label on a curved arrow, four times in one deck. The figure is
+         real content, so dropping it would have lost information; the rotation
+         is not, and rotated type over a plot in a fixed stage collides with the
+         first bar tall enough to reach it. The number moved into the chart's
+         own header row, where nothing can land on top of it.                   */
+      .trend {
+        font-size: var(--sz-dense); font-weight: var(--fw-bold); color: var(--c-forward);
+        display: inline-flex; align-items: center; gap: 7px;
+      }
+      .trend::before {
+        content: ""; width: 26px; height: 0;
+        border-top: var(--w-arrow) solid var(--c-forward);
+      }
+
+      /* ── Reference line ────────────────────────────────────────────────────
+         The ONE line a chart may carry besides its baseline, and only when the
+         line is a stated quantity: an average, a target, a threshold. Dashed so
+         it cannot be mistaken for a series, and always labelled with its value. */
+      .refline {
+        position: absolute; left: 0; right: 0;
+        border-top: var(--w-rule-heavy) dashed var(--c-forward);
+      }
+      .refline span {
+        position: absolute; right: 0; top: 50%; transform: translate(calc(100% + 14px), -50%);
+        font-size: var(--sz-dense); font-weight: var(--fw-bold); color: var(--c-forward);
+        line-height: 1.2; white-space: nowrap;
+      }
+
+      /* ── Assertion ─────────────────────────────────────────────────────────
+         A bold claim over 1-3 grey italic sub-lines that evidence it. The most
+         repeated object in the narrative section: 6 or 7 to a page, 3 to a zone.
+
+         The anchor marks each one with a ringed check glyph. That is the single
+         device `absences` names as the most reliable tell of a generated deck,
+         and this deck already owns a mark for "top-level item" - the filled
+         square its bullets use. Reusing it costs nothing and adds no ornament.  */
+      /* THE FONT-SIZE IS HERE FOR THE MARKER, not for the text. Both children
+         set their own size, so this declaration paints nothing directly. What
+         it fixes is the em the ::before offset is measured in: .assert declared
+         no size, so it inherited the UA default of 16px and `top: 0.42em`
+         resolved to 6.72px instead of the 9.79px it was written for. The square
+         sat 3.3px above the cap of the heading it marks, on the most repeated
+         object in the narrative section - 6 or 7 to a page. The equivalent
+         bullet marker, which does inherit its own 20px, is out by 0.5px.
+
+         Anchoring it to --sz-head also means the marker tracks a retheme
+         instead of being left behind when the heading moves. */
+      .assert { position: relative; padding-left: 26px; font-size: var(--sz-head); }
+      .assert::before {
+        content: ""; position: absolute; left: 2px; top: 0.42em;
+        width: var(--mark-sq); height: var(--mark-sq); background: var(--c-header);
+      }
+      .assert h3 { font-size: var(--sz-head); font-weight: var(--fw-bold); line-height: 1.25; }
+      .assert p {
+        font-size: var(--sz-body); font-style: italic; line-height: 1.4;
+        color: var(--c-ink-soft); margin-top: 6px;
+      }
+
+      /* ── Bracket label ─────────────────────────────────────────────────────
+         Letterspaced caps centred in a rule that stops either side of it, with
+         a tick turned down at each end. It names the span underneath it, which
+         is the job a heading cannot do when the thing being named is a row of
+         objects rather than a block of text.                                   */
+      .bracket {
+        display: flex; align-items: center; gap: 20px;
+        font-size: var(--sz-caption); font-weight: var(--fw-bold);
+        letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent);
+      }
+      /* No trailing-letterspace correction here, and that is a finding rather
+         than an omission. The label looked like it should sit one letterspace
+         (2.34px) left of centre, since CSS tracks after the final glyph too.
+         Measured on the ink, by range over the first and last characters: the
+         offset is 0.00 to 0.02px on all four brackets, with or without a
+         wrapping element. Chromium already drops the trailing advance when it
+         centres. A -0.14em correction moved them 2.31px the wrong way. */
+      .bracket::before, .bracket::after {
+        content: ""; flex: 1; height: 14px;
+        border-top: var(--w-module-rule) solid var(--c-accent);
+      }
+      .bracket::before { border-left: var(--w-module-rule) solid var(--c-accent); }
+      .bracket::after  { border-right: var(--w-module-rule) solid var(--c-accent); }
+
+      /* ── Label box ─────────────────────────────────────────────────────────
+         A flat rectangle with a hairline and a centred bold line. No radius, no
+         shadow, no fill gradient: the anchor's card is a flat fill and a 0.83px
+         hairline, and that is the whole component.                             */
+      .box {
+        background: var(--c-band); border: var(--w-hairline) solid var(--c-hairline);
+        min-height: var(--box-h, 92px); padding: 14px 18px;
+        display: grid; place-items: center; text-align: center;
+        font-size: var(--sz-body); font-weight: var(--fw-bold); line-height: 1.25;
+      }
+      /* One column count per variant instead of an inline grid-template. The
+         counts are fixed by the patterns that use them: 3 growth drivers, 5
+         closing boxes, or a single stacked column on the stat board. */
+      .box-row { display: grid; column-gap: 26px; grid-template-columns: repeat(3, 1fr); }
+      .box-row--5 { grid-template-columns: repeat(5, 1fr); }
+      .box-row--stack { grid-template-columns: 1fr; }
+
+      /* ── Panel ─────────────────────────────────────────────────────────────
+         A bordered region that groups objects the page rule cannot reach. Same
+         hairline as the box, no fill, so nesting a box inside it still reads.  */
+      .frame { border: var(--w-hairline) solid var(--c-hairline); padding: 26px 30px; }
+      .frame > h3 { font-size: var(--sz-head); font-weight: var(--fw-bold); margin-bottom: 18px; }
+
+      /* ── Prior-to-updated table ────────────────────────────────────────────
+         Not a data table: no bands, no header fill, no numerals in a column to
+         align. Three columns of unequal weight where the middle one is muted
+         and the right one carries the whole point.                             */
+      .compare { width: 100%; border-collapse: collapse; }
+      .compare th {
+        font-size: var(--sz-body); font-weight: var(--fw-bold); padding-bottom: 12px;
+        text-align: center;
+      }
+      .compare th:first-child { text-align: left; }
+      .compare th.prior { color: var(--c-prior-ink); }
+      .compare td { padding: 13px 0; border-top: var(--w-hairline) solid var(--c-hairline); }
+      .compare td.k { font-size: var(--sz-body); font-style: italic; }
+      .compare td.prior {
+        text-align: center; font-size: var(--sz-stat); font-weight: var(--fw-bold);
+        color: var(--c-prior-ink);
+      }
+      .compare td.now {
+        text-align: center; font-size: var(--sz-stat); font-weight: var(--fw-bold); color: var(--c-forward);
+      }
+      .compare td.arrow { width: 96px; }
+      /* a rule with a solid triangle on the end. Drawn in CSS rather than set as
+         a glyph so it cannot fall back to a different arrow in a substitute face */
+      .compare td.arrow i {
+        display: block; position: relative; height: var(--w-arrow); width: 68px; margin: 0 auto;
+        background: var(--c-forward);
+      }
+      .compare td.arrow i::after {
+        content: ""; position: absolute; right: -1px; top: 50%; transform: translateY(-50%);
+        border-left: 9px solid var(--c-forward);
+        border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+      }
+
+      /* ── Display stat ──────────────────────────────────────────────────────
+         Numeral, rule, caption, in that order and never reordered: the rule is
+         what stops the caption reading as part of the number.                  */
+      .stat .v { font-size: var(--sz-display); font-weight: var(--fw-bold); line-height: 1.05; }
+      .stat .v--forward { color: var(--c-forward); }
+      .stat hr { border: 0; border-top: var(--w-rule-heavy) solid var(--c-accent); margin: 12px 0 10px; }
+      .stat .k { font-size: var(--sz-body); line-height: 1.35; }
+      .stat .lab { font-size: var(--sz-head); font-weight: var(--fw-bold); margin-bottom: 10px; }
+
+      /* ── Font priming · DO NOT DELETE ──────────────────────────────────────
+         Every element that uses the title face sits inside a slide, and every
+         slide but one is display:none. The cover is the active slide on load
+         and it sets the serif, so Chromium never requests the condensed face
+         at all: the first titled page a reader reaches renders in the Arial
+         Narrow fallback and swaps a beat later.
+
+         Silent everywhere it mattered most. Screenshot and PDF tooling waits
+         for fonts BEFORE activating a slide, so every exported body page
+         carried the fallback and the PDF embedded Arial Narrow instead of
+         Oswald. The two faces are within 0.3% on a page title, which is why
+         nothing looked wrong.
+
+         One glyph per face, rendered but zero-sized, forces all three to load
+         up front. Zero-sized rather than display:none, because display:none
+         is the thing that caused this. */
+      .font-prime {
+        position: fixed; top: 0; left: 0; width: 0; height: 0;
+        overflow: hidden; opacity: 0; pointer-events: none;
+      }
+      /* One glyph per COMBINATION the deck actually sets, which is not the same
+         list as one per weight and one per style. The bold italic is here
+         because .frame--board > h3 sets it and it was silently synthesised. */
+      .font-prime i:nth-child(1) { font-family: var(--f-title); font-weight: 400; }
+      .font-prime i:nth-child(2) { font-family: var(--f-body); font-weight: 400; }
+      .font-prime i:nth-child(3) { font-family: var(--f-body); font-weight: var(--fw-bold); }
+      .font-prime i:nth-child(4) { font-family: var(--f-body); font-style: italic; }
+      .font-prime i:nth-child(5) { font-family: var(--f-body); font-style: italic;
+                                   font-weight: var(--fw-bold); }
+      .font-prime i:nth-child(6) { font-family: var(--f-voice); font-weight: 300; }
+
+      /* ── Chrome for the deck itself, not part of a slide ─────────────────── */
+      /* The file's one raw hex outside ZONE A, against a header that says there
+         are none, and it scored 4.30:1 on the letterbox ground - passing or
+         failing depending on the viewer's window shape, since a 16:9 window
+         puts it on white instead. A token fixes both, and makes it reachable
+         by a retheme: at the old literal a dark ground left it at 4.04:1. */
+      .counter {
+        position: fixed; right: 14px; bottom: 12px; z-index: 5;
+        font-size: var(--sz-mark); letter-spacing: 0.08em; color: var(--c-ink-soft);
+      }
+      /* .font-prime is position:fixed, and a fixed element in print paints on
+         its own sheet: leaving it in added a 13th blank page to a 12-page deck.
+         Hiding it here is safe because the faces are already loaded in the
+         browser by the time anything prints. */
+      @media print { .counter, .font-prime { display: none; } }
+    </style>
+  </head>
+
+  <body>
+    <div class="deck" id="deck">
+
+      <!-- ═══ 1 · COVER ══════════════════════════════════════════════════════
+           No page rule and no folio. The cover is the one page that refuses the
+           condensed title face and sets the serif at 130px instead.          -->
+      <!-- Any slot's content may carry a footnote marker: sup styling is one
+           global rule (ZONE B), so "<sup>7</sup>" renders correctly inside any
+           slot on any page, and the notes pages absorb the definitions. The
+           blank-form profile normalises every marker to [n] via its "sups" key.
+      -->
+      <!-- data-slot marks the strings a brand profile fills: the M2 build
+           swaps slot contents and token values, touches nothing else, and
+           writes its output under gitignored dist/. The base file IS the
+           giveaway, so every slot ships carrying neutral text. -->
+      <section class="slide slide--cover is-active">
+        <div class="brand-slot brand-slot--cover"></div>
+        <div class="cover-title t-cover" data-slot="cover-title"><span class="hang hang-l1">Second Quarter 2026</span><span class="hang hang-l2">Earnings Results Presentation</span></div>
+        <div class="cover-rule"></div>
+        <div class="cover-date" data-slot="cover-date">21 July 2026</div>
+      </section>
+
+      <!-- ═══ 2 · CHART-SPLIT ════════════════════════════════════════════════
+           The narrative section's workhorse: 14 of its 24 pages. Two zones with
+           different jobs. Left argues, right proves.                        -->
+      <section class="slide slide--chart-split">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="lang-cs-title">A wealth and asset platform built around recurring revenues</h1>
+
+        <div class="zone zone--l">
+          <div class="module">
+            <h2>Key Highlights</h2>
+            <div class="assert">
+              <h3 data-slot="lang-cs-uhnw">Growing base of wealth planning relationships</h3>
+              <p data-slot="lang-cs-p1">$[x.x]tn of client assets across wealth planning<sup>6</sup></p>
+            </div>
+            <div class="assert">
+              <h3 data-slot="lang-cs-alts">A scaled private markets platform<sup>9</sup></h3>
+              <p data-slot="lang-cs-p2">$[xxx]bn+ total alternative assets<sup>6</sup></p>
+            </div>
+            <div class="assert">
+              <h3 data-slot="lang-cs-rank"><span data-slot="rank-active-mgr">Top-[x]</span> global wealth manager<sup>9</sup></h3>
+              <p data-slot="lang-cs-p3">Long-term net inflows of $[xx]bn, positive in every quarter since the investor day</p>
+            </div>
+          </div>
+
+          <div class="module">
+            <h2>Growth Drivers</h2>
+            <div class="box-row">
+              <div class="box" data-slot="lang-cs-box-1">Wealth<br />Planning</div>
+              <div class="box" data-slot="lang-cs-box-2">Private<br />Markets</div>
+              <div class="box" data-slot="lang-cs-box-3">Treasury<br />Services</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="zone zone--r">
+          <div class="module">
+            <h2 data-slot="lang-cs-chart">Recurring Revenues ($ in billions)</h2>
+          </div>
+          <div class="chart" style="--bar-w: 132px; --plot-h: 268px">
+            <div class="legend">
+              <span data-slot="lang-legend-cs-1"><i class="sw sw--2"></i>Private banking</span>
+              <span data-slot="lang-legend-cs-2"><i class="sw sw--1"></i>Asset management fees</span>
+              <span class="trend">+[xx]% CAGR</span>
+            </div>
+            <!-- The plot box is 268px and the TALLEST STACK IS 236, because the
+                 total label sits inside the box above its own bar and needs 32px
+                 of it. Scaling the tallest stack to the full plot height instead
+                 pushes that label up through the legend. -->
+            <div class="plot">
+              <div class="cat"><div class="total num">[x.xx]</div><div class="bar">
+                <div class="seg seg--2" style="height: 26px">[x.xx]</div>
+                <div class="seg seg--1" style="height: 116px">[x.xx]</div></div></div>
+              <div class="cat"><div class="total num">[xx.xx]</div><div class="bar">
+                <div class="seg seg--2" style="height: 34px">[x.xx]</div>
+                <div class="seg seg--1" style="height: 126px">[x.xx]</div></div></div>
+              <div class="cat"><div class="total num">[xx.xx]</div><div class="bar">
+                <div class="seg seg--2" style="height: 52px">[x.xx]</div>
+                <div class="seg seg--1" style="height: 144px">[x.xx]</div></div></div>
+              <div class="cat"><div class="total num">[xx.xx]</div><div class="bar">
+                <div class="seg seg--2" style="height: 58px">[x.xx]</div>
+                <div class="seg seg--1" style="height: 147px">[xx.xx]</div></div></div>
+              <div class="cat"><div class="total num">[xx.xx]</div><div class="bar">
+                <div class="seg seg--2" style="height: 72px">[x.xx]</div>
+                <div class="seg seg--1" style="height: 168px">[xx.xx]</div></div></div>
+            </div>
+            <div class="baseline"></div>
+            <div class="cats"><div>2021</div><div>2022</div><div>2023</div><div>2024</div><div>2025</div></div>
+          </div>
+
+          <div class="frame">
+            <h3 data-slot="lang-cs-tgt-title">Medium-Term Targets<sup>13</sup></h3>
+            <table class="compare">
+              <thead>
+                <tr><th></th><th class="prior">Prior</th><th></th><th>Updated</th></tr>
+              </thead>
+              <tbody>
+                <!-- Targets ship as digit placeholders (Teng, 2026-08-01);
+                     every cell is a slot, so a profile may put the worded
+                     forms back ("Mid-twenties") without touching this file. -->
+                <tr>
+                  <td class="k" data-slot="lang-cs-tgt-k1">Pre-tax margin</td>
+                  <td class="prior" data-slot="target-margin-prior">[xx]%</td>
+                  <td class="arrow"><i></i></td>
+                  <td class="now" data-slot="target-margin-updated">[xx]%</td>
+                </tr>
+                <tr>
+                  <td class="k" data-slot="lang-cs-tgt-k2">Returns</td>
+                  <td class="prior" data-slot="target-returns-prior">[xx]%</td>
+                  <td class="arrow"><i></i></td>
+                  <td class="now" data-slot="target-returns-updated">[xx]%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">1</div>
+      </section>
+
+      <!-- ═══ 3 · PANEL-ROW ══════════════════════════════════════════════════
+           Three panels running the same element sequence. The test: delete any
+           one and the page is still grammatical. Opens with the thesis strip,
+           which is the device the narrative section uses to state a claim
+           before spending three panels evidencing it.                       -->
+      <section class="slide slide--panel-row">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="lang-pr-title">Growth delivered while strengthening the risk profile</h1>
+
+        <div class="band band--thesis">
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-1">A longer-horizon operating model</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-2">Investing behind the platform</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-3">Clear ownership of outcomes</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-4">Disciplined risk management</div>
+        </div>
+
+        <div class="panel-row">
+          <div class="pane">
+            <h3 class="t-head" data-slot="lang-pr-chart-durable">Firmwide recurring revenues<sup>4</sup> ($bn)</h3>
+            <div class="chart" style="--bar-w: 148px; --plot-h: 440px">
+              <div class="trend">+[xxx]%</div>
+              <div class="plot plot--pair">
+                <div class="cat cat--prior"><div class="total num">[xx.x]</div>
+                  <div class="bar bar--prior" style="height: 190px"></div></div>
+                <div class="cat"><div class="total num">[xx.x]</div>
+                  <div class="bar bar--solid" style="height: 341px"></div></div>
+              </div>
+              <div class="baseline"></div>
+              <div class="cats cats--pair"><div>2020</div><div>2025</div></div>
+            </div>
+            <div class="box" data-slot="lang-pr-box-resil">Improved resiliency</div>
+          </div>
+
+          <div class="pane">
+            <h3 class="t-head" data-slot="lang-pr-chart-principal">Non-core legacy portfolio<sup>5,6</sup> ($bn)</sup> ($bn)</h3>
+            <div class="chart" style="--bar-w: 148px; --plot-h: 440px">
+              <div class="trend">&minus;[xx]%</div>
+              <div class="plot plot--pair">
+                <div class="cat cat--prior"><div class="total num">[xx.x]</div>
+                  <div class="bar bar--prior" style="height: 341px"></div></div>
+                <div class="cat"><div class="total num">[x.x]</div>
+                  <div class="bar bar--solid" style="height: 55px"></div></div>
+              </div>
+              <div class="baseline"></div>
+              <div class="cats cats--pair"><div>2020</div><div>2025</div></div>
+            </div>
+            <div class="box" data-slot="lang-pr-box-capital">Lower capital intensity</div>
+          </div>
+
+          <div class="pane">
+            <h3 class="t-head" data-slot="lang-pr-chart-stress">Stress capital buffer</h3>
+            <div class="chart" style="--bar-w: 148px; --plot-h: 440px">
+              <div class="trend">&minus;[xxx]bps</div>
+              <div class="plot plot--pair">
+                <div class="cat cat--prior"><div class="total num">[x.x]%</div>
+                  <div class="bar bar--prior" style="height: 341px"></div></div>
+                <div class="cat"><div class="total num">[x.x]%</div>
+                  <div class="bar bar--solid" style="height: 205px"></div></div>
+              </div>
+              <div class="baseline"></div>
+              <div class="cats cats--pair"><div>2020</div><div>2025</div></div>
+            </div>
+            <div class="box" data-slot="lang-pr-box-stress">Lower stress-loss severity</div>
+          </div>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">2</div>
+      </section>
+
+      <!-- ═══ 4 · CHECKLIST ══════════════════════════════════════════════════
+           A summary band making the claim, then a grid of assertions carrying
+           the evidence, then one conclusion alone under a rule.             -->
+      <section class="slide slide--checklist">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="lang-cl-title">Consistent delivery against the plan set at the investor day</h1>
+
+        <div class="bracket-pair">
+          <div class="bracket" data-slot="segment-1">Banking &amp; Markets</div>
+          <div class="bracket" data-slot="segment-2">Wealth &amp; Asset Management</div>
+        </div>
+
+        <div class="band">
+          <div class="band-cell"><span class="v" data-slot="fig-checklist-1">#[x]</span><span class="k" data-slot="lang-band-1">M&amp;A advisor<sup>7</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="fig-checklist-2">#[x]</span><span class="k" data-slot="lang-band-2">Debt financing franchise<sup>8</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v1">Leading</span><span class="k" data-slot="lang-band-3">Markets execution franchise<sup>8</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v2">Top [x]</span><span class="k" data-slot="lang-band-4">Global wealth manager<sup>9</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v3">Leading</span><span class="k" data-slot="lang-band-5">Treasury services provider</span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v4">Premier</span><span class="k" data-slot="lang-band-6">Private markets platform</span></div>
+        </div>
+
+        <div class="checklist-grid">
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-franchise">Deeper client and sponsor coverage</h3>
+            <p data-slot="lang-blank-cl-1">#[x] M&amp;A, #[x] leveraged loans, #[x] high-yield debt, #[x] ECM<sup>7</sup></p>
+            <p data-slot="lang-blank-cl-2"><span data-slot="rank-ficc-clients">Top [x]</span> with [xxx] of the top [xxx] institutional markets clients, against [xx] in 2020<sup>10</sup></p>
+            <p data-slot="lang-blank-cl-3">+[xxx]bps of wallet share gained in banking and markets since 2020<sup>8</sup></p>
+          </div>
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-durable">Grew recurring revenues<sup>4</sup></h3>
+            <p data-slot="lang-blank-cl-4">Record asset management fees of $[xx.x]bn, up [xx]% year over year</p>
+            <p data-slot="lang-blank-cl-5">Treasury services fee revenues CAGR of +[xx]% from 2020 to 2025</p>
+            <p data-slot="lang-blank-cl-6">Record private banking net revenues of $[x.x]bn, up [xx]% year over year</p>
+          </div>
+
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-financing">Grew financing with discipline</h3>
+            <p data-slot="lang-blank-cl-7">Record financing revenues of $[xx.x]bn</p>
+            <p data-slot="lang-blank-cl-8">CAGR of +[xx]% from 2020 to 2025</p>
+          </div>
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-fundraising">Wound down the non-core legacy book<sup>5,6</sup></sup></h3>
+            <p data-slot="lang-blank-cl-9">Non-core balance down $[xx.x]bn since 2020, to $[x]bn in 2025</p>
+            <p data-slot="lang-blank-cl-10">$[x.x]bn of capital released and redeployed into the core segments</p>
+          </div>
+
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-returns">Returns ahead of target</h3>
+            <p data-slot="lang-blank-cl-11">Return on equity of [xx.x]% in 2025; <span data-slot="period-roe-avg">[x]-year</span> average of [xx.x]%</p>
+          </div>
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-margins">Higher margins and returns</h3>
+            <p data-slot="lang-blank-cl-12">Pre-tax margin of [xx]% and ROE of [xx.x]% in 2025</p>
+            <p data-slot="lang-blank-cl-13">Including [x.x]pp of ROE drag carried from the non-core legacy book<sup>6</sup></p>
+          </div>
+        </div>
+
+        <div class="checklist-coda">
+          <div class="assert">
+            <h3 data-slot="lang-cl-coda-h3">Simplified the firm around its core</h3>
+            <p data-slot="lang-cl-coda-p1">Sold the closed-book consumer lending platform in full</p>
+            <p data-slot="lang-cl-coda-p2">Signed an agreement to divest the last of the legacy structured assets</p>
+          </div>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">3</div>
+      </section>
+
+      <!-- ═══ 5 · HERO-CHART ════════════════════════════════════════════════
+           One chart across the whole measure. The formal test is the absence of
+           a vertical divider: a chart-split caps its chart zone at 40% of the
+           page, so a plot wider than that cannot be one.                    -->
+      <section class="slide slide--hero-chart">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="lang-hc-title">Markets execution revenues held up across the cycle</h1>
+
+        <div class="hero">
+          <div class="module">
+            <h2 data-slot="lang-hc-chart">Markets Execution Net Revenues ($ in billions)</h2>
+          </div>
+          <div class="chart" style="--bar-w: 240px; --plot-h: 492px">
+            <div class="legend">
+              <span data-slot="lang-legend-hc-1"><i class="sw sw--1"></i>FICC &ndash; macro products</span>
+              <span data-slot="lang-legend-hc-2"><i class="sw sw--2"></i>FICC &ndash; credit and securitised products</span>
+              <span data-slot="lang-legend-hc-3"><i class="sw sw--3"></i>Equities &ndash; cash execution</span>
+              <span data-slot="lang-legend-hc-4"><i class="sw sw--4"></i>Equities &ndash; derivatives</span>
+            </div>
+            <!-- the plot stops at 1620 so the reference line's own label has
+                 somewhere to sit. A label that hangs off a full-measure plot
+                 lands outside the right margin, which is the one edge in this
+                 deck that nothing crosses. -->
+            <div class="hero-plot">
+              <div class="plot">
+                <div class="refline" style="bottom: 395px"><span data-slot="lang-hc-refline">Average<br />$[xx.x]bn</span></div>
+                <div class="cat"><div class="total num">[xx.x]</div><div class="bar">
+                  <div class="seg seg--1" style="height: 133px"></div>
+                  <div class="seg seg--2" style="height: 46px"></div>
+                  <div class="seg seg--3" style="height: 95px"></div>
+                  <div class="seg seg--4" style="height: 106px"></div></div></div>
+                <div class="cat"><div class="total num">[xx.x]</div><div class="bar">
+                  <div class="seg seg--1" style="height: 120px"></div>
+                  <div class="seg seg--2" style="height: 44px"></div>
+                  <div class="seg seg--3" style="height: 90px"></div>
+                  <div class="seg seg--4" style="height: 101px"></div></div></div>
+                <div class="cat"><div class="total num">[xx.x]</div><div class="bar">
+                  <div class="seg seg--1" style="height: 134px"></div>
+                  <div class="seg seg--2" style="height: 48px"></div>
+                  <div class="seg seg--3" style="height: 99px"></div>
+                  <div class="seg seg--4" style="height: 109px"></div></div></div>
+                <div class="cat"><div class="total num">[xx.x]</div><div class="bar">
+                  <div class="seg seg--1" style="height: 142px"></div>
+                  <div class="seg seg--2" style="height: 51px"></div>
+                  <div class="seg seg--3" style="height: 105px"></div>
+                  <div class="seg seg--4" style="height: 117px"></div></div></div>
+                <div class="cat"><div class="total num">[xx.x]</div><div class="bar">
+                  <div class="seg seg--1" style="height: 150px"></div>
+                  <div class="seg seg--2" style="height: 54px"></div>
+                  <div class="seg seg--3" style="height: 110px"></div>
+                  <div class="seg seg--4" style="height: 124px"></div></div></div>
+              </div>
+              <div class="baseline"></div>
+              <div class="cats"><div>2021</div><div>2022</div><div>2023</div><div>2024</div><div>2025</div></div>
+            </div>
+          </div>
+
+          <div class="bracket" data-slot="lang-hc-bracket">Room to take further share from here</div>
+          <div class="box-row box-row--5">
+            <div class="box" data-slot="lang-hc-box-1">Corporate<br />Hedging</div>
+            <div class="box" data-slot="lang-hc-box-2">Payments &amp;<br />FX Flows</div>
+            <div class="box" data-slot="lang-hc-box-3">Private<br />Markets</div>
+            <div class="box" data-slot="lang-hc-box-4">Insurers &amp;<br />Pensions</div>
+            <div class="box" data-slot="lang-hc-box-5">Platform<br />Partnerships</div>
+          </div>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">4</div>
+      </section>
+
+      <!-- ═══ 6 · STAT-BOARD ════════════════════════════════════════════════
+           The deck's largest type and its lowest word count on the same page.
+           A chart, a table or a bullet anywhere on it makes it a different
+           pattern, which is the whole reason it lands as hard as it does.
+           Three stats here; six fit, in two rows of three, without the panel. -->
+      <section class="slide slide--stat-board">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="lang-sb-title">Firmwide financial targets</h1>
+
+        <div class="bracket bracket--page" data-slot="lang-sb-scope">
+          Firmwide through-the-cycle targets
+        </div>
+
+        <div class="stat-row">
+          <div class="stat">
+            <div class="lab" data-slot="lang-sb-lab-1">Returns<sup>20</sup></div>
+            <div class="v v--forward" data-slot="target-returns-cycle">Mid-[xx]s</div>
+            <hr />
+            <div class="k" data-slot="lang-blank-sb-1">Return on average common shareholders' equity, measured across a full cycle</div>
+          </div>
+          <div class="stat">
+            <div class="lab" data-slot="lang-sb-lab-2">Efficiency Ratio</div>
+            <div class="v v--forward" data-slot="target-efficiency">[xx]%</div>
+            <hr />
+            <div class="k" data-slot="lang-blank-sb-2">Total operating expenses as a proportion of firmwide net revenues</div>
+          </div>
+          <div class="stat">
+            <div class="lab" data-slot="lang-sb-lab-3">Capital Return</div>
+            <div class="v v--forward" data-slot="target-capital-return">[xx]%</div>
+            <hr />
+            <div class="k" data-slot="lang-blank-sb-3">Share of net earnings applicable to common shareholders, returned over time</div>
+          </div>
+        </div>
+
+        <div class="frame frame--board">
+          <h3 data-slot="lang-sb-h3">Catalysts that support performance above these targets</h3>
+          <div class="box-row box-row--stack">
+            <div class="box" data-slot="lang-sb-box-1">A banking and markets franchise positioned for the cyclical recovery</div>
+            <div class="box" data-slot="lang-sb-box-2">A wealth and asset platform with improving returns on secular growth</div>
+            <div class="box" data-slot="lang-sb-box-3">Regulatory reform and the capital flexibility that follows it</div>
+          </div>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">5</div>
+      </section>
+
+      <!-- ═══ 7 · SNAPSHOT ═══════════════════════════════════════════════════ -->
+      <section class="slide slide--snapshot">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="lang-ss-title">Results Snapshot</h1>
+
+        <div class="quote-panel">
+          <p class="t-quote" data-slot="lang-quote">&ldquo;Our clients are doing more with us, and doing it more often. Advisory and
+            financing again grew together, with the mid-market franchise contributing a larger
+            share of the quarter than at any point since the investor day. The recurring lines
+            continued to compound through asset management fees, treasury services and wealth
+            planning, and with the legacy wind-down effectively complete, the capital those
+            positions once carried is working in the core. We enter the second half with
+            discipline on expenses and confidence in the pipeline.&rdquo;</p>
+          <div class="quote-rule"></div>
+          <div class="quote-name" data-slot="quote-name">[Name]</div>
+          <div class="quote-role" data-slot="quote-role">[Title]</div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="tile">
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-1">Net Revenues</span><span class="cap" data-slot="lang-units-tile-1">$ in millions</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-1">2Q26</span><span data-slot="fig-snapshot-1">$[xx,xxx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-2">2Q26 YTD</span><span data-slot="fig-snapshot-2">$[xx,xxx]</span></div>
+          </div>
+          <div class="tile">
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-2">Annualized ROE<sup>2</sup></span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-3">2Q26</span><span data-slot="fig-snapshot-3">[xx.x]%</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-4">2Q26 YTD</span><span data-slot="fig-snapshot-4">[xx.x]%</span></div>
+          </div>
+          <div class="tile">
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-3">Net Earnings</span><span class="cap" data-slot="lang-units-tile-2">$ in millions</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-5">2Q26</span><span data-slot="fig-snapshot-5">$[x,xxx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-6">2Q26 YTD</span><span data-slot="fig-snapshot-6">$[xx,xxx]</span></div>
+          </div>
+          <div class="tile">
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-4">Annualized ROTE<sup>2</sup></span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-7">2Q26</span><span data-slot="fig-snapshot-7">[xx.x]%</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-8">2Q26 YTD</span><span data-slot="fig-snapshot-8">[xx.x]%</span></div>
+          </div>
+          <div class="tile">
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-5">EPS<sup>1</sup></span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-9">2Q26</span><span data-slot="fig-snapshot-9">$[xx.xx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-10">2Q26 YTD</span><span data-slot="fig-snapshot-10">$[xx.xx]</span></div>
+          </div>
+          <div class="tile">
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-6">Book Value Per Share</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-11">2Q26</span><span data-slot="fig-snapshot-11">$[xxx.xx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-12">YTD Growth</span><span data-slot="fig-snapshot-12">[x.x]%</span></div>
+          </div>
+        </div>
+
+        <div class="highlights module">
+          <h2>Quarterly Highlights</h2>
+          <ul class="bullets bullets--tight">
+            <li data-slot="lang-blank-ss-1">Net revenues and diluted EPS<sup>1</sup> both set records, with net earnings among the strongest quarters on record</li>
+            <li data-slot="lang-blank-ss-2">Record net revenues in <span data-slot="segment-1">Banking &amp; Markets</span>, led by record financing revenues and the strongest Advisory quarter since the investor day</li>
+            <li data-slot="lang-blank-ss-3">Ranked <span data-slot="rank-league-primary">#[x]</span> in announced and completed M&amp;A, equity and equity-related offerings and leveraged finance; <span data-slot="rank-league-ig">#[x]</span> in investment grade debt<sup>3</sup></li>
+            <li data-slot="lang-blank-ss-6">Record asset management fees across the franchise</li>
+            <li data-slot="lang-blank-ss-4">Record client assets of $[x.xx] trillion; net inflows positive in every quarter since the investor day and record third-party private markets fundraising<sup>4</sup></li>
+            <li data-slot="lang-blank-ss-5">Raised the quarterly dividend [xx]% to $[x.xx] per share, effective 3Q26</li>
+          </ul>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">6</div>
+      </section>
+
+      <!-- ═══ 8 · MODULE, chart-bearing ══════════════════════════════════════
+           The workhorse. 9-10 of these per deck, one per business segment.
+           3 top-level bullets, which is the ceiling when a chart shares the
+           column.                                                            -->
+      <section class="slide slide--module">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="segment-1">Banking &amp; Markets</h1>
+
+        <div class="col col--l module">
+          <h2>Financial Results</h2>
+          <div class="table-zone">
+            <table class="data">
+              <thead>
+                <tr><th><span class="t-caption" data-slot="lang-units-tbl-1">$ in millions</span></th><th data-slot="lang-th-mod-1">2Q26</th><th data-slot="lang-th-mod-2">vs.<br />1Q26</th><th data-slot="lang-th-mod-3">vs.<br />2Q25</th><th data-slot="lang-th-mod-4">2Q26<br />YTD</th></tr>
+              </thead>
+              <tbody>
+                <tr><td data-slot="lang-line-mod-1">Advisory</td><td class="cur" data-slot="fig-module-1">[x,xxx]</td><td class="chg" data-slot="fig-module-2">[xx]%</td><td class="chg" data-slot="fig-module-3">[xx]%</td><td class="cur" data-slot="fig-module-4">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-2">Equity underwriting</td><td class="cur" data-slot="fig-module-5">[x,xxx]</td><td class="chg" data-slot="fig-module-6">[xx]%</td><td class="chg" data-slot="fig-module-7">[xx]%</td><td class="cur" data-slot="fig-module-8">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-3">Debt underwriting</td><td class="cur" data-slot="fig-module-9">[x,xxx]</td><td class="chg" data-slot="fig-module-10">([x])%</td><td class="chg" data-slot="fig-module-11">[xx]%</td><td class="cur" data-slot="fig-module-12">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-4">Fixed income</td><td class="cur" data-slot="fig-module-13">[x,xxx]</td><td class="chg" data-slot="fig-module-14">[xx]%</td><td class="chg" data-slot="fig-module-15">[xx]%</td><td class="cur" data-slot="fig-module-16">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-5">Equities</td><td class="cur" data-slot="fig-module-17">[x,xxx]</td><td class="chg" data-slot="fig-module-18">[xx]%</td><td class="chg" data-slot="fig-module-19">[xx]%</td><td class="cur" data-slot="fig-module-20">[xx,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-netrevenue-1">Net revenues</td><td data-slot="fig-module-21">[xx,xxx]</td><td data-slot="fig-module-22">[xx]%</td><td data-slot="fig-module-23">[xx]%</td><td data-slot="fig-module-24">[xx,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-provisionf-1">Provision for credit losses</td><td class="cur" data-slot="fig-module-25">[xx]</td><td class="chg" data-slot="fig-module-26">([xx])%</td><td class="chg" data-slot="fig-module-27">([xx])%</td><td class="cur" data-slot="fig-module-28">[xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-compensati-1">Compensation and benefits</td><td class="cur" data-slot="fig-module-29">[x,xxx]</td><td class="chg" data-slot="fig-module-30">[x]%</td><td class="chg" data-slot="fig-module-31">[xx]%</td><td class="cur" data-slot="fig-module-32">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-noncompens-1">Non-compensation expenses</td><td class="cur" data-slot="fig-module-33">[x,xxx]</td><td class="chg" data-slot="fig-module-34">[xx]%</td><td class="chg" data-slot="fig-module-35">[xx]%</td><td class="cur" data-slot="fig-module-36">[x,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-pretaxearn-1">Pre-tax earnings</td><td data-slot="fig-module-37">[x,xxx]</td><td data-slot="fig-module-38">[xx]%</td><td data-slot="fig-module-39">[xx]%</td><td data-slot="fig-module-40">[xx,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-netearning-1">Net earnings</td><td class="cur" data-slot="fig-module-41">[x,xxx]</td><td class="chg" data-slot="fig-module-42">[xx]%</td><td class="chg" data-slot="fig-module-43">[xx]%</td><td class="cur" data-slot="fig-module-44">[xx,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-returnonav-1">Return on average common equity</td><td data-slot="fig-module-45">[xx.x]%</td><td data-slot="fig-module-46">[x.x]pp</td><td data-slot="fig-module-47">[xx.x]pp</td><td data-slot="fig-module-48">[xx.x]%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col col--r module">
+          <h2><span data-slot="segment-1">Banking &amp; Markets</span> Highlights</h2>
+          <ul class="bullets">
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-mod-1">Net revenues set a record, rising significantly year over year</span>
+              <ul>
+                <li data-slot="lang-mod-li-advisory">Advisory reflected a higher number of completed transactions, with particular strength in mid-market and sponsor-led activity</li>
+                <li data-slot="lang-mod-li-equities">Equities revenues rose significantly in both execution and financing</li>
+              </ul>
+            </li>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sel-1">2Q26 select data:</span>
+              <ul>
+                <li data-slot="lang-stat-mod-1">Total assets of $[x.xx] trillion</li>
+                <li data-slot="lang-stat-mod-2">Loan balance of $[xxx] billion</li>
+              </ul>
+            </li>
+            <li data-slot="lang-blank-mod-1">Average daily VaR of $[xxx] million, compared with $[xxx] million in the prior quarter and $[xx] million in the prior year period, reflecting higher exposure to equity price risk</li>
+          </ul>
+
+          <div class="chart">
+            <div class="module chart-head">
+              <h2 data-slot="lang-mod-chart">Net Revenues by Business ($ in millions)</h2>
+            </div>
+            <div class="legend">
+              <span data-slot="lang-legend-mod-1"><i class="sw sw--1"></i>Advisory</span>
+              <span data-slot="lang-legend-mod-2"><i class="sw sw--2"></i>Underwriting</span>
+              <span data-slot="lang-legend-mod-3"><i class="sw sw--3"></i>Fixed income</span>
+              <span data-slot="lang-legend-mod-4"><i class="sw sw--4"></i>Equities</span>
+            </div>
+            <div class="plot">
+              <div class="cat"><div class="total num">[xx,xxx]</div><div class="bar">
+                <div class="seg seg--1" style="height: 51px">[x,xxx]</div>
+                <div class="seg seg--2" style="height: 40px">[x,xxx]</div>
+                <div class="seg seg--3" style="height: 69px">[x,xxx]</div>
+                <div class="seg seg--4" style="height: 112px">[x,xxx]</div></div></div>
+              <div class="cat"><div class="total num">[xx,xxx]</div><div class="bar">
+                <div class="seg seg--1" style="height: 44px">[x,xxx]</div>
+                <div class="seg seg--2" style="height: 35px">[x,xxx]</div>
+                <div class="seg seg--3" style="height: 61px">[x,xxx]</div>
+                <div class="seg seg--4" style="height: 80px">[x,xxx]</div></div></div>
+              <div class="cat"><div class="total num">[xx,xxx]</div><div class="bar">
+                <div class="seg seg--1" style="height: 36px">[x,xxx]</div>
+                <div class="seg seg--2" style="height: 28px">[x,xxx]</div>
+                <div class="seg seg--3" style="height: 54px">[x,xxx]</div>
+                <div class="seg seg--4" style="height: 71px">[x,xxx]</div></div></div>
+            </div>
+            <div class="baseline"></div>
+            <div class="cats"><div data-slot="lang-cat-mod-1">2Q26</div><div data-slot="lang-cat-mod-2">1Q26</div><div data-slot="lang-cat-mod-3">2Q25</div></div>
+          </div>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">7</div>
+      </section>
+
+      <!-- ═══ 9 · SPLIT ══════════════════════════════════════════════════════
+           The module without its chart, which frees the whole right column.
+           7 top-level bullets here against a capacity of 20.                 -->
+      <section class="slide slide--split">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title" data-slot="segment-2">Wealth &amp; Asset Management</h1>
+
+        <div class="col col--l module">
+          <h2>Financial Results</h2>
+          <div class="table-zone">
+            <table class="data">
+              <thead>
+                <tr><th><span class="t-caption" data-slot="lang-units-tbl-2">$ in millions</span></th><th data-slot="lang-th-sp-1">2Q26</th><th data-slot="lang-th-sp-2">vs.<br />1Q26</th><th data-slot="lang-th-sp-3">vs.<br />2Q25</th><th data-slot="lang-th-sp-4">2Q26<br />YTD</th></tr>
+              </thead>
+              <tbody>
+                <tr><td data-slot="lang-line-sp-1">Asset management fees</td><td class="cur" data-slot="fig-split-1">[x,xxx]</td><td class="chg" data-slot="fig-split-2">[x]%</td><td class="chg" data-slot="fig-split-3">[xx]%</td><td class="cur" data-slot="fig-split-4">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-2">Performance fees</td><td class="cur" data-slot="fig-split-5">[xxx]</td><td class="chg" data-slot="fig-split-6">[xx]%</td><td class="chg" data-slot="fig-split-7">[xx]%</td><td class="cur" data-slot="fig-split-8">[xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-3">Private banking</td><td class="cur" data-slot="fig-split-9">[xxx]</td><td class="chg" data-slot="fig-split-10">[x]%</td><td class="chg" data-slot="fig-split-11">[x]%</td><td class="cur" data-slot="fig-split-12">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-4">Equity portfolio</td><td class="cur" data-slot="fig-split-13">[xxx]</td><td class="chg" data-slot="fig-split-14">([xx])%</td><td class="chg" data-slot="fig-split-15">[xx]%</td><td class="cur" data-slot="fig-split-16">[xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-5">Debt portfolio</td><td class="cur" data-slot="fig-split-17">[xxx]</td><td class="chg" data-slot="fig-split-18">[xx]%</td><td class="chg" data-slot="fig-split-19">[x]%</td><td class="cur" data-slot="fig-split-20">[xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-netrevenue-2">Net revenues</td><td data-slot="fig-split-21">[x,xxx]</td><td data-slot="fig-split-22">[x]%</td><td data-slot="fig-split-23">[xx]%</td><td data-slot="fig-split-24">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-provisionf-2">Provision for credit losses</td><td class="cur" data-slot="fig-split-25">[xx]</td><td class="chg" data-slot="fig-split-26">([xx])%</td><td class="chg" data-slot="fig-split-27">([xx])%</td><td class="cur" data-slot="fig-split-28">[xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-compensati-2">Compensation and benefits</td><td class="cur" data-slot="fig-split-29">[x,xxx]</td><td class="chg" data-slot="fig-split-30">[x]%</td><td class="chg" data-slot="fig-split-31">[xx]%</td><td class="cur" data-slot="fig-split-32">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-noncompens-2">Non-compensation expenses</td><td class="cur" data-slot="fig-split-33">[x,xxx]</td><td class="chg" data-slot="fig-split-34">[x]%</td><td class="chg" data-slot="fig-split-35">[xx]%</td><td class="cur" data-slot="fig-split-36">[x,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-pretaxearn-2">Pre-tax earnings</td><td data-slot="fig-split-37">[x,xxx]</td><td data-slot="fig-split-38">[x]%</td><td data-slot="fig-split-39">[xx]%</td><td data-slot="fig-split-40">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-netearning-2">Net earnings</td><td class="cur" data-slot="fig-split-41">[x,xxx]</td><td class="chg" data-slot="fig-split-42">[x]%</td><td class="chg" data-slot="fig-split-43">[xx]%</td><td class="cur" data-slot="fig-split-44">[x,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-returnonav-2">Return on average common equity</td><td data-slot="fig-split-45">[xx.x]%</td><td data-slot="fig-split-46">[x.x]pp</td><td data-slot="fig-split-47">[x.x]pp</td><td data-slot="fig-split-48">[xx.x]%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col col--r module">
+          <h2><span data-slot="segment-2">Wealth &amp; Asset Management</span> Highlights</h2>
+          <ul class="bullets">
+            <li data-slot="lang-blank-sp-1">Net revenues rose significantly year over year, with growth across every recurring line</li>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sp-1">Record asset management fees, with net inflows positive in every quarter since the investor day</span>
+              <ul>
+                <li data-slot="lang-blank-sp-2">Client assets closed the quarter at $[x.xx] trillion</li>
+                <li data-slot="lang-stat-sp-1">Long-term net inflows of $[xx] billion</li>
+              </ul>
+            </li>
+            <li data-slot="lang-blank-sp-3">Performance fees were the <span data-slot="rank-incentive-fees">[x]th</span> highest on record, driven by realisations across the private markets platform</li>
+            <li data-slot="lang-blank-sp-4">Private banking reflected a higher average loan balance, partially offset by narrower deposit spreads</li>
+            <li data-slot="lang-sp-li-principal">The equity portfolio declined against the prior quarter on lower net gains from the non-core legacy positions, and remains well above the prior year period</li>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sel-2">2Q26 select data:</span>
+              <ul>
+                <li data-slot="lang-stat-sp-2">Total alternative assets of $[xxx] billion</li>
+                <li data-slot="lang-stat-sp-3">Third-party private markets fundraising of $[xx] billion</li>
+              </ul>
+            </li>
+            <li data-slot="lang-blank-sp-5">Expenses grew more slowly than net revenues for the <span data-slot="streak-expense">[x]th</span> consecutive quarter, and the efficiency ratio improved to [xx.x]% from [xx.x]% in the prior year period</li>
+          </ul>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">8</div>
+      </section>
+
+      <!-- ═══ 10 · PROSE ══════════════════════════════════════════════════════ -->
+      <section class="slide slide--prose">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title">Cautionary Note Regarding Forward-Looking Statements</h1>
+
+        <div class="prose">
+          <p data-slot="lang-blank-pro-1">This presentation contains forward-looking statements within the meaning of the safe
+          harbour provisions of applicable securities law. Forward-looking statements are not
+          historical facts and are not statements of current condition. They reflect only the firm's
+          present beliefs about future events, and those beliefs are by their nature uncertain and in
+          large part outside the firm's control. Actual results, financial condition and liquidity may
+          differ from the outcomes anticipated in this document, and the difference may be material.
+          For a fuller description of the risks and of the factors that could produce such a
+          difference, see the risk factors section of the firm's most recent annual report and the
+          corresponding section of each subsequent quarterly report filed since that date.</p>
+
+          <p data-slot="lang-blank-pro-2">Information in this presentation regarding client assets, capital ratios, risk-weighted
+          assets, leverage measures, balance sheet composition and liquidity consists of preliminary
+          estimates. Those estimates are themselves forward-looking statements and are subject to
+          change, possibly materially, as the firm completes its financial statements for the period.
+          Statements concerning the timing and profitability of business initiatives, the achievability
+          of stated targets, the firm's expected effective tax rate, its planned benchmark debt
+          issuance, its prospective capital distributions and the future state of its regulatory
+          capital requirements are all forward-looking statements. Each is subject to the risk that the
+          operating environment may differ from what the firm currently expects, whether because of
+          changes in general economic and market conditions, changes in monetary, fiscal or trade
+          policy, the outbreak or escalation of armed conflict, or a shift in the regulatory backdrop
+          that the firm does not anticipate. Statements about prospective capital distributions are
+          additionally subject to the results of supervisory stress testing and to the finalisation of
+          outstanding capital rule proposals, neither of which the firm controls and neither of which
+          may resolve in the way the firm expects. Statements about advisory and capital markets
+          results are subject to the risk that transaction activity does not increase as anticipated,
+          that announced transactions are modified or abandoned, and that related net revenues are
+          therefore never realised or are realised at materially lower levels than expected. The firm
+          undertakes no obligation to update any forward-looking statement to reflect events or
+          circumstances arising after the date on which it was made.</p>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">9</div>
+      </section>
+
+      <!-- ═══ 11 · RECON ══════════════════════════════════════════════════════ -->
+      <section class="slide slide--recon">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title">Footnotes</h1>
+
+        <div class="notes">
+          <ol>
+            <li><p data-slot="lang-blank-rec-1">Diluted earnings per share includes the dilutive effect of instruments that are convertible into common shares and of other share-based arrangements outstanding during the period.</p></li>
+
+            <li>
+              <p data-slot="lang-blank-rec-2">Annualised return on average common shareholders' equity is calculated by dividing annualised net earnings applicable to common shareholders by average monthly common shareholders' equity. Annualised return on average tangible common shareholders' equity is calculated on the same basis using average monthly tangible common shareholders' equity. Tangible common shareholders' equity is calculated as total shareholders' equity less preferred stock, goodwill and identifiable intangible assets. Tangible book value per common share is calculated by dividing tangible common shareholders' equity by basic shares. Management believes these measures are meaningful because they are the measures the firm and its investors use to assess capital adequacy, and because return on tangible equity measures performance consistently whether a business was acquired or built internally. They are not measures recognised under generally accepted accounting principles and may not be comparable to similarly titled measures used by other companies.</p>
+              <p data-slot="lang-blank-rec-3">The table below presents a reconciliation of average and ending common shareholders' equity to average and ending tangible common shareholders' equity:</p>
+
+              <table class="recon">
+                <colgroup>
+                  <col style="width: 344.9px" /><col style="width: 172.5px" /><col style="width: 103.8px" />
+                  <col style="width: 173.7px" /><col style="width: 107.5px" /><col style="width: 32.5px" />
+                  <col style="width: 172.5px" /><col style="width: 106.3px" /><col style="width: 172.5px" />
+                  <col style="width: 105.0px" /><col style="width: 173.8px" /><col style="width: 103.7px" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="lbl" rowspan="3"><span class="t-caption" data-slot="lang-units-rec-1">Unaudited, $ in millions</span></th>
+                    <th class="grp" colspan="4" data-slot="lang-rec-basis-1">AVERAGE FOR THE</th>
+                    <th class="gap" rowspan="3"></th>
+                    <th class="grp" colspan="6" data-slot="lang-rec-basis-2">AS OF</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" data-slot="lang-rec-ended-1">THREE MONTHS ENDED</th>
+                    <th colspan="2" data-slot="lang-rec-ended-2">SIX MONTHS ENDED</th>
+                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-1">JUNE 30, 2026</th>
+                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-2">MARCH 31, 2026</th>
+                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-3">DECEMBER 31, 2025</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" data-slot="lang-th-rec-4">JUNE 30, 2026</th>
+                    <th colspan="2" data-slot="lang-th-rec-5">JUNE 30, 2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="rule-heavy">
+                    <td class="lbl" data-slot="lang-rec-row1-1">Total shareholders' equity</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-1">[xxx,xxx]</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-2">[xxx,xxx]</td>
+                    <td class="gap"></td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-3">[xxx,xxx]</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-4">[xxx,xxx]</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-5">[xxx,xxx]</td>
+                  </tr>
+                  <tr>
+                    <td class="lbl" data-slot="lang-rec-row2-1">Preferred stock</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-6">([xx,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-7">([xx,xxx])</td>
+                    <td class="gap"></td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-8">([xx,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-9">([xx,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-10">([xx,xxx])</td>
+                  </tr>
+                  <tr class="emph">
+                    <td class="lbl" data-slot="lang-rec-row3-1">Common shareholders' equity</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-11">[xxx,xxx]</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-12">[xxx,xxx]</td>
+                    <td class="gap"></td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-13">[xxx,xxx]</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-14">[xxx,xxx]</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-15">[xxx,xxx]</td>
+                  </tr>
+                  <tr class="rule-heavy">
+                    <td class="lbl" data-slot="lang-rec-row4-1">Goodwill</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-16">([x,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-17">([x,xxx])</td>
+                    <td class="gap"></td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-18">([x,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-19">([x,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-20">([x,xxx])</td>
+                  </tr>
+                  <tr>
+                    <td class="lbl" data-slot="lang-rec-row5-1">Identifiable intangible assets</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-21">([x,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-22">([x,xxx])</td>
+                    <td class="gap"></td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-23">([x,xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-24">([xxx])</td>
+                    <td class="mark"></td><td class="num" data-slot="fig-recon-25">([xxx])</td>
+                  </tr>
+                  <tr class="emph">
+                    <td class="lbl" data-slot="lang-rec-row6-1">Tangible common shareholders' equity</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-26">[xxx,xxx]</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-27">[xxx,xxx]</td>
+                    <td class="gap"></td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-28">[xxx,xxx]</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-29">[xxx,xxx]</td>
+                    <td class="mark">$</td><td class="num" data-slot="fig-recon-30">[xxx,xxx]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+
+            <li><p data-slot="lang-blank-rec-4">Market share and league table position sourced from a third-party transaction database, covering 1 January 2026 through 30 June 2026.</p></li>
+
+            <li>
+              <p data-slot="lang-blank-rec-5">For information about the items referenced above, see the corresponding sections of the firm's quarterly report for the period ended 31 March 2026: investment banking fees backlog under results of operations, client assets and alternative assets under <span data-slot="segment-2-lc">wealth and asset management</span>, the efficiency ratio under operating expenses, basic shares under balance sheet analysis and metrics, the share repurchase programme under capital management and regulatory capital, and the liquidity pool under liquidity risk management.</p>
+              <p data-slot="lang-blank-rec-6">Preliminary estimates for the second quarter of 2026 cover client assets, alternative assets, capital ratios, risk-weighted assets, supplementary leverage, balance sheet data and the firm's liquidity pool. Each may be revised in the firm's quarterly report for the period ended 30 June 2026.</p>
+            </li>
+
+            <li><p data-slot="lang-blank-rec-7">Long-term client assets include $[xx] billion added through an acquisition completed during the period, net of $[xx] billion that left with a disposition, in each case for the three months ended 30 June 2026.</p></li>
+          </ol>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">10</div>
+      </section>
+
+      <!-- ═══ 12 · NOTES-CONTINUED ═══════════════════════════════════════════
+           Back matter over its ceiling BREAKS. It does not shrink its type and
+           it does not spill: the title repeats with a suffix and the numbering
+           resumes. Every deck in the corpus that ran long did it this way, and
+           one ran to three pages of it.
+
+           --note-start is the number of the LAST note on the previous page, not
+           the first on this one. Slide 5 ends on note 5, so this reads 5 and
+           the first item here increments to 6.                              -->
+      <section class="slide slide--notes-continued">
+        <div class="page-rule"></div>
+        <h1 class="page-title t-title">Footnotes &ndash; Continued</h1>
+
+        <div class="notes notes--continued" style="--note-start: 5">
+          <ol>
+            <li><p data-slot="lang-blank-nc-1">Financing net revenues comprise the financing components of the equities and fixed income lines, and are presented separately because the firm manages the balance-sheet intensity of those activities on a combined basis. The measure is not recognised under generally accepted accounting principles and may not be comparable to a similarly titled measure at another firm.</p></li>
+
+            <li>
+              <p data-slot="lang-blank-nc-2">Alternative assets under supervision comprise assets in alternative investment strategies managed for third parties, including private equity, private credit, real estate, infrastructure, hedge fund strategies and multi-asset solutions with an alternatives component. Third-party fundraising represents commitments closed during the period and is reported gross of any subsequent reduction, expiry or termination.</p>
+              <p data-slot="lang-fn-principal">The non-core legacy portfolio comprises legacy structured assets and closed-book consumer lending positions retained from before the current strategy. The firm has committed to winding down this portfolio and reports the balance each period so the reduction can be tracked independently of the results it produces.</p>
+            </li>
+
+            <li><p data-slot="lang-blank-nc-3">Client assets comprise assets under supervision together with brokerage assets held in client accounts. Long-term net inflows exclude liquidity products, which move with short-term rates rather than with client relationships and are therefore reported separately.</p></li>
+
+            <li><p data-slot="lang-blank-nc-4">Through-the-cycle targets describe performance the firm expects to achieve on average across a full economic cycle rather than in any single reporting period. They are forward-looking statements and are subject in full to the cautionary note at the front of this presentation. Nothing in this document promises any target will be met in a particular quarter or year.</p></li>
+
+            <li><p data-slot="lang-blank-nc-5">Wallet share is calculated as the firm's reported net revenues in a product area divided by the aggregate reported net revenues of the peer set named in the appendix, in each case for the twelve months ended 31 December. The peer set is held constant across all periods shown so that the series is not affected by a change in its composition, and it is restated only when a member ceases to report the relevant line.</p></li>
+
+            <li><p data-slot="lang-blank-nc-6">League table position and market share are sourced from a third-party transaction database as at 2 January 2026 and cover announced and completed transactions credited to the period in which they were announced or completed. Rankings are subject to restatement by the provider as transactions are added, withdrawn or reclassified after the date of this presentation.</p></li>
+
+            <li>
+              <p data-slot="lang-blank-nc-7">The efficiency ratio is total operating expenses divided by total net revenues. Pre-tax margin is pre-tax earnings divided by total net revenues. Both are presented for the period indicated and are not annualised.</p>
+              <p data-slot="lang-blank-nc-8">Compound annual growth rates are calculated from the first to the last period shown and assume constant compounding across the intervening years. A rate quoted over a period shorter than three years is stated with its endpoints so it cannot be read as a longer-run trend.</p>
+            </li>
+
+            <li><p data-slot="lang-blank-nc-9">Financing revenues within equities comprise prime brokerage, securities lending and margin lending. Financing revenues within fixed income comprise secured lending against corporate and mortgage collateral, repurchase agreements and other structured lending. The firm reports the two together because it manages the balance-sheet capacity supporting them as one resource, and the split between them shifts with client demand rather than with any decision the firm makes.</p></li>
+
+            <li><p data-slot="lang-blank-nc-10">Return on average tangible common shareholders' equity is calculated by dividing net earnings applicable to common shareholders by average monthly tangible common shareholders' equity. Tangible common shareholders' equity excludes goodwill and identifiable intangible assets. The measure is not recognised under generally accepted accounting principles; a reconciliation to the most directly comparable measure that is appears on the preceding page.</p></li>
+
+            <li><p data-slot="lang-blank-nc-11">Stress capital buffer is the requirement communicated by the firm's primary federal regulator following the annual supervisory stress test, effective for the four quarters beginning 1 October of the year in which it is communicated. The figure shown for the earlier period is the requirement in force at that date and is not restated for any subsequent change in methodology.</p></li>
+
+            <li><p data-slot="lang-blank-nc-12">Unless otherwise stated, all figures are as of or for the twelve months ended 31 December 2025, all comparisons are against the corresponding prior-year period, and all amounts are in United States dollars. Totals may not sum because of rounding.</p></li>
+          </ol>
+        </div>
+
+        <div class="brand-slot"></div>
+        <div class="folio">11</div>
+      </section>
+
+    </div>
+
+    <div class="font-prime" aria-hidden="true"
+         ><i>A</i><i>A</i><i>A</i><i>A</i><i>A</i><i>A</i></div>
+
+    <div class="counter" id="counter"></div>
+
+    <!-- Keep-out bounds per pattern, read by research/tools/verify-render.py.
+         The floors are the extraction's, so a change to ZONE E that breaks one
+         of them fails the check rather than shipping quietly. -->
+    <script type="application/json" id="proof-spec">
+    {
+      "name": "institutional-ir template",
+      "right_edge_f": 0.9688,
+      "mark_clearance_px": 24,
+      "slides": [
+        {
+          "sel": ".slide--cover",
+          "label": "cover",
+          "bounds": [
+            {
+              "sel": ".cover-title",
+              "max_y_f": 0.7244,
+              "label": "title above the rule"
+            },
+            {
+              "sel": ".cover-date",
+              "max_y_f": 0.9676,
+              "label": "date above the keep-out"
+            }
+          ],
+          "report": {
+            "title_lines": {
+              "sel": ".cover-title",
+              "prop": "lines",
+              "lh": 132.6
+            },
+            "title_top_y_f": {
+              "sel": ".cover-title",
+              "prop": "top_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--chart-split",
+          "label": "chart-split",
+          "bounds": [
+            {
+              "sel": ".zone--l > *:last-child",
+              "max_y_f": 0.93,
+              "label": "left zone content"
+            },
+            {
+              "sel": ".zone--r > *:last-child",
+              "max_y_f": 0.93,
+              "label": "right zone content"
+            },
+            {
+              "sel": ".page-title",
+              "max_y_f": 0.127,
+              "label": "title clears the body"
+            }
+          ],
+          "report": {
+            "assertions": {
+              "sel": ".zone--l .assert",
+              "prop": "count"
+            },
+            "bar_categories": {
+              "sel": ".plot .cat",
+              "prop": "count"
+            },
+            "title_width": {
+              "sel": ".page-title",
+              "prop": "bottom_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--panel-row",
+          "label": "panel-row",
+          "bounds": [
+            {
+              "sel": ".band",
+              "max_y_f": 0.255,
+              "label": "thesis strip clears the panels"
+            },
+            {
+              "sel": ".panel-row",
+              "max_y_f": 0.9095,
+              "label": "panel row"
+            }
+          ],
+          "report": {
+            "panels": {
+              "sel": ".panel-row > .pane",
+              "prop": "count"
+            },
+            "boxes": {
+              "sel": ".panel-row .box",
+              "prop": "count"
+            }
+          }
+        },
+        {
+          "sel": ".slide--checklist",
+          "label": "checklist",
+          "bounds": [
+            {
+              "sel": ".band",
+              "max_y_f": 0.3185,
+              "label": "summary band"
+            },
+            {
+              "sel": ".checklist-grid",
+              "max_y_f": 0.7635,
+              "label": "grid clears the coda rule"
+            },
+            {
+              "sel": ".checklist-coda",
+              "max_y_f": 0.93,
+              "label": "coda"
+            }
+          ],
+          "report": {
+            "band_cells": {
+              "sel": ".band-cell",
+              "prop": "count"
+            },
+            "grid_assertions": {
+              "sel": ".checklist-grid .assert",
+              "prop": "count"
+            },
+            "sub_lines": {
+              "sel": ".assert p",
+              "prop": "count"
+            }
+          }
+        },
+        {
+          "sel": ".slide--hero-chart",
+          "label": "hero-chart",
+          "bounds": [
+            {
+              "sel": ".hero > .box-row",
+              "max_y_f": 0.93,
+              "label": "closing box row"
+            }
+          ],
+          "report": {
+            "bar_categories": {
+              "sel": ".plot .cat",
+              "prop": "count"
+            },
+            "series": {
+              "sel": ".legend span",
+              "prop": "count"
+            },
+            "boxes": {
+              "sel": ".hero .box",
+              "prop": "count"
+            },
+            "boxes_bottom_y_f": {
+              "sel": ".hero > .box-row",
+              "prop": "bottom_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--stat-board",
+          "label": "stat-board",
+          "bounds": [
+            {
+              "sel": ".stat-row",
+              "max_y_f": 0.437,
+              "label": "stat row clears the panel"
+            },
+            {
+              "sel": ".frame",
+              "max_y_f": 0.93,
+              "label": "panel"
+            }
+          ],
+          "report": {
+            "stats": {
+              "sel": ".stat",
+              "prop": "count"
+            },
+            "boxes": {
+              "sel": ".frame .box",
+              "prop": "count"
+            },
+            "panel_bottom_y_f": {
+              "sel": ".frame",
+              "prop": "bottom_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--snapshot",
+          "label": "snapshot",
+          "bounds": [
+            {
+              "sel": ".t-quote",
+              "max_y_f": 0.8456,
+              "label": "quote text inside the panel padding"
+            },
+            {
+              "sel": ".quote-role",
+              "max_y_f": 0.8456,
+              "label": "attribution inside the panel padding"
+            },
+            {
+              "sel": ".kpi-grid",
+              "max_y_f": 0.5895,
+              "label": "tile grid"
+            },
+            {
+              "sel": ".highlights",
+              "max_y_f": 0.8799,
+              "label": "highlights"
+            }
+          ],
+          "report": {
+            "quote_lines": {
+              "sel": ".t-quote",
+              "prop": "lines",
+              "lh": 37.3
+            },
+            "tiles": {
+              "sel": ".tile",
+              "prop": "count"
+            },
+            "tile_rows": {
+              "sel": ".tile-row",
+              "prop": "count"
+            },
+            "bullets": {
+              "sel": ".highlights .bullets > li",
+              "prop": "count"
+            }
+          }
+        },
+        {
+          "sel": ".slide--module",
+          "label": "module",
+          "bounds": [
+            {
+              "sel": ".data",
+              "max_y_f": 0.795,
+              "label": "table zone"
+            },
+            {
+              "sel": ".cats",
+              "max_y_f": 0.93,
+              "label": "narrative and chart column"
+            }
+          ],
+          "report": {
+            "rows": {
+              "sel": ".data tbody tr",
+              "prop": "count"
+            },
+            "bullets_top": {
+              "sel": ".col--r > .bullets > li",
+              "prop": "count"
+            },
+            "table_bottom_y_f": {
+              "sel": ".data",
+              "prop": "bottom_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--split",
+          "label": "split",
+          "bounds": [
+            {
+              "sel": ".data",
+              "max_y_f": 0.795,
+              "label": "table zone"
+            },
+            {
+              "sel": ".col--r > .bullets",
+              "max_y_f": 0.93,
+              "label": "narrative column"
+            }
+          ],
+          "report": {
+            "rows": {
+              "sel": ".data tbody tr",
+              "prop": "count"
+            },
+            "bullets_top": {
+              "sel": ".col--r > .bullets > li",
+              "prop": "count"
+            }
+          }
+        },
+        {
+          "sel": ".slide--prose",
+          "label": "prose",
+          "bounds": [
+            {
+              "sel": ".prose",
+              "max_y_f": 0.9326,
+              "label": "prose above the brand mark"
+            }
+          ],
+          "report": {
+            "prose_lines": {
+              "sel": ".prose",
+              "prop": "lines",
+              "lh": 24
+            },
+            "prose_bottom_y_f": {
+              "sel": ".prose",
+              "prop": "bottom_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--recon",
+          "label": "recon",
+          "bounds": [
+            {
+              "sel": ".notes",
+              "max_y_f": 0.9326,
+              "label": "notes above the brand mark"
+            }
+          ],
+          "report": {
+            "notes": {
+              "sel": ".notes > ol > li",
+              "prop": "count"
+            },
+            "table_rows": {
+              "sel": ".recon tbody tr",
+              "prop": "count"
+            },
+            "notes_bottom_y_f": {
+              "sel": ".notes",
+              "prop": "bottom_f"
+            }
+          }
+        },
+        {
+          "sel": ".slide--notes-continued",
+          "label": "notes-continued",
+          "bounds": [
+            {
+              "sel": ".notes",
+              "max_y_f": 0.9326,
+              "label": "notes above the brand mark"
+            }
+          ],
+          "report": {
+            "notes": {
+              "sel": ".notes > ol > li",
+              "prop": "count"
+            },
+            "notes_bottom_y_f": {
+              "sel": ".notes",
+              "prop": "bottom_f"
+            }
+          }
+        }
+      ]
+    }
+    </script>
+
+    <script>
+      // Fit the fixed stage to the viewport, letterboxed. Uniform scale on both
+      // axes, so nothing distorts at any aspect ratio and every measurement in
+      // ZONE E stays true.
+      const slides = [...document.querySelectorAll(".slide")];
+      const counter = document.getElementById("counter");
+      let i = 0;
+
+      function fit() {
+        const z = Math.min(innerWidth / 1920, innerHeight / 1080);
+        const s = document.documentElement.style;
+        s.setProperty("--z", z);
+        s.setProperty("--ox", (innerWidth - 1920 * z) / 2 + "px");
+        s.setProperty("--oy", (innerHeight - 1080 * z) / 2 + "px");
+      }
+
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
+        counter.textContent = `${i + 1} / ${slides.length}`;
+      }
+
+      addEventListener("resize", fit);
+      // Click to page: right half forward, left half back. Keyboard is the
+      // convention in this library, but a deck embedded in a pane does not
+      // always hold focus, and a reviewer should not have to hunt for it.
+      addEventListener("click", (e) => {
+        show(e.clientX > innerWidth / 2 ? i + 1 : i - 1);
+      });
+      addEventListener("keydown", (e) => {
+        if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(i + 1); }
+        if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+        if (e.key === "Home") show(0);
+        if (e.key === "End") show(slides.length - 1);
+      });
+
+      fit();
+      show(0);
+    </script>
+  </body>
+</html>

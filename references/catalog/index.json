@@ -1,0 +1,12 @@
+{
+  "_comment": "Template catalog for deck-builder. One entry per template; the skill defaults to the only entry without asking while a single one exists. Entry files (template.html, budgets.json, slots.json, design-notes.md) are synced from the lane by audience-skills/skills/deck-builder/sync-catalog.sh and are gitignored in this tree; a missing entry directory means the sync has not run.",
+  "templates": [
+    {
+      "id": "institutional-ir",
+      "name": "Institutional IR",
+      "tagline": "Bulge-bracket reporting: banded tables, hairline rules, zero ornament.",
+      "best_for": "Quarterly and annual results, investor updates, board decks; anything read at desk distance under a skeptical line-by-line read.",
+      "avoid_for": "Pitches and decks that need warmth or momentum; the genre has no agenda, divider, or closing pages and the restraint reads as cold when the room wants energy."
+    }
+  ]
+}

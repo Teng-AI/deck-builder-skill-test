@@ -109,6 +109,219 @@ def split_sections(html):
     return html[:prefix_end], sections, html[chunk_start:]
 
 
+def section_span(html, pattern, occurrence=0):
+    """(start, end) of the Nth rendered section of a pattern, else None."""
+    n = -1
+    for m in re.finditer(r'<section class="slide[^"]*slide--([\w-]+)">', html):
+        if m.group(1) == pattern:
+            n += 1
+            if n == occurrence:
+                return m.start(), element_end(html, m.end(), "section")
+    return None
+
+
+def split_instance(did):
+    """'m2:module.row-5' -> ('m2:', 1, 'module.row-5'); bare ids -> instance 0."""
+    m = re.match(r"(?:m(\d+):)?(.+)$", did)
+    inst = int(m.group(1)) - 1 if m.group(1) else 0
+    pref = f"m{inst + 1}:" if inst else ""
+    return pref, inst, m.group(2)
+
+
+def fmt_num(v):
+    return f"{v:,.10g}"
+
+
+def remove_slot_element(html, name):
+    m = re.search(rf'<(\w+)[^>]*\bdata-slot="{re.escape(name)}"[^>]*>', html)
+    if not m:
+        return html
+    return html[:m.start()] + html[element_end(html, m.end(), m.group(1)):]
+
+
+def cells_of(row_html):
+    return re.findall(r"<t[dh]\b.*?</t[dh]>", row_html, re.S)
+
+
+def drop_row_cells(table_html, idxs):
+    """Remove the given cell indexes from every row of a table fragment."""
+    def per_row(m):
+        row = m.group(0)
+        cells = cells_of(row)
+        if len(cells) <= max(idxs):
+            return row
+        head = row[: row.find(cells[0])]
+        tail = row[row.rfind(cells[-1]) + len(cells[-1]):]
+        return head + "".join(c for i, c in enumerate(cells) if i not in idxs) + tail
+    return re.sub(r"<tr\b.*?</tr>", per_row, table_html, flags=re.S)
+
+
+def apply_drops(html, drops, blocks):
+    for did in drops:
+        pref, inst, base = split_instance(did)
+        blk = blocks.get(base)
+        if blk is None:
+            sys.exit(f"drop id not declared in collapse.json: {did}")
+        fam = blk["family"]
+        page = blk.get("page") or blk.get("table_page") or base.split(".")[0]
+        if base.startswith("recon"):
+            page = "recon"
+        span = section_span(html, page, inst)
+        if span is None:
+            sys.exit(f"drop {did}: page '{page}' (instance {inst + 1}) is not "
+                     "in the rendered deck")
+        s, e = span
+        sec = html[s:e]
+        if fam == "table-row":
+            m = re.search(rf'data-slot="{re.escape(pref + blk["anchor_slot"])}"', sec)
+            if not m:
+                sys.exit(f"drop {did}: anchor slot not found")
+            rs = sec.rfind("<tr", 0, m.start())
+            re_ = sec.find("</tr>", m.start()) + len("</tr>")
+            sec = sec[:rs] + sec[re_:]
+        elif fam == "table-cols":
+            t = sec.find('<table class="data">')
+            te = element_end(sec, t + len('<table class="data">'), "table")
+            idxs = set(blk["col_indexes"])
+            sec = sec[:t] + drop_row_cells(sec[t:te], idxs) + sec[te:]
+        elif fam == "element":
+            m = re.search(rf'<div class="{re.escape(blk["container_class"])}[" ]', sec)
+            if not m:
+                sys.exit(f"drop {did}: container .{blk['container_class']} not found")
+            sec = sec[:m.start()] + sec[element_end(sec, sec.find(">", m.start()) + 1, "div"):]
+        elif fam == "recon-avg":
+            cg = sec.find("<colgroup>")
+            cge = sec.find("</colgroup>")
+            cols = re.findall(r"<col[^>]*/>", sec[cg:cge])
+            sec = sec[:cg] + "<colgroup>" + "".join([cols[0]] + cols[6:]) \
+                + sec[cge:]
+            for slot in ("lang-rec-basis-1", "lang-rec-ended-1",
+                         "lang-rec-ended-2"):
+                sec = remove_slot_element(sec, slot)
+            sec = sec.replace('<th class="gap" rowspan="3"></th>', "", 1)
+            th = sec.find("<thead>")
+            the = sec.find("</thead>")
+            head = sec[th:the]
+            rows = list(re.finditer(r"<tr\b.*?</tr>", head, re.S))
+            if len(rows) == 3:  # the date row is empty once th-4/5 slots left
+                head = head[:rows[2].start()] + head[rows[2].end():]
+            head = remove_slot_element(head, "lang-th-rec-4")
+            head = remove_slot_element(head, "lang-th-rec-5")
+            sec = sec[:th] + head + sec[the:]
+            tb = sec.find("<tbody>")
+            tbe = sec.find("</tbody>")
+            sec = sec[:tb] + drop_row_cells(sec[tb:tbe], {1, 2, 3, 4, 5}) \
+                + sec[tbe:]
+        else:
+            sys.exit(f"drop {did}: unknown family {fam}")
+        html = html[:s] + sec + html[e:]
+    return html
+
+
+def rewrite_stacked(html, span, data, spec, ipref):
+    s, e = span
+    sec = html[s:e]
+    p = sec.find('<div class="plot">')
+    pe = element_end(sec, p + len('<div class="plot">'), "div")
+    plot = sec[p:pe]
+    series = data["series"]
+    n = len(series)
+    totals = data.get("totals")
+    col_totals = [sum(sr[c] for sr in series) for c in range(spec["cats"])]
+    scale = spec["scale_px"] / max(col_totals)
+    order = []
+    for x in (int(x) for x in re.findall(r"seg seg--(\d)", plot)):
+        if x not in order:
+            order.append(x)
+    order = [x for x in order if x <= n]
+    out, pos, c = [], 0, 0
+    while True:
+        i = plot.find('<div class="cat">', pos)
+        if i < 0:
+            out.append(plot[pos:])
+            break
+        ce = element_end(plot, i + len('<div class="cat">'), "div")
+        cat = plot[i:ce]
+        if totals is not None:
+            t = totals[c]
+            cat = re.sub(r'(<div class="total num">)[^<]*(</div>)',
+                         lambda m: m.group(1) + t + m.group(2), cat, count=1)
+        b = cat.find('<div class="bar">')
+        be = element_end(cat, b + len('<div class="bar">'), "div")
+        segs = []
+        for k in order:
+            v = series[k - 1][c]
+            if v <= 0:
+                continue
+            h = max(2, round(v * scale))
+            label = fmt_num(v) if spec["seg_labels"] else ""
+            segs.append(f'<div class="seg seg--{k}" '
+                        f'style="height: {h}px">{label}</div>')
+        cat = cat[:b] + '<div class="bar">' + "".join(segs) + "</div>" + cat[be:]
+        out.append(plot[pos:i])
+        out.append(cat)
+        pos, c = ce, c + 1
+    sec = sec[:p] + "".join(out) + sec[pe:]
+    if spec.get("legend_prefix"):
+        for k in range(n + 1, spec["max_series"] + 1):
+            sec = remove_slot_element(sec, f'{ipref}{spec["legend_prefix"]}{k}')
+    return html[:s] + sec + html[e:]
+
+
+def rewrite_pair(html, span, data, spec):
+    s, e = span
+    sec = html[s:e]
+    plots = list(re.finditer(r'<div class="plot plot--pair">', sec))
+    m = plots[spec["plot_index"]]
+    pe = element_end(sec, m.end(), "div")
+    plot = sec[m.start():pe]
+    vals = data["values"]
+    totals = data.get("totals")
+    scale = spec["scale_px"] / max(vals)
+    parts, pos, ci = [], 0, 0
+    for cm in re.finditer(r'<div class="cat( cat--prior)?">', plot):
+        if cm.start() < pos:
+            continue
+        ce = element_end(plot, cm.end(), "div")
+        cat = plot[cm.start():ce]
+        h = max(2, round(vals[ci] * scale)) if vals[ci] > 0 else 0
+        cat = re.sub(r'(style="height: )\d+(px")', rf"\g<1>{h}\g<2>", cat,
+                     count=1)
+        if totals is not None:
+            t = totals[ci]
+            cat = re.sub(r'(<div class="total num">)[^<]*(</div>)',
+                         lambda mm: mm.group(1) + t + mm.group(2), cat, count=1)
+        parts.append(plot[pos:cm.start()])
+        parts.append(cat)
+        pos, ci = ce, ci + 1
+    parts.append(plot[pos:])
+    sec = sec[:m.start()] + "".join(parts) + sec[pe:]
+    if "trend" in data:
+        trends = list(re.finditer(r'(<div class="trend">).*?(</div>)', sec,
+                                  re.S))
+        t = trends[spec["plot_index"]]
+        sec = sec[:t.start()] + t.group(1) + data["trend"] + t.group(2) \
+            + sec[t.end():]
+    return html[:s] + sec + html[e:]
+
+
+def apply_charts(html, charts, spec_map):
+    for cid, data in charts.items():
+        ipref, inst, base = split_instance(cid)
+        spec = spec_map.get(base)
+        if spec is None:
+            sys.exit(f"chart id not declared in charts.json: {cid}")
+        span = section_span(html, spec["page"], inst)
+        if span is None:
+            sys.exit(f"chart {cid}: page '{spec['page']}' (instance "
+                     f"{inst + 1}) is not in the rendered deck")
+        if spec["kind"] == "pair":
+            html = rewrite_pair(html, span, data, spec)
+        else:
+            html = rewrite_stacked(html, span, data, spec, ipref)
+    return html
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if not args:
@@ -225,6 +438,23 @@ def main():
     if n != 1:
         sys.exit("could not find </head> to carry the brand-slot style")
 
+    # --- v1.1: collapse points, then data-driven charts ---------------------
+    drops = deck.get("drop", [])
+    charts = deck.get("charts", {})
+    if drops:
+        cpath = catalog / "collapse.json"
+        if not cpath.exists():
+            sys.exit("deck.json drops blocks but this catalog entry has no "
+                     "collapse.json (v1 catalog?)")
+        html = apply_drops(html, drops, json.loads(cpath.read_text())["blocks"])
+    if charts:
+        cpath = catalog / "charts.json"
+        if not cpath.exists():
+            sys.exit("deck.json carries charts but this catalog entry has no "
+                     "charts.json (v1 catalog?)")
+        html = apply_charts(html, charts,
+                            json.loads(cpath.read_text())["charts"])
+
     # --- folios -------------------------------------------------------------
     counter = {"n": 0}
 
@@ -283,6 +513,13 @@ def main():
     if not marks:
         print("  brand slots: empty (no mark supplied; the placeholder box "
               "is suppressed in the build)")
+    if drops:
+        print(f"  collapse points dropped: {len(drops)} "
+              f"({', '.join(drops)})")
+    if charts:
+        print(f"  data-driven charts: {len(charts)} "
+              f"({', '.join(charts)}); their geometry now carries the "
+              "deck's own values")
     print(f"  slots filled: {len(filled)}   tokens: {len(tokens)}")
     if cta_line:
         print(f"  CTA: {cta_line}")

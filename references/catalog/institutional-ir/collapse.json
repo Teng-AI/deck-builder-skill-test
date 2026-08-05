@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "what": "Declared collapse points (v1.1): the only blocks a deck.json may drop, each with a designed reflow verified by render at bank-making time. deck.json's drop list may name only these ids; module ids take m<N>: instance prefixes. The slots list drives the checker's coverage exemption; the builder's removal mechanics are per-family.",
+    "refusal": "No free-form removal. An id not in this file FAILS the check."
+  },
+  "blocks": {
+    "module.row-1": {
+      "family": "table-row",
+      "desc": "Segment table line row 1",
+      "anchor_slot": "lang-line-mod-1",
+      "slots": ["lang-line-mod-1", "fig-module-1", "fig-module-2", "fig-module-3", "fig-module-4"]
+    },
+    "module.row-2": {
+      "family": "table-row",
+      "desc": "Segment table line row 2",
+      "anchor_slot": "lang-line-mod-2",
+      "slots": ["lang-line-mod-2", "fig-module-5", "fig-module-6", "fig-module-7", "fig-module-8"]
+    },
+    "module.row-3": {
+      "family": "table-row",
+      "desc": "Segment table line row 3",
+      "anchor_slot": "lang-line-mod-3",
+      "slots": ["lang-line-mod-3", "fig-module-9", "fig-module-10", "fig-module-11", "fig-module-12"]
+    },
+    "module.row-4": {
+      "family": "table-row",
+      "desc": "Segment table line row 4",
+      "anchor_slot": "lang-line-mod-4",
+      "slots": ["lang-line-mod-4", "fig-module-13", "fig-module-14", "fig-module-15", "fig-module-16"]
+    },
+    "module.row-5": {
+      "family": "table-row",
+      "desc": "Segment table line row 5",
+      "anchor_slot": "lang-line-mod-5",
+      "slots": ["lang-line-mod-5", "fig-module-17", "fig-module-18", "fig-module-19", "fig-module-20"]
+    },
+    "module.cols-34": {
+      "family": "table-cols",
+      "desc": "Comparison columns 3-4 of the segment table (for decks with one comparison period)",
+      "table_page": "module",
+      "col_indexes": [3, 4],
+      "slots": ["lang-th-mod-3", "lang-th-mod-4",
+                "fig-module-3", "fig-module-4", "fig-module-7", "fig-module-8",
+                "fig-module-11", "fig-module-12", "fig-module-15", "fig-module-16",
+                "fig-module-19", "fig-module-20", "fig-module-23", "fig-module-24",
+                "fig-module-27", "fig-module-28", "fig-module-31", "fig-module-32",
+                "fig-module-35", "fig-module-36", "fig-module-39", "fig-module-40",
+                "fig-module-43", "fig-module-44", "fig-module-47", "fig-module-48"]
+    },
+    "cs.targets": {
+      "family": "element",
+      "desc": "The targets frame on chart-split (for decks announcing no targets there)",
+      "container_class": "frame",
+      "page": "chart-split",
+      "slots": ["lang-cs-tgt-title", "lang-cs-tgt-k1", "target-margin-prior",
+                "target-margin-updated", "lang-cs-tgt-k2", "target-returns-prior",
+                "target-returns-updated"]
+    },
+    "hc.boxes": {
+      "family": "element",
+      "desc": "The growth-channel box row under the hero chart",
+      "container_class": "box-row",
+      "page": "hero-chart",
+      "slots": ["lang-hc-box-1", "lang-hc-box-2", "lang-hc-box-3",
+                "lang-hc-box-4", "lang-hc-box-5"]
+    },
+    "recon.avg-cols": {
+      "family": "recon-avg",
+      "desc": "The 'Average for the' column group on the reconciliation table",
+      "slots": ["lang-rec-basis-1", "lang-rec-ended-1", "lang-rec-ended-2",
+                "lang-th-rec-4", "lang-th-rec-5",
+                "fig-recon-1", "fig-recon-2", "fig-recon-6", "fig-recon-7",
+                "fig-recon-11", "fig-recon-12", "fig-recon-16", "fig-recon-17",
+                "fig-recon-21", "fig-recon-22", "fig-recon-26", "fig-recon-27"]
+    }
+  }
+}

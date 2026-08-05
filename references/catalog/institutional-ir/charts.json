@@ -1,0 +1,71 @@
+{
+  "_meta": {
+    "what": "Chart spec for data-driven charts (v1.1). Hand-authored against template.html; scale_px is the template's tallest column (stacked sum or single bar) so data-driven geometry never exceeds the measured plot. Both build_deck.py and check_deck.py read this file; neither hardcodes chart shape.",
+    "ids": "module takes m<N>: instance prefixes in deck.json; the others are singletons."
+  },
+  "charts": {
+    "module": {
+      "page": "module",
+      "kind": "stacked",
+      "cats": 3,
+      "max_series": 4,
+      "seg_labels": true,
+      "totals": true,
+      "legend_prefix": "lang-legend-mod-",
+      "scale_px": 272
+    },
+    "cs": {
+      "page": "chart-split",
+      "kind": "stacked",
+      "cats": 5,
+      "max_series": 2,
+      "seg_labels": true,
+      "totals": true,
+      "legend_prefix": "lang-legend-cs-",
+      "scale_px": 240
+    },
+    "hc": {
+      "page": "hero-chart",
+      "kind": "stacked",
+      "cats": 5,
+      "max_series": 4,
+      "seg_labels": false,
+      "totals": true,
+      "legend_prefix": "lang-legend-hc-",
+      "scale_px": 438
+    },
+    "pr-1": {
+      "page": "panel-row",
+      "kind": "pair",
+      "cats": 2,
+      "max_series": 1,
+      "seg_labels": false,
+      "totals": true,
+      "legend_prefix": null,
+      "scale_px": 341,
+      "plot_index": 0
+    },
+    "pr-2": {
+      "page": "panel-row",
+      "kind": "pair",
+      "cats": 2,
+      "max_series": 1,
+      "seg_labels": false,
+      "totals": true,
+      "legend_prefix": null,
+      "scale_px": 341,
+      "plot_index": 1
+    },
+    "pr-3": {
+      "page": "panel-row",
+      "kind": "pair",
+      "cats": 2,
+      "max_series": 1,
+      "seg_labels": false,
+      "totals": true,
+      "legend_prefix": null,
+      "scale_px": 341,
+      "plot_index": 2
+    }
+  }
+}

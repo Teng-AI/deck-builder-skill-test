@@ -146,7 +146,8 @@ def main():
 
     # --- schema -------------------------------------------------------------
     for key in deck:
-        if key not in {"_meta", "pages", "tokens", "marks", "slots", "keep"}:
+        if key not in {"_meta", "pages", "tokens", "marks", "slots", "keep",
+                       "drop", "charts"}:
             fail(f"schema: unknown top-level key {key!r}")
 
     plan = []
@@ -194,9 +195,124 @@ def main():
         if not any(p in retained for p in pages_of):
             fail(f"slots: {slot!r} lives only on dropped pages {pages_of}")
 
+    # --- v1.1: collapse drops + data-driven charts --------------------------
+    collapse = charts_spec = None
+    if (catalog / "collapse.json").exists():
+        collapse = json.loads((catalog / "collapse.json").read_text())["blocks"]
+    if (catalog / "charts.json").exists():
+        charts_spec = json.loads((catalog / "charts.json").read_text())["charts"]
+
+    def block_page(base, blk):
+        return (blk.get("page") or blk.get("table_page")
+                or base.split(".")[0])
+
+    dropped_exempt = set()
+    drops = deck.get("drop", [])
+    if drops and collapse is None:
+        fail("drop: this catalog entry declares no collapse points "
+             "(no collapse.json)")
+    for did in drops if collapse else []:
+        m = re.match(r"m(\d+):(.+)", did)
+        base, inst = (m.group(2), int(m.group(1))) if m else (did, 1)
+        blk = collapse.get(base)
+        if blk is None:
+            fail(f"drop: {did!r} is not a declared collapse point; declared "
+                 f"ids are {sorted(collapse)}")
+            continue
+        page = block_page(base, blk)
+        if m and page != "module":
+            fail(f"drop: {did!r} carries an instance prefix but {base!r} is "
+                 "not a module block")
+        if m and inst == 1:
+            fail(f"drop: {did!r} — instance 1 uses the bare id")
+        if inst > max(module_count, 1):
+            fail(f"drop: {did!r} names module instance {inst} but the plan "
+                 f"has {module_count}")
+        if page not in retained:
+            fail(f"drop: {did!r} targets {page!r}, which is not a retained "
+                 "page")
+        if drops.count(did) > 1:
+            fail(f"drop: {did!r} appears more than once")
+        pref = f"m{inst}:" if inst > 1 else ""
+        for s in blk["slots"]:
+            dropped_exempt.add(pref + s)
+            if (pref + s) in filled:
+                warn(f"drop: {did} removes slot {pref + s!r}, so its fill "
+                     "is ignored")
+
+    legend_exempt = set()
+    charts = deck.get("charts", {})
+    if charts and charts_spec is None:
+        fail("charts: this catalog entry declares no charts (no charts.json)")
+    for cid, data in (charts if charts_spec else {}).items():
+        m = re.match(r"m(\d+):(.+)", cid)
+        base, inst = (m.group(2), int(m.group(1))) if m else (cid, 1)
+        spec = charts_spec.get(base)
+        if spec is None:
+            fail(f"charts: {cid!r} is not a declared chart; declared ids "
+                 f"are {sorted(charts_spec)}")
+            continue
+        if m and spec["page"] != "module":
+            fail(f"charts: {cid!r} carries an instance prefix but "
+                 f"{base!r} is not on the module page")
+        if m and inst == 1:
+            fail(f"charts: {cid!r} — instance 1 uses the bare id")
+        if inst > max(module_count, 1):
+            fail(f"charts: {cid!r} names module instance {inst} but the "
+                 f"plan has {module_count}")
+        if spec["page"] not in retained:
+            fail(f"charts: {cid!r} targets {spec['page']!r}, which is not "
+                 "a retained page")
+            continue
+        pref = f"m{inst}:" if inst > 1 else ""
+        if spec["kind"] == "pair":
+            vals = data.get("values")
+            if (not isinstance(vals, list) or len(vals) != 2
+                    or not all(isinstance(v, (int, float)) and v >= 0
+                               for v in vals) or max(vals, default=0) <= 0):
+                fail(f"charts: {cid} needs \"values\": [prior, current], "
+                     "non-negative numbers, at least one positive")
+            t = data.get("totals")
+            if t is not None and (not isinstance(t, list) or len(t) != 2
+                                  or not all(isinstance(x, str) for x in t)):
+                fail(f"charts: {cid} \"totals\" must be two strings")
+            for key in data:
+                if key not in {"values", "totals", "trend"}:
+                    fail(f"charts: {cid} unknown key {key!r}")
+        else:
+            series = data.get("series")
+            ok = (isinstance(series, list) and
+                  1 <= len(series) <= spec["max_series"] and
+                  all(isinstance(sr, list) and len(sr) == spec["cats"] and
+                      all(isinstance(v, (int, float)) and v >= 0 for v in sr)
+                      for sr in series))
+            if not ok:
+                fail(f"charts: {cid} needs \"series\": 1..{spec['max_series']}"
+                     f" lists of {spec['cats']} non-negative numbers each")
+            elif max(sum(sr[c] for sr in series)
+                     for c in range(spec["cats"])) <= 0:
+                fail(f"charts: {cid} every column totals zero")
+            else:
+                if spec.get("legend_prefix"):
+                    for k in range(len(series) + 1, spec["max_series"] + 1):
+                        legend_exempt.add(
+                            pref + spec["legend_prefix"] + str(k))
+            t = data.get("totals")
+            if t is not None and (not isinstance(t, list)
+                                  or len(t) != spec["cats"]
+                                  or not all(isinstance(x, str) for x in t)):
+                fail(f"charts: {cid} \"totals\" must be {spec['cats']} "
+                     "strings (the printed column totals; a sum the user "
+                     "did not supply stays masked)")
+            for key in data:
+                if key not in {"series", "totals"}:
+                    fail(f"charts: {cid} unknown key {key!r}")
+
     # --- coverage -----------------------------------------------------------
     def covered(name, site):
         if site["slot"].startswith("fig-"):
+            return True
+        if name in dropped_exempt or name in legend_exempt:
             return True
         if name in filled or name in kept:
             return True

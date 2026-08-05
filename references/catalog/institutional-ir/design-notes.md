@@ -104,10 +104,56 @@ drafting and wrong in a deck being shipped, where the genre's marker for
 - A cell the user has confirmed has no data (a comparison period the outline
   does not cover, a spare row's figures) is FILLED with an en dash (a plain
   `–`), which renders as the genre's null marker.
-- Chart bar labels stay masked either way in v1: the bar geometry is synthetic,
-  and a bare unlabelled chart would read as real data. The honest paths are the
-  mask, dropping the page, or v1.1 data-driven charts (user-supplied series
-  values drive both heights and labels).
+- Chart bar labels stay masked ONLY when no chart data is supplied. The right
+  fix is the `charts` section below: user values drive the geometry and the
+  labels, and the synthetic-bars problem disappears.
+
+## Data-driven charts (v1.1)
+
+`charts.json` in this catalog entry declares every chart: id, page, kind
+(stacked or pair), category count, max series, whether segments carry printed
+labels, and the measured px scale. deck.json may supply, per chart id:
+
+```json
+"charts": {
+  "module":    {"series": [[2310, 2180, 2050], [1480, 1300, 1160]],
+                "totals": ["5,440", "5,080", "4,760"]},
+  "m2:module": {"series": [[...]]},
+  "pr-1":      {"values": [4810, 5440], "totals": ["4,810", "5,440"], "trend": "+13%"}
+}
+```
+
+- `series` (stacked): one list per series in seg order, each with one
+  non-negative number per category. Fewer series than the template maximum is
+  the SUPPORTED way to handle a 3-segment issuer: surplus bars and their
+  legend slots disappear, and coverage exempts those legends.
+- Heights are computed geometry (allowed); every printed label is the user's
+  own number. `totals` are strings printed verbatim and OPTIONAL: a column sum
+  the user did not supply stays masked, because a computed visible figure is
+  still a computed visible figure.
+- `pair` charts (the three panel-row panels) take `values` [prior, current]
+  plus optional `totals` (two label strings) and `trend`.
+- A supplied chart makes its bars honest. An unsupplied chart stays masked.
+  There is no third state.
+
+## Collapse points (v1.1)
+
+`collapse.json` declares the only blocks a deck may remove; deck.json lists
+them in `drop` (module ids take `m<N>:` prefixes):
+
+| id | what goes | use when |
+|---|---|---|
+| `module.row-1..5` | one table line row | the segment has fewer revenue lines than rows |
+| `module.cols-34` | comparison columns 3-4 | the outline covers one comparison period |
+| `cs.targets` | the chart-split targets frame | no targets are being (re)announced there |
+| `hc.boxes` | the hero growth-channel boxes | nothing earns the row |
+| `recon.avg-cols` | the "Average for the" column group | the reconciliation has no average balances |
+
+Slots inside a dropped block need no fill or keep; the checker exempts them
+and warns if a fill targets one. An id not in collapse.json FAILS. This is
+subtraction from a measured page; there is no free-form removal or resizing,
+and preferring a drop over a row of dashes is the right call whenever the
+whole block is empty rather than sparse.
 
 ## Density budgets
 

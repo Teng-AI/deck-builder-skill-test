@@ -74,13 +74,21 @@ Fill slots from the outline, obeying:
   `[x,xxx]`-style mask; never invent one. Chart figures have no slots on
   purpose: the bar geometry is illustrative, and the build report counts
   every site left masked so you can tell the user.
-- **Mask means TODO; dash means confirmed absent.** When the user confirms a
-  cell has no data (a comparison period the outline does not cover, a spare
-  row's figures), fill it with a plain en dash, the genre's null marker.
-  Leave a site masked only while the user might still supply it. Fill the
-  chart period axes (`lang-cat-*`) and the snapshot bullets heading with the
-  deck's own period language; their defaults are calendar years and
-  "Quarterly Highlights".
+- **Mask means TODO; dash means confirmed absent; empty blocks get dropped.**
+  When the user confirms a cell has no data, fill it with a plain en dash,
+  the genre's null marker. Leave a site masked only while the user might
+  still supply it. But when a WHOLE block is empty rather than sparse (a
+  spare table row, both comparison columns, the targets frame), drop it via
+  the collapse points instead of shipping a row of dashes: `deck.json`'s
+  `drop` list may name any id declared in the catalog's `collapse.json`
+  (design-notes has the table). Fill the chart period axes (`lang-cat-*`)
+  and the snapshot bullets heading with the deck's own period language.
+- **Charts should carry the user's data.** When the outline gives per-series
+  values, put them in the `charts` section (schema in design-notes): the
+  builder drives bar heights and printed labels from them, and a 3-series
+  chart renders 3 bars with 3 legends. Supply `totals` only if the user
+  stated them; a sum you compute is still an invented visible figure. A
+  chart with no data stays visibly masked, and you tell the user so.
 - **Nested slots ride their outer.** Where slots.json marks a slot with
   `"outer"`, write the full sentence into the outer slot and skip the inner.
 - **Brand colour rethemes everything or nothing.** If the user gave colours,

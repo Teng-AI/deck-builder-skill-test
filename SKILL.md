@@ -37,8 +37,22 @@ rules, and the `deck.json` schema. Consult
 `references/catalog/<template>/slots.json` for the exact slot names per page,
 in display order, with each slot's fill-type label and default length.
 
-A worked example lives in `examples/` (outline in, deck.json out). Read it
-once; it answers most shape questions.
+Two worked examples live in `examples/` (outline in, deck.json out). Read
+the ONE matching your deck's shape: the quarterly pair for a plain results
+deck (the common case), the annual pair when the outline carries a strategy
+story (multi-year arc, targets, delivered commitments) and earns the
+narrative pages. Match pages to the user's outline, not to an example - the
+annual pair uses all twelve patterns only because its outline earns all
+twelve.
+
+The two pairs also show the two STATES a deck ships in, and either shape
+can be in either state. The quarterly pair is a MID-DRAFT: its outline has
+known gaps, so real figures, en dashes and honest masks sit side by side,
+and the report tells the user what is still open. The annual pair is
+FINISHED: its user confirmed nothing more is coming, so it carries
+`"final": true` and the check enforces zero visible masks. A deck with
+gaps ships like the quarterly; a deck whose user has declared the outline
+complete ships like the annual.
 
 ### 2. Plan the pages
 

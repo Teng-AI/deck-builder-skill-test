@@ -137,12 +137,25 @@ labels, and the measured px scale. deck.json may supply, per chart id:
   non-negative number per category. Fewer series than the template maximum is
   the SUPPORTED way to handle a 3-segment issuer: surplus bars and their
   legend slots disappear, and coverage exempts those legends.
+- **Seg order is stack order, not legend order.** Series 1 is always
+  `seg--1`. On module and hero-chart the legend slots run 1..4 in the same
+  order, but chart-split's legend slot 1 wears the SERIES-2 swatch (the pale
+  band stacks above the dark series-1 anchor there). Match each legend
+  label to the series whose swatch it wears, not to its slot number.
 - Heights are computed geometry (allowed); every printed label is the user's
   own number. `totals` are strings printed verbatim and OPTIONAL: a column sum
   the user did not supply stays masked, because a computed visible figure is
   still a computed visible figure.
 - `pair` charts (the three panel-row panels) take `values` [prior, current]
   plus optional `totals` (two label strings) and `trend`.
+- Stacked charts also take an optional `trend` string where the page shows a
+  trend span (chart-split's CAGR note is the one such site); supplying it
+  for a page with no trend span is an error.
+- **The hero refline is fixed furniture**, a dashed rule at ~90% of the
+  chart's height; data-driven bars do not move it. Label it only with a
+  value that is true at that height against your chart's max column (a
+  reference or ambition of about 0.9x the tallest total); a label the line
+  does not actually mark reads dishonest at review.
 - A supplied chart makes its bars honest. An unsupplied chart stays masked.
   There is no third state while drafting; in a FINAL deck (below) an
   unsupplied module chart is dropped via `module.chart` instead.

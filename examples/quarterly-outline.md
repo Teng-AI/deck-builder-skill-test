@@ -2,7 +2,14 @@
 
 *Fictional company, invented numbers, for demonstrating the skill only.
 `quarterly.deck.json` beside this file is the deck.json a run produced from it;
-read the pair together as the worked example.*
+read the pair together as the worked example. This is the LEAN example: a
+plain results deck, four pages. It is also the MID-DRAFT example: the
+outline below has known gaps, so the deck ships with honest masks and the
+run report says what is still open - it is deliberately NOT `final`. For
+the finished state (outline complete, `"final": true`, zero masks), see
+the annual pair. When the outline carries a strategy story (multi-year
+arc, targets, delivered commitments), read the annual pair instead - and
+match pages to the outline, not to either example.*
 
 ## What the user handed over
 
@@ -50,6 +57,24 @@ partial retheme leaves the deck wearing the template's blue beside the brand.
 - Commentary: client assets $1.9 trillion; net inflows $18bn; advisor
   headcount up 4%
 
+**Chart data (prior-quarter dollars, for the segment charts)**
+- CIB, the four client businesses ex. lending (2Q26 / 1Q26 / 2Q25):
+  advisory 912 / 754 / 681; underwriting 644 / 591 / 575; treasury 1,101 /
+  1,059 / 1,019; markets 2,455 / 2,316 / 2,531. Totals as stated: 5,112 /
+  4,720 / 4,806
+- WRS, all four lines: asset management 1,422 / 1,329 / 1,237; retirement
+  612 / 583 / 551; private banking 498 / 483 / 470; brokerage 680 / 667 /
+  687. Totals as stated: 3,212 / 3,062 / 2,945
+- Business-line revenues exclude intersegment items, so the chart totals do
+  not foot to segment net revenues
+
+**What the user said about the gaps**
+- "The quarter-over-quarter moves on the P&L lines below revenue aren't
+  meaningful - treat them as not applicable." (So those cells carry en
+  dashes: confirmed absent, not TODO.)
+- "YTD dollars for those lines come with the 10-Q." (So those cells stay
+  MASKED: still awaiting data, and the run report counts them.)
+
 No reconciliation content supplied, so the deck ships without the back-matter
-pages. Some YTD percentage-change columns were not in the notes; those cells
-stay masked and the run report says so.
+pages. WRS has four revenue lines for a five-line table: the spare row is
+dropped via `m2:module.row-5`, never shipped as a masked "Other" row.

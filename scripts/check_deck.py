@@ -308,8 +308,11 @@ def main():
                 fail(f"charts: {cid} \"totals\" must be {spec['cats']} "
                      "strings (the printed column totals; a sum the user "
                      "did not supply stays masked)")
+            t = data.get("trend")
+            if t is not None and not isinstance(t, str):
+                fail(f"charts: {cid} \"trend\" must be a string")
             for key in data:
-                if key not in {"series", "totals"}:
+                if key not in {"series", "totals", "trend"}:
                     fail(f"charts: {cid} unknown key {key!r}")
 
     # a chart cannot be both dropped and data-driven: the block is gone

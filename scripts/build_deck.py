@@ -298,6 +298,17 @@ def rewrite_stacked(html, span, data, spec, ipref, final=False):
         out.append(cat)
         pos, c = ce, c + 1
     sec = sec[:p] + "".join(out) + sec[pe:]
+    # some stacked charts carry a trend span (chart furniture, no slot);
+    # a user-stated "trend" fills it, and a final deck may not show its mask
+    tm = re.search(r'(<span class="trend">)[^<]*(</span>)', sec)
+    if "trend" in data:
+        if tm is None:
+            sys.exit("charts: \"trend\" supplied for a chart whose page has "
+                     "no trend span")
+        sec = sec[:tm.start()] + tm.group(1) + data["trend"] + tm.group(2) \
+            + sec[tm.end():]
+    elif final and tm is not None:
+        sec = sec[:tm.start()] + tm.group(1) + tm.group(2) + sec[tm.end():]
     if spec.get("legend_prefix"):
         for k in range(n + 1, spec["max_series"] + 1):
             sec = remove_slot_element(sec, f'{ipref}{spec["legend_prefix"]}{k}')

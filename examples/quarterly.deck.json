@@ -2,7 +2,7 @@
   "_meta": {
     "template": "institutional-ir",
     "title": "Harborline Financial Group, 2Q26 results",
-    "note": "Worked example. Fictional issuer, invented numbers. WRS row 5 is labelled Other with its figures left masked: the outline had four revenue lines for a five-line table, and inventing a number is forbidden, so the label is real and the cells stay visibly masked."
+    "note": "Worked example. Fictional issuer, invented numbers. Shows the three placeholder states and both v1.1 engines: WRS had four revenue lines for a five-line table, so m2:module.row-5 is DROPPED (the old approach left an Other row masked); the expense-line percentage cells are dashed because the user said the moves are not meaningful; the YTD P&L dollars stay masked because the 10-Q may still supply them; both module charts carry the user's three-quarter series with stated totals."
   },
   "pages": [
     "cover",
@@ -104,7 +104,6 @@
     "m2:lang-line-mod-2": "Retirement platform",
     "m2:lang-line-mod-3": "Private banking &amp; lending",
     "m2:lang-line-mod-4": "Brokerage &amp; annuities",
-    "m2:lang-line-mod-5": "Other",
     "m2:lang-lead-mod-1": "Asset management fees rose on higher client assets and strong flows",
     "m2:lang-mod-li-advisory": "Net inflows of $18 billion across advisory platforms in the quarter",
     "m2:lang-mod-li-equities": "Advisor headcount up 4% year over year",
@@ -142,8 +141,32 @@
     "m2:fig-module-41": "674",
     "m2:fig-module-45": "10.4%",
     "lang-ss-title": "Results Snapshot",
-    "lang-mod-chart": "Net Revenues by Business ($ in millions)",
-    "m2:lang-mod-chart": "Net Revenues by Business ($ in millions)"
+    "lang-mod-chart": "Business Line Revenues ($ in millions)",
+    "m2:lang-mod-chart": "Business Line Revenues ($ in millions)",
+    "fig-module-26": "–",
+    "fig-module-27": "–",
+    "fig-module-30": "–",
+    "fig-module-31": "–",
+    "fig-module-34": "–",
+    "fig-module-35": "–",
+    "fig-module-38": "–",
+    "fig-module-39": "–",
+    "fig-module-42": "–",
+    "fig-module-43": "–",
+    "fig-module-46": "–",
+    "fig-module-47": "–",
+    "m2:fig-module-26": "–",
+    "m2:fig-module-27": "–",
+    "m2:fig-module-30": "–",
+    "m2:fig-module-31": "–",
+    "m2:fig-module-34": "–",
+    "m2:fig-module-35": "–",
+    "m2:fig-module-38": "–",
+    "m2:fig-module-39": "–",
+    "m2:fig-module-42": "–",
+    "m2:fig-module-43": "–",
+    "m2:fig-module-46": "–",
+    "m2:fig-module-47": "–"
   },
   "keep": [
     "lang-tile-lab-1",
@@ -199,5 +222,68 @@
     "m2:lang-cat-mod-2",
     "m2:lang-cat-mod-3",
     "lang-ss-high-head"
-  ]
+  ],
+  "drop": [
+    "m2:module.row-5"
+  ],
+  "charts": {
+    "module": {
+      "series": [
+        [
+          912,
+          754,
+          681
+        ],
+        [
+          644,
+          591,
+          575
+        ],
+        [
+          1101,
+          1059,
+          1019
+        ],
+        [
+          2455,
+          2316,
+          2531
+        ]
+      ],
+      "totals": [
+        "5,112",
+        "4,720",
+        "4,806"
+      ]
+    },
+    "m2:module": {
+      "series": [
+        [
+          1422,
+          1329,
+          1237
+        ],
+        [
+          612,
+          583,
+          551
+        ],
+        [
+          498,
+          483,
+          470
+        ],
+        [
+          680,
+          667,
+          687
+        ]
+      ],
+      "totals": [
+        "3,212",
+        "3,062",
+        "2,945"
+      ]
+    }
+  }
 }

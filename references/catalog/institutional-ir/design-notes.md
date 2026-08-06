@@ -117,6 +117,24 @@ drafting and wrong in a deck being shipped, where the genre's marker for
   same as a confirmed-absent figure: keeping it leaks fiction, and with no
   `charts` data there is no exemption to invoke. Supplying `charts` with the
   real series count is always the better fix when the data exists.
+- **Period furniture must match the deck's period, and some of it hides in
+  innocent-looking slots.** The known carriers: the snapshot tile period
+  slots (`lang-tile-per-*`), the table headers (`lang-th-*`), the chart
+  axes (`lang-cat-*`), the highlights heading (`lang-ss-high-head`), and
+  the select-data leads (`lang-lead-sel-1/2`, whose default reads "2Q26
+  select data:" even though the slots.json label looks structural). Keep
+  any of these only when the default period IS the deck's period; fill
+  otherwise.
+- **Mask shapes are positional.** Tile and cell masks are shaped for the
+  template's default metric mix (`[xx.x]%` here, `$[x,xxx]` there); when
+  slots are repurposed for a different metric, a wrong-shaped mask in a
+  still-TODO cell is expected and disappears on fill or dash. Only tiles 1
+  and 3 carry unit-caption slots; dollar metrics elsewhere use suffix
+  notation in the figure itself (e.g. "$88.0M").
+- **An outline with no cover date**: fill `cover-date` with the current
+  month and year and flag it in the report for the user to correct.
+  Keeping the default leaks the fictional issuer's date, and the slot
+  cannot be masked.
 
 ## Data-driven charts (v1.1)
 
@@ -155,7 +173,22 @@ labels, and the measured px scale. deck.json may supply, per chart id:
   chart's height; data-driven bars do not move it. Label it only with a
   value that is true at that height against your chart's max column (a
   reference or ambition of about 0.9x the tallest total); a label the line
-  does not actually mark reads dishonest at review.
+  does not actually mark reads dishonest at review. When no such value
+  exists, drop `hc.refline`.
+- **Charts take EXACTLY their declared category count** (`cats` in
+  charts.json: 3 on module, 5 on chart-split and hero, 2 per panel pair).
+  Fewer or more categories is unsupported. An outline with a longer run
+  charts the most recent window and says so, with the full run carried in
+  narrative; a shorter run cannot stretch. (budgets.json's `bar_categories`
+  `capacity` is the measured geometric maximum from the anchor analysis,
+  not a usable setting - the engine takes `cats`, full stop.)
+- **More series than `max_series` has one honest recourse**: chart at most
+  `max_series` of the user's lines and only a grouping the USER stated (a
+  sum you compute is an invented figure, even as a bar). Otherwise the
+  chart stays masked and the report asks the user to pick lines or state
+  the grouping.
+- **Single-series totals are just the values restated**: printing them from
+  the user's stated series is not computing.
 - A supplied chart makes its bars honest. An unsupplied chart stays masked.
   There is no third state while drafting; in a FINAL deck (below) an
   unsupplied module chart is dropped via `module.chart` instead.
@@ -177,10 +210,15 @@ that declaration converts TODOs into false claims of absence. What it does:
 
 The finalize sweep (the skill applies it when the user declares the outline
 complete, in one pass): drop every whole-empty block that has a collapse
-point, dash every masked cell that survives in a kept structure, drop
-`module.chart` where a module chart never got data, set `final`, re-check,
-rebuild. The final-mode FAIL list is the sweep's worklist; a clean final
-check is the machine's statement that no visible mask remains.
+point - spare line rows, scaffold rows the issuer confirmed it does not
+report (v1.3 `*.scaf-*` ids), unused columns (`cols-34` or `col-4`), and
+`module.chart` where a module chart never got data - then dash only the
+cells that are absent inside an otherwise-reported row, set `final`,
+re-check, rebuild. **A final deck carries no fully-dashed rows or columns**:
+a row or column of nothing but dashes means its collapse point was the
+right move, and shipping it dashed is the second-best outcome the drops
+exist to prevent. The final-mode FAIL list is the sweep's worklist; a
+clean final check is the machine's statement that no visible mask remains.
 
 ## Collapse points (v1.1)
 
@@ -190,10 +228,15 @@ them in `drop` (module ids take `m<N>:` prefixes):
 | id | what goes | use when |
 |---|---|---|
 | `module.row-1..5` | one table line row | the segment has fewer revenue lines than rows |
+| `module.scaf-provision/-comp/-noncomp/-pretax/-net/-roe` | one scaffold P&L row | the issuer does not report that line at segment level (v1.3); drop beats a dashed row |
 | `module.cols-34` | comparison columns 3-4 | the outline covers one comparison period |
+| `module.col-4` | column 4 alone | two comparison periods but no fourth column (v1.3); exclusive with `cols-34` |
 | `module.chart` | the segment fee chart block | the deck is final and the outline never supplied its series |
+| `split.row-1..5`, `split.scaf-*`, `split.cols-34`, `split.col-4` | the same shapes on the split table (v1.3) | same conditions as their module twins |
 | `cs.targets` | the chart-split targets frame | no targets are being (re)announced there |
 | `hc.boxes` | the hero growth-channel boxes | nothing earns the row |
+| `hc.refline` | the hero's fixed dashed reference line | no reference value is true at its measured height (v1.3.1) |
+| `hc.bracket` | the bracket caption under the hero chart | nothing earns the band; pairs naturally with `hc.boxes` (v1.3.1) |
 | `recon.avg-cols` | the "Average for the" column group | the reconciliation has no average balances |
 | `recon.asof-cols-23` | the second and third "As of" date columns | the deck has one balance date; composes with `avg-cols` |
 
@@ -201,7 +244,14 @@ Slots inside a dropped block need no fill or keep; the checker exempts them
 and warns if a fill targets one. An id not in collapse.json FAILS. This is
 subtraction from a measured page; there is no free-form removal or resizing,
 and preferring a drop over a row of dashes is the right call whenever the
-whole block is empty rather than sparse.
+whole block is empty rather than sparse. Since v1.3 that preference is
+reachable for every table shape: a segment that reports no below-revenue
+P&L drops the six scaffold rows instead of shipping them dashed, and the
+table simply ends at its subtotal. Scaffold rows the issuer DOES report
+under different names are FILLED with those names (they are ordinary
+slots), so the table is fully relabelable metric by metric: fill what you
+have, drop what the issuer never reports, dash only a cell that is absent
+inside an otherwise-reported row.
 
 ## Density budgets
 
@@ -329,7 +379,8 @@ a knob.
 
 v1.1 adds optional `drop` (declared collapse ids) and `charts` (per-chart
 data); v1.2 adds optional `"final": true` (the no-masks declaration, rules
-in the Final decks section).
+in the Final decks section) - all three sit at the top level, beside
+`slots` and `keep`.
 
 - `pages`: ordered subset of the twelve patterns; `module` may carry a count. The
   builder clones module instances and prefixes every slot inside instance N with

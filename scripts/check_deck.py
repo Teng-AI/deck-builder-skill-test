@@ -315,6 +315,19 @@ def main():
                 if key not in {"series", "totals", "trend"}:
                     fail(f"charts: {cid} unknown key {key!r}")
 
+    # column drops that overlap double-remove cells: cols-34 and col-4 conflict
+    seen_col_drops = set()
+    for did in drops if collapse else []:
+        m = re.match(r"m(\d+):(.+)", did)
+        base = m.group(2) if m else did
+        pref = f"m{m.group(1)}:" if m else ""
+        if base.endswith(".cols-34") or base.endswith(".col-4"):
+            key = pref + base.split(".")[0]
+            if key in seen_col_drops:
+                fail(f"drop: {did!r} conflicts with another column drop on "
+                     "the same table; cols-34 and col-4 are exclusive")
+            seen_col_drops.add(key)
+
     # a chart cannot be both dropped and data-driven: the block is gone
     for cid in (charts if charts_spec else {}):
         m = re.match(r"m(\d+):(.+)", cid)

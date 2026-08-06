@@ -560,8 +560,10 @@ def main():
     print(f"  pages: {pages_out} (folios 1..{counter['n']};"
           " the cover carries none)")
     if masked:
-        print(f"  figures still masked: {masked} sites (chart figures stay "
-              "masked by design; tell the user which pages hold the rest)")
+        print(f"  figures still masked: {masked} sites (each is a TODO for "
+              "the user; name the pages that hold them in your report)")
+    elif deck.get("final") is True:
+        print("  masks: 0 (final deck; the check enforces this)")
     if not marks:
         print("  brand slots: empty (no mark supplied; the placeholder box "
               "is suppressed in the build)")

@@ -157,6 +157,9 @@ def drop_row_cells(table_html, idxs):
 
 
 def apply_drops(html, drops, blocks):
+    # the two recon column groups compose; asof indexes assume avg cells are
+    # still present, so it must run first
+    drops = sorted(drops, key=lambda d: 0 if "asof" in d else 1)
     for did in drops:
         pref, inst, base = split_instance(did)
         blk = blocks.get(base)
@@ -189,6 +192,19 @@ def apply_drops(html, drops, blocks):
             if not m:
                 sys.exit(f"drop {did}: container .{blk['container_class']} not found")
             sec = sec[:m.start()] + sec[element_end(sec, sec.find(">", m.start()) + 1, "div"):]
+        elif fam == "recon-asof":
+            cg = sec.find("<colgroup>")
+            cge = sec.find("</colgroup>")
+            cols = re.findall(r"<col[^>]*/>", sec[cg:cge])
+            sec = sec[:cg] + "<colgroup>" + "".join(cols[:8]) + sec[cge:]
+            sec = remove_slot_element(sec, "lang-th-rec-2")
+            sec = remove_slot_element(sec, "lang-th-rec-3")
+            sec = re.sub(r'(colspan=")6("[^>]*data-slot="lang-rec-basis-2")',
+                         r"\g<1>2\g<2>", sec, count=1)
+            tb = sec.find("<tbody>")
+            tbe = sec.find("</tbody>")
+            sec = sec[:tb] + drop_row_cells(sec[tb:tbe], {8, 9, 10, 11}) \
+                + sec[tbe:]
         elif fam == "recon-avg":
             cg = sec.find("<colgroup>")
             cge = sec.find("</colgroup>")

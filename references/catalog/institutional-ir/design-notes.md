@@ -112,6 +112,11 @@ drafting and wrong in a deck being shipped, where the genre's marker for
 - Chart bar labels stay masked ONLY when no chart data is supplied. The right
   fix is the `charts` section below: user values drive the geometry and the
   labels, and the synthetic-bars problem disappears.
+- **A legend slot with no series to name** (a masked chart on a page whose
+  issuer has fewer series than the template shows) is FILLED with the en dash,
+  same as a confirmed-absent figure: keeping it leaks fiction, and with no
+  `charts` data there is no exemption to invoke. Supplying `charts` with the
+  real series count is always the better fix when the data exists.
 
 ## Data-driven charts (v1.1)
 
@@ -153,6 +158,7 @@ them in `drop` (module ids take `m<N>:` prefixes):
 | `cs.targets` | the chart-split targets frame | no targets are being (re)announced there |
 | `hc.boxes` | the hero growth-channel boxes | nothing earns the row |
 | `recon.avg-cols` | the "Average for the" column group | the reconciliation has no average balances |
+| `recon.asof-cols-23` | the second and third "As of" date columns | the deck has one balance date; composes with `avg-cols` |
 
 Slots inside a dropped block need no fill or keep; the checker exempts them
 and warns if a fill targets one. An id not in collapse.json FAILS. This is
@@ -179,10 +185,11 @@ Over budget means cut or split into another page. **Never shrink type, never tig
 leading, never widen a box.** The geometry is measured; content adapts to it.
 
 **Where the grid fixes the slot count and no collapse point covers it, the grid
-wins over the budget number.** Coverage requires the fixed structure filled
-(six checklist groups, three stat-board frame boxes); a budget below the fixed
-count describes the anchor's typical density, not a cap you can meet by leaving
-narrative slots empty. Budgets bind hardest on variable-count zones and on
+wins over the budget number.** Coverage requires the fixed structure filled;
+a budget below the fixed count describes the anchor's typical density, not a
+cap you can meet by leaving narrative slots empty. This applies wherever the
+two disagree: the six checklist groups, the three stat-board frame boxes, the
+seven recon note slots. Budgets bind hardest on variable-count zones and on
 length.
 
 ## Voice and claim shapes

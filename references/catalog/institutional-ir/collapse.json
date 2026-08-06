@@ -64,6 +64,14 @@
       "slots": ["lang-hc-box-1", "lang-hc-box-2", "lang-hc-box-3",
                 "lang-hc-box-4", "lang-hc-box-5"]
     },
+    "recon.asof-cols-23": {
+      "family": "recon-asof",
+      "desc": "The second and third 'As of' date columns on the reconciliation table (for decks with one balance date)",
+      "slots": ["lang-th-rec-2", "lang-th-rec-3",
+                "fig-recon-4", "fig-recon-5", "fig-recon-9", "fig-recon-10",
+                "fig-recon-14", "fig-recon-15", "fig-recon-19", "fig-recon-20",
+                "fig-recon-24", "fig-recon-25", "fig-recon-29", "fig-recon-30"]
+    },
     "recon.avg-cols": {
       "family": "recon-avg",
       "desc": "The 'Average for the' column group on the reconciliation table",

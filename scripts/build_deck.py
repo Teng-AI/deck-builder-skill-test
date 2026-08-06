@@ -270,7 +270,9 @@ def rewrite_stacked(html, span, data, spec, ipref):
             if v <= 0:
                 continue
             h = max(2, round(v * scale))
-            label = fmt_num(v) if spec["seg_labels"] else ""
+            # a segment too thin to hold its label goes unlabelled; the
+            # value still lives in the table, and proportions never distort
+            label = fmt_num(v) if spec["seg_labels"] and h >= 22 else ""
             segs.append(f'<div class="seg seg--{k}" '
                         f'style="height: {h}px">{label}</div>')
         cat = cat[:b] + '<div class="bar">' + "".join(segs) + "</div>" + cat[be:]

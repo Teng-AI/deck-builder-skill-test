@@ -41,6 +41,10 @@ changes.
   instance covers one business segment).
 - Four patterns appear exactly once in every anchor deck: cover, snapshot, the
   segment split, and recon. Dropping one of those is a decision, not a default.
+- **The split page is an alternate segment SHAPE, not an extra segment.** When
+  module instances already cover every business segment, dropping split is the
+  right call, not a deviation; module count = segments and split both holding
+  literally would double-report a segment.
 - A `notes-continued` page exists because the previous page filled. Do not retain it
   half-empty; move the break instead.
 - Folios renumber contiguously after subsetting (the builder does this; the cover
@@ -83,7 +87,8 @@ up only in the render.
 - **The checklist claim band is segment-bracketed.** Cells 1-3 sit under a
   `segment-1` bracket, cells 4-6 under `segment-2`. Fill each cell with a fact
   that belongs to that segment; a group-level fact under a segment bracket reads
-  as mis-attribution. Cells 1-2 carry `#[x]` rank badges (fig, maskable); cells
+  as mis-attribution. Cells 1-2 carry `#[x]` badge figures (fig, maskable; the
+  anchor's habit is ranks but any short figure of the segment's fits); cells
   3-6 carry worded badges (`lang-band-v1..4`) that pair with their captions.
 - **The recon table is two column groups**: "Average for the" (columns 1-2,
   with `lang-rec-ended-1/2` + `lang-th-rec-4/5` as their heads) and "As of"
@@ -172,6 +177,13 @@ tight buckets are band cells (~20-30 chars), checklist h3s (~25-45), panel-row b
 
 Over budget means cut or split into another page. **Never shrink type, never tighten
 leading, never widen a box.** The geometry is measured; content adapts to it.
+
+**Where the grid fixes the slot count and no collapse point covers it, the grid
+wins over the budget number.** Coverage requires the fixed structure filled
+(six checklist groups, three stat-board frame boxes); a budget below the fixed
+count describes the anchor's typical density, not a cap you can meet by leaving
+narrative slots empty. Budgets bind hardest on variable-count zones and on
+length.
 
 ## Voice and claim shapes
 

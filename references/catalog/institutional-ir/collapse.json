@@ -8,87 +8,490 @@
       "family": "table-row",
       "desc": "Segment table line row 1",
       "anchor_slot": "lang-line-mod-1",
-      "slots": ["lang-line-mod-1", "fig-module-1", "fig-module-2", "fig-module-3", "fig-module-4"]
+      "slots": [
+        "lang-line-mod-1",
+        "fig-module-1",
+        "fig-module-2",
+        "fig-module-3",
+        "fig-module-4"
+      ]
     },
     "module.row-2": {
       "family": "table-row",
       "desc": "Segment table line row 2",
       "anchor_slot": "lang-line-mod-2",
-      "slots": ["lang-line-mod-2", "fig-module-5", "fig-module-6", "fig-module-7", "fig-module-8"]
+      "slots": [
+        "lang-line-mod-2",
+        "fig-module-5",
+        "fig-module-6",
+        "fig-module-7",
+        "fig-module-8"
+      ]
     },
     "module.row-3": {
       "family": "table-row",
       "desc": "Segment table line row 3",
       "anchor_slot": "lang-line-mod-3",
-      "slots": ["lang-line-mod-3", "fig-module-9", "fig-module-10", "fig-module-11", "fig-module-12"]
+      "slots": [
+        "lang-line-mod-3",
+        "fig-module-9",
+        "fig-module-10",
+        "fig-module-11",
+        "fig-module-12"
+      ]
     },
     "module.row-4": {
       "family": "table-row",
       "desc": "Segment table line row 4",
       "anchor_slot": "lang-line-mod-4",
-      "slots": ["lang-line-mod-4", "fig-module-13", "fig-module-14", "fig-module-15", "fig-module-16"]
+      "slots": [
+        "lang-line-mod-4",
+        "fig-module-13",
+        "fig-module-14",
+        "fig-module-15",
+        "fig-module-16"
+      ]
     },
     "module.row-5": {
       "family": "table-row",
       "desc": "Segment table line row 5",
       "anchor_slot": "lang-line-mod-5",
-      "slots": ["lang-line-mod-5", "fig-module-17", "fig-module-18", "fig-module-19", "fig-module-20"]
+      "slots": [
+        "lang-line-mod-5",
+        "fig-module-17",
+        "fig-module-18",
+        "fig-module-19",
+        "fig-module-20"
+      ]
     },
     "module.cols-34": {
       "family": "table-cols",
       "desc": "Comparison columns 3-4 of the segment table (for decks with one comparison period)",
       "table_page": "module",
-      "col_indexes": [3, 4],
-      "slots": ["lang-th-mod-3", "lang-th-mod-4",
-                "fig-module-3", "fig-module-4", "fig-module-7", "fig-module-8",
-                "fig-module-11", "fig-module-12", "fig-module-15", "fig-module-16",
-                "fig-module-19", "fig-module-20", "fig-module-23", "fig-module-24",
-                "fig-module-27", "fig-module-28", "fig-module-31", "fig-module-32",
-                "fig-module-35", "fig-module-36", "fig-module-39", "fig-module-40",
-                "fig-module-43", "fig-module-44", "fig-module-47", "fig-module-48"]
+      "col_indexes": [
+        3,
+        4
+      ],
+      "slots": [
+        "lang-th-mod-3",
+        "lang-th-mod-4",
+        "fig-module-3",
+        "fig-module-4",
+        "fig-module-7",
+        "fig-module-8",
+        "fig-module-11",
+        "fig-module-12",
+        "fig-module-15",
+        "fig-module-16",
+        "fig-module-19",
+        "fig-module-20",
+        "fig-module-23",
+        "fig-module-24",
+        "fig-module-27",
+        "fig-module-28",
+        "fig-module-31",
+        "fig-module-32",
+        "fig-module-35",
+        "fig-module-36",
+        "fig-module-39",
+        "fig-module-40",
+        "fig-module-43",
+        "fig-module-44",
+        "fig-module-47",
+        "fig-module-48"
+      ]
     },
     "module.chart": {
       "family": "element",
       "desc": "The segment fee chart block (for final decks whose outline never supplied its series)",
       "container_class": "chart",
       "page": "module",
-      "slots": ["lang-mod-chart", "lang-legend-mod-1", "lang-legend-mod-2",
-                "lang-legend-mod-3", "lang-legend-mod-4",
-                "lang-cat-mod-1", "lang-cat-mod-2", "lang-cat-mod-3"]
+      "slots": [
+        "lang-mod-chart",
+        "lang-legend-mod-1",
+        "lang-legend-mod-2",
+        "lang-legend-mod-3",
+        "lang-legend-mod-4",
+        "lang-cat-mod-1",
+        "lang-cat-mod-2",
+        "lang-cat-mod-3"
+      ]
     },
     "cs.targets": {
       "family": "element",
       "desc": "The targets frame on chart-split (for decks announcing no targets there)",
       "container_class": "frame",
       "page": "chart-split",
-      "slots": ["lang-cs-tgt-title", "lang-cs-tgt-k1", "target-margin-prior",
-                "target-margin-updated", "lang-cs-tgt-k2", "target-returns-prior",
-                "target-returns-updated"]
+      "slots": [
+        "lang-cs-tgt-title",
+        "lang-cs-tgt-k1",
+        "target-margin-prior",
+        "target-margin-updated",
+        "lang-cs-tgt-k2",
+        "target-returns-prior",
+        "target-returns-updated"
+      ]
     },
     "hc.boxes": {
       "family": "element",
       "desc": "The growth-channel box row under the hero chart",
       "container_class": "box-row",
       "page": "hero-chart",
-      "slots": ["lang-hc-box-1", "lang-hc-box-2", "lang-hc-box-3",
-                "lang-hc-box-4", "lang-hc-box-5"]
+      "slots": [
+        "lang-hc-box-1",
+        "lang-hc-box-2",
+        "lang-hc-box-3",
+        "lang-hc-box-4",
+        "lang-hc-box-5"
+      ]
     },
     "recon.asof-cols-23": {
       "family": "recon-asof",
       "desc": "The second and third 'As of' date columns on the reconciliation table (for decks with one balance date)",
-      "slots": ["lang-th-rec-2", "lang-th-rec-3",
-                "fig-recon-4", "fig-recon-5", "fig-recon-9", "fig-recon-10",
-                "fig-recon-14", "fig-recon-15", "fig-recon-19", "fig-recon-20",
-                "fig-recon-24", "fig-recon-25", "fig-recon-29", "fig-recon-30"]
+      "slots": [
+        "lang-th-rec-2",
+        "lang-th-rec-3",
+        "fig-recon-4",
+        "fig-recon-5",
+        "fig-recon-9",
+        "fig-recon-10",
+        "fig-recon-14",
+        "fig-recon-15",
+        "fig-recon-19",
+        "fig-recon-20",
+        "fig-recon-24",
+        "fig-recon-25",
+        "fig-recon-29",
+        "fig-recon-30"
+      ]
     },
     "recon.avg-cols": {
       "family": "recon-avg",
       "desc": "The 'Average for the' column group on the reconciliation table",
-      "slots": ["lang-rec-basis-1", "lang-rec-ended-1", "lang-rec-ended-2",
-                "lang-th-rec-4", "lang-th-rec-5",
-                "fig-recon-1", "fig-recon-2", "fig-recon-6", "fig-recon-7",
-                "fig-recon-11", "fig-recon-12", "fig-recon-16", "fig-recon-17",
-                "fig-recon-21", "fig-recon-22", "fig-recon-26", "fig-recon-27"]
+      "slots": [
+        "lang-rec-basis-1",
+        "lang-rec-ended-1",
+        "lang-rec-ended-2",
+        "lang-th-rec-4",
+        "lang-th-rec-5",
+        "fig-recon-1",
+        "fig-recon-2",
+        "fig-recon-6",
+        "fig-recon-7",
+        "fig-recon-11",
+        "fig-recon-12",
+        "fig-recon-16",
+        "fig-recon-17",
+        "fig-recon-21",
+        "fig-recon-22",
+        "fig-recon-26",
+        "fig-recon-27"
+      ]
+    },
+    "module.scaf-provision": {
+      "family": "table-row",
+      "desc": "The provision scaffold row of the module table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-provisionf-1",
+      "slots": [
+        "lang-scaf-provisionf-1",
+        "fig-module-25",
+        "fig-module-26",
+        "fig-module-27",
+        "fig-module-28"
+      ]
+    },
+    "module.scaf-comp": {
+      "family": "table-row",
+      "desc": "The comp scaffold row of the module table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-compensati-1",
+      "slots": [
+        "lang-scaf-compensati-1",
+        "fig-module-29",
+        "fig-module-30",
+        "fig-module-31",
+        "fig-module-32"
+      ]
+    },
+    "module.scaf-noncomp": {
+      "family": "table-row",
+      "desc": "The noncomp scaffold row of the module table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-noncompens-1",
+      "slots": [
+        "lang-scaf-noncompens-1",
+        "fig-module-33",
+        "fig-module-34",
+        "fig-module-35",
+        "fig-module-36"
+      ]
+    },
+    "module.scaf-pretax": {
+      "family": "table-row",
+      "desc": "The pretax scaffold row of the module table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-pretaxearn-1",
+      "slots": [
+        "lang-scaf-pretaxearn-1",
+        "fig-module-37",
+        "fig-module-38",
+        "fig-module-39",
+        "fig-module-40"
+      ]
+    },
+    "module.scaf-net": {
+      "family": "table-row",
+      "desc": "The net scaffold row of the module table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-netearning-1",
+      "slots": [
+        "lang-scaf-netearning-1",
+        "fig-module-41",
+        "fig-module-42",
+        "fig-module-43",
+        "fig-module-44"
+      ]
+    },
+    "module.scaf-roe": {
+      "family": "table-row",
+      "desc": "The roe scaffold row of the module table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-returnonav-1",
+      "slots": [
+        "lang-scaf-returnonav-1",
+        "fig-module-45",
+        "fig-module-46",
+        "fig-module-47",
+        "fig-module-48"
+      ]
+    },
+    "module.col-4": {
+      "family": "table-cols",
+      "desc": "Column 4 of the module table alone (for decks with two comparison periods and no fourth column)",
+      "table_page": "module",
+      "col_indexes": [
+        4
+      ],
+      "slots": [
+        "lang-th-mod-4",
+        "fig-module-4",
+        "fig-module-8",
+        "fig-module-12",
+        "fig-module-16",
+        "fig-module-20",
+        "fig-module-24",
+        "fig-module-28",
+        "fig-module-32",
+        "fig-module-36",
+        "fig-module-40",
+        "fig-module-44",
+        "fig-module-48"
+      ]
+    },
+    "split.scaf-provision": {
+      "family": "table-row",
+      "desc": "The provision scaffold row of the split table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-provisionf-2",
+      "slots": [
+        "lang-scaf-provisionf-2",
+        "fig-split-25",
+        "fig-split-26",
+        "fig-split-27",
+        "fig-split-28"
+      ]
+    },
+    "split.scaf-comp": {
+      "family": "table-row",
+      "desc": "The comp scaffold row of the split table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-compensati-2",
+      "slots": [
+        "lang-scaf-compensati-2",
+        "fig-split-29",
+        "fig-split-30",
+        "fig-split-31",
+        "fig-split-32"
+      ]
+    },
+    "split.scaf-noncomp": {
+      "family": "table-row",
+      "desc": "The noncomp scaffold row of the split table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-noncompens-2",
+      "slots": [
+        "lang-scaf-noncompens-2",
+        "fig-split-33",
+        "fig-split-34",
+        "fig-split-35",
+        "fig-split-36"
+      ]
+    },
+    "split.scaf-pretax": {
+      "family": "table-row",
+      "desc": "The pretax scaffold row of the split table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-pretaxearn-2",
+      "slots": [
+        "lang-scaf-pretaxearn-2",
+        "fig-split-37",
+        "fig-split-38",
+        "fig-split-39",
+        "fig-split-40"
+      ]
+    },
+    "split.scaf-net": {
+      "family": "table-row",
+      "desc": "The net scaffold row of the split table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-netearning-2",
+      "slots": [
+        "lang-scaf-netearning-2",
+        "fig-split-41",
+        "fig-split-42",
+        "fig-split-43",
+        "fig-split-44"
+      ]
+    },
+    "split.scaf-roe": {
+      "family": "table-row",
+      "desc": "The roe scaffold row of the split table (for issuers that do not report it at segment level)",
+      "anchor_slot": "lang-scaf-returnonav-2",
+      "slots": [
+        "lang-scaf-returnonav-2",
+        "fig-split-45",
+        "fig-split-46",
+        "fig-split-47",
+        "fig-split-48"
+      ]
+    },
+    "split.col-4": {
+      "family": "table-cols",
+      "desc": "Column 4 of the split table alone (for decks with two comparison periods and no fourth column)",
+      "table_page": "split",
+      "col_indexes": [
+        4
+      ],
+      "slots": [
+        "lang-th-sp-4",
+        "fig-split-4",
+        "fig-split-8",
+        "fig-split-12",
+        "fig-split-16",
+        "fig-split-20",
+        "fig-split-24",
+        "fig-split-28",
+        "fig-split-32",
+        "fig-split-36",
+        "fig-split-40",
+        "fig-split-44",
+        "fig-split-48"
+      ]
+    },
+    "split.row-1": {
+      "family": "table-row",
+      "desc": "Split table line row 1",
+      "anchor_slot": "lang-line-sp-1",
+      "slots": [
+        "lang-line-sp-1",
+        "fig-split-1",
+        "fig-split-2",
+        "fig-split-3",
+        "fig-split-4"
+      ]
+    },
+    "split.row-2": {
+      "family": "table-row",
+      "desc": "Split table line row 2",
+      "anchor_slot": "lang-line-sp-2",
+      "slots": [
+        "lang-line-sp-2",
+        "fig-split-5",
+        "fig-split-6",
+        "fig-split-7",
+        "fig-split-8"
+      ]
+    },
+    "split.row-3": {
+      "family": "table-row",
+      "desc": "Split table line row 3",
+      "anchor_slot": "lang-line-sp-3",
+      "slots": [
+        "lang-line-sp-3",
+        "fig-split-9",
+        "fig-split-10",
+        "fig-split-11",
+        "fig-split-12"
+      ]
+    },
+    "split.row-4": {
+      "family": "table-row",
+      "desc": "Split table line row 4",
+      "anchor_slot": "lang-line-sp-4",
+      "slots": [
+        "lang-line-sp-4",
+        "fig-split-13",
+        "fig-split-14",
+        "fig-split-15",
+        "fig-split-16"
+      ]
+    },
+    "split.row-5": {
+      "family": "table-row",
+      "desc": "Split table line row 5",
+      "anchor_slot": "lang-line-sp-5",
+      "slots": [
+        "lang-line-sp-5",
+        "fig-split-17",
+        "fig-split-18",
+        "fig-split-19",
+        "fig-split-20"
+      ]
+    },
+    "split.cols-34": {
+      "family": "table-cols",
+      "desc": "Comparison columns 3-4 of the split table (for decks with one comparison period)",
+      "table_page": "split",
+      "col_indexes": [
+        3,
+        4
+      ],
+      "slots": [
+        "lang-th-sp-3",
+        "lang-th-sp-4",
+        "fig-split-3",
+        "fig-split-4",
+        "fig-split-7",
+        "fig-split-8",
+        "fig-split-11",
+        "fig-split-12",
+        "fig-split-15",
+        "fig-split-16",
+        "fig-split-19",
+        "fig-split-20",
+        "fig-split-23",
+        "fig-split-24",
+        "fig-split-27",
+        "fig-split-28",
+        "fig-split-31",
+        "fig-split-32",
+        "fig-split-35",
+        "fig-split-36",
+        "fig-split-39",
+        "fig-split-40",
+        "fig-split-43",
+        "fig-split-44",
+        "fig-split-47",
+        "fig-split-48"
+      ]
+    },
+    "hc.refline": {
+      "family": "element",
+      "desc": "The hero chart's fixed dashed reference line (for decks with no reference value that is true at its measured height)",
+      "container_class": "refline",
+      "page": "hero-chart",
+      "slots": [
+        "lang-hc-refline"
+      ]
+    },
+    "hc.bracket": {
+      "family": "element",
+      "desc": "The bracket caption under the hero chart (drop alongside hc.boxes when nothing earns the band)",
+      "container_class": "bracket",
+      "page": "hero-chart",
+      "slots": [
+        "lang-hc-bracket"
+      ]
     }
   }
 }

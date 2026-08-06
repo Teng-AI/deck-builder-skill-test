@@ -128,8 +128,20 @@ def split_instance(did):
     return pref, inst, m.group(2)
 
 
-def fmt_num(v):
-    return f"{v:,.10g}"
+def fmt_num(v, decimals):
+    return f"{v:,.{decimals}f}"
+
+
+def chart_decimals(series):
+    # one precision per chart: the most precise value sets the decimal count
+    # for every printed label, so 483.0 renders "483.0" beside "434.8"
+    d = 0
+    for sr in series:
+        for v in sr:
+            s = f"{v:.10g}"
+            if "." in s:
+                d = max(d, len(s.split(".")[1]))
+    return d
 
 
 def remove_slot_element(html, name):
@@ -242,6 +254,7 @@ def rewrite_stacked(html, span, data, spec, ipref):
     plot = sec[p:pe]
     series = data["series"]
     n = len(series)
+    dec = chart_decimals(series)
     totals = data.get("totals")
     col_totals = [sum(sr[c] for sr in series) for c in range(spec["cats"])]
     scale = spec["scale_px"] / max(col_totals)
@@ -272,7 +285,7 @@ def rewrite_stacked(html, span, data, spec, ipref):
             h = max(2, round(v * scale))
             # a segment too thin to hold its label goes unlabelled; the
             # value still lives in the table, and proportions never distort
-            label = fmt_num(v) if spec["seg_labels"] and h >= 22 else ""
+            label = fmt_num(v, dec) if spec["seg_labels"] and h >= 22 else ""
             segs.append(f'<div class="seg seg--{k}" '
                         f'style="height: {h}px">{label}</div>')
         cat = cat[:b] + '<div class="bar">' + "".join(segs) + "</div>" + cat[be:]

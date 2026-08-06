@@ -89,6 +89,16 @@ Fill slots from the outline, obeying:
   chart renders 3 bars with 3 legends. Supply `totals` only if the user
   stated them; a sum you compute is still an invented visible figure. A
   chart with no data stays visibly masked, and you tell the user so.
+- **When the user declares the outline complete, finalize.** "That's all the
+  data there is" triggers one sweep, not a site-by-site conversation: drop
+  every whole-empty block that has a collapse point, dash every masked cell
+  that survives inside a kept structure, drop `module.chart` where a module
+  chart never received series, then set `"final": true` and re-run the
+  check. Final mode FAILs any mask you missed (its FAIL list is your
+  worklist) and the builder blanks the chart totals and trend the user never
+  stated. Report what you dropped versus dashed. Never set `final` on your
+  own initiative: it converts every TODO into a claim that the data does
+  not exist, and only the user can say that.
 - **Nested slots ride their outer.** Where slots.json marks a slot with
   `"outer"`, write the full sentence into the outer slot and skip the inner.
 - **Brand colour rethemes everything or nothing.** If the user gave colours,

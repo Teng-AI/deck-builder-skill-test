@@ -147,8 +147,12 @@ def main():
     # --- schema -------------------------------------------------------------
     for key in deck:
         if key not in {"_meta", "pages", "tokens", "marks", "slots", "keep",
-                       "drop", "charts"}:
+                       "drop", "charts", "final"}:
             fail(f"schema: unknown top-level key {key!r}")
+    final = deck.get("final", False)
+    if "final" in deck and final is not True:
+        fail('schema: "final" must be the literal true when present '
+             "(it is the user's declaration that the outline is complete)")
 
     plan = []
     for p in deck.get("pages", spine):
@@ -308,6 +312,14 @@ def main():
                 if key not in {"series", "totals"}:
                     fail(f"charts: {cid} unknown key {key!r}")
 
+    # a chart cannot be both dropped and data-driven: the block is gone
+    for cid in (charts if charts_spec else {}):
+        m = re.match(r"m(\d+):(.+)", cid)
+        base, pref = (m.group(2), f"m{m.group(1)}:") if m else (cid, "")
+        if base == "module" and (pref + "module.chart") in drops:
+            fail(f"charts: {cid} carries data but {pref}module.chart is "
+                 "dropped; supply the series or the drop, not both")
+
     # --- coverage -----------------------------------------------------------
     def covered(name, site):
         if site["slot"].startswith("fig-"):
@@ -333,6 +345,43 @@ def main():
                     fail(f"coverage: {pattern} (instance {i}) slot {name!r} "
                          f"[{site['label']}] is neither filled nor kept; "
                          "the template default is fictional-issuer text")
+
+    # --- final mode: a final deck carries no visible masks ------------------
+    # mask classes: fig-* slots (here), chart bars/legends (here, via the
+    # data-or-drop rule), chart totals/trend furniture (the builder empties
+    # those when final). "final" is the user's declaration, never a default.
+    if final is True:
+        for pattern in retained:
+            instances = range(1, retained[pattern] + 1) \
+                if pattern == "module" else [1]
+            for i in instances:
+                pref = f"m{i}:" if i > 1 else ""
+                for site in slots_map[pattern]:
+                    if not site["slot"].startswith("fig-"):
+                        continue
+                    name = pref + site["slot"]
+                    if name in filled or name in dropped_exempt:
+                        continue
+                    fail(f"final: {pattern} (instance {i}) slot {name!r} "
+                         f"[{site['label']}] is still masked; fill it, "
+                         "dash it, or drop its block")
+        for base, spec in (charts_spec or {}).items():
+            page = spec["page"]
+            if page not in retained:
+                continue
+            instances = range(1, retained[page] + 1) \
+                if page == "module" else [1]
+            for i in instances:
+                pref = f"m{i}:" if i > 1 else ""
+                cid = pref + base
+                if cid in charts:
+                    continue
+                if page == "module" and (pref + "module.chart") in drops:
+                    continue
+                relief = f"drop {pref}module.chart" if page == "module" \
+                    else f"drop the {page} page"
+                fail(f"final: chart {cid!r} has no data and would render "
+                     f"masked; supply its series or {relief}")
 
     # keep-leak: a kept slot whose blank-form label is narrative still
     # renders the fictional issuer's text (calibration run 2 shipped one).

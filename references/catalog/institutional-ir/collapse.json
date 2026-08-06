@@ -47,6 +47,15 @@
                 "fig-module-35", "fig-module-36", "fig-module-39", "fig-module-40",
                 "fig-module-43", "fig-module-44", "fig-module-47", "fig-module-48"]
     },
+    "module.chart": {
+      "family": "element",
+      "desc": "The segment fee chart block (for final decks whose outline never supplied its series)",
+      "container_class": "chart",
+      "page": "module",
+      "slots": ["lang-mod-chart", "lang-legend-mod-1", "lang-legend-mod-2",
+                "lang-legend-mod-3", "lang-legend-mod-4",
+                "lang-cat-mod-1", "lang-cat-mod-2", "lang-cat-mod-3"]
+    },
     "cs.targets": {
       "family": "element",
       "desc": "The targets frame on chart-split (for decks announcing no targets there)",

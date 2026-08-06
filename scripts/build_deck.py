@@ -246,10 +246,13 @@ def apply_drops(html, drops, blocks):
     return html
 
 
-def rewrite_stacked(html, span, data, spec, ipref):
+def rewrite_stacked(html, span, data, spec, ipref, final=False):
     s, e = span
     sec = html[s:e]
     p = sec.find('<div class="plot">')
+    if p < 0:
+        sys.exit("charts: a chart's plot is missing from its page; was its "
+                 "block dropped while its data stayed in \"charts\"?")
     pe = element_end(sec, p + len('<div class="plot">'), "div")
     plot = sec[p:pe]
     series = data["series"]
@@ -271,8 +274,10 @@ def rewrite_stacked(html, span, data, spec, ipref):
             break
         ce = element_end(plot, i + len('<div class="cat">'), "div")
         cat = plot[i:ce]
-        if totals is not None:
-            t = totals[c]
+        if totals is not None or final:
+            # a final deck may not show a masked total; an unstated one is
+            # emptied (the div stays so bar baselines hold), never computed
+            t = totals[c] if totals is not None else ""
             cat = re.sub(r'(<div class="total num">)[^<]*(</div>)',
                          lambda m: m.group(1) + t + m.group(2), cat, count=1)
         b = cat.find('<div class="bar">')
@@ -299,10 +304,13 @@ def rewrite_stacked(html, span, data, spec, ipref):
     return html[:s] + sec + html[e:]
 
 
-def rewrite_pair(html, span, data, spec):
+def rewrite_pair(html, span, data, spec, final=False):
     s, e = span
     sec = html[s:e]
     plots = list(re.finditer(r'<div class="plot plot--pair">', sec))
+    if spec["plot_index"] >= len(plots):
+        sys.exit("charts: a chart's plot is missing from its page; was its "
+                 "block dropped while its data stayed in \"charts\"?")
     m = plots[spec["plot_index"]]
     pe = element_end(sec, m.end(), "div")
     plot = sec[m.start():pe]
@@ -318,8 +326,8 @@ def rewrite_pair(html, span, data, spec):
         h = max(2, round(vals[ci] * scale)) if vals[ci] > 0 else 0
         cat = re.sub(r'(style="height: )\d+(px")', rf"\g<1>{h}\g<2>", cat,
                      count=1)
-        if totals is not None:
-            t = totals[ci]
+        if totals is not None or final:
+            t = totals[ci] if totals is not None else ""
             cat = re.sub(r'(<div class="total num">)[^<]*(</div>)',
                          lambda mm: mm.group(1) + t + mm.group(2), cat, count=1)
         parts.append(plot[pos:cm.start()])
@@ -327,16 +335,17 @@ def rewrite_pair(html, span, data, spec):
         pos, ci = ce, ci + 1
     parts.append(plot[pos:])
     sec = sec[:m.start()] + "".join(parts) + sec[pe:]
-    if "trend" in data:
+    if "trend" in data or final:
         trends = list(re.finditer(r'(<div class="trend">).*?(</div>)', sec,
                                   re.S))
         t = trends[spec["plot_index"]]
-        sec = sec[:t.start()] + t.group(1) + data["trend"] + t.group(2) \
+        body = data.get("trend", "")
+        sec = sec[:t.start()] + t.group(1) + body + t.group(2) \
             + sec[t.end():]
     return html[:s] + sec + html[e:]
 
 
-def apply_charts(html, charts, spec_map):
+def apply_charts(html, charts, spec_map, final=False):
     for cid, data in charts.items():
         ipref, inst, base = split_instance(cid)
         spec = spec_map.get(base)
@@ -347,9 +356,9 @@ def apply_charts(html, charts, spec_map):
             sys.exit(f"chart {cid}: page '{spec['page']}' (instance "
                      f"{inst + 1}) is not in the rendered deck")
         if spec["kind"] == "pair":
-            html = rewrite_pair(html, span, data, spec)
+            html = rewrite_pair(html, span, data, spec, final)
         else:
-            html = rewrite_stacked(html, span, data, spec, ipref)
+            html = rewrite_stacked(html, span, data, spec, ipref, final)
     return html
 
 
@@ -484,7 +493,8 @@ def main():
             sys.exit("deck.json carries charts but this catalog entry has no "
                      "charts.json (v1 catalog?)")
         html = apply_charts(html, charts,
-                            json.loads(cpath.read_text())["charts"])
+                            json.loads(cpath.read_text())["charts"],
+                            deck.get("final") is True)
 
     # --- folios -------------------------------------------------------------
     counter = {"n": 0}

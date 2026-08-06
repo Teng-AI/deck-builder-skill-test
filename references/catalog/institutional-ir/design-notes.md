@@ -144,7 +144,30 @@ labels, and the measured px scale. deck.json may supply, per chart id:
 - `pair` charts (the three panel-row panels) take `values` [prior, current]
   plus optional `totals` (two label strings) and `trend`.
 - A supplied chart makes its bars honest. An unsupplied chart stays masked.
-  There is no third state.
+  There is no third state while drafting; in a FINAL deck (below) an
+  unsupplied module chart is dropped via `module.chart` instead.
+
+## Final decks (v1.2)
+
+`"final": true` in deck.json is the user's declaration that the outline is
+complete: no more data is coming. It is never a default; setting it without
+that declaration converts TODOs into false claims of absence. What it does:
+
+- The check gains teeth: any fig slot on a retained page still masked (not
+  filled, not dashed, not inside a dropped block) FAILS, and any declared
+  chart on a retained page without `charts` data FAILS (relief: supply the
+  series, drop `module.chart`, or drop the narrative page).
+- The build empties the chart furniture no slot controls: a stacked or pair
+  total the user never stated renders as nothing (the div stays, so bar
+  baselines hold), and a pair trend without a `trend` value renders empty.
+  Bars keep their real geometry. Nothing is ever computed to fill the gap.
+
+The finalize sweep (the skill applies it when the user declares the outline
+complete, in one pass): drop every whole-empty block that has a collapse
+point, dash every masked cell that survives in a kept structure, drop
+`module.chart` where a module chart never got data, set `final`, re-check,
+rebuild. The final-mode FAIL list is the sweep's worklist; a clean final
+check is the machine's statement that no visible mask remains.
 
 ## Collapse points (v1.1)
 
@@ -155,6 +178,7 @@ them in `drop` (module ids take `m<N>:` prefixes):
 |---|---|---|
 | `module.row-1..5` | one table line row | the segment has fewer revenue lines than rows |
 | `module.cols-34` | comparison columns 3-4 | the outline covers one comparison period |
+| `module.chart` | the segment fee chart block | the deck is final and the outline never supplied its series |
 | `cs.targets` | the chart-split targets frame | no targets are being (re)announced there |
 | `hc.boxes` | the hero growth-channel boxes | nothing earns the row |
 | `recon.avg-cols` | the "Average for the" column group | the reconciliation has no average balances |
@@ -289,6 +313,10 @@ a knob.
   "keep": ["lang-scaf-netrevenue-1"]
 }
 ```
+
+v1.1 adds optional `drop` (declared collapse ids) and `charts` (per-chart
+data); v1.2 adds optional `"final": true` (the no-masks declaration, rules
+in the Final decks section).
 
 - `pages`: ordered subset of the twelve patterns; `module` may carry a count. The
   builder clones module instances and prefixes every slot inside instance N with

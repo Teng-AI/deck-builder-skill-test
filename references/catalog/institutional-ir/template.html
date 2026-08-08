@@ -1242,7 +1242,13 @@
       .refline span {
         position: absolute; right: 0; top: 50%; transform: translate(calc(100% + 14px), -50%);
         font-size: var(--sz-dense); font-weight: var(--fw-bold); color: var(--c-forward);
-        line-height: 1.2; white-space: nowrap;
+        line-height: 1.2;
+        /* The label hangs 14px past the plot's right edge (x=1694) and the
+           right keep-out sits at 1860, so it owns ~166px. nowrap let a long
+           single-line fill run past the keep-out (a 6px breach shipped in the
+           annual example); the cap makes the geometry self-limiting - a fill
+           wider than the budget wraps to a second line like the default. */
+        max-width: 160px; white-space: normal;
       }
 
       /* ── Assertion ─────────────────────────────────────────────────────────
@@ -1430,9 +1436,9 @@
            giveaway, so every slot ships carrying neutral text. -->
       <section class="slide slide--cover is-active">
         <div class="brand-slot brand-slot--cover"></div>
-        <div class="cover-title t-cover" data-slot="cover-title"><span class="hang hang-l1">Second Quarter 2026</span><span class="hang hang-l2">Earnings Results Presentation</span></div>
+        <div class="cover-title t-cover" data-slot="cover-title"><span class="hang hang-l1">Lorem ipsum dolor sit amet consectetur adipiscing</span></div>
         <div class="cover-rule"></div>
-        <div class="cover-date" data-slot="cover-date">21 July 2026</div>
+        <div class="cover-date" data-slot="cover-date">Lorem ipsum</div>
       </section>
 
       <!-- ═══ 2 · CHART-SPLIT ════════════════════════════════════════════════
@@ -1440,43 +1446,43 @@
            different jobs. Left argues, right proves.                        -->
       <section class="slide slide--chart-split">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="lang-cs-title">A wealth and asset platform built around recurring revenues</h1>
+        <h1 class="page-title t-title" data-slot="lang-cs-title">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do</h1>
 
         <div class="zone zone--l">
           <div class="module">
-            <h2>Key Highlights</h2>
+            <h2 data-slot="lang-cs-sec-high">Lorem ipsum dolor</h2>
             <div class="assert">
-              <h3 data-slot="lang-cs-uhnw">Growing base of wealth planning relationships</h3>
-              <p data-slot="lang-cs-p1">$[x.x]tn of client assets across wealth planning<sup>6</sup></p>
+              <h3 data-slot="lang-cs-uhnw">Lorem ipsum dolor sit amet consectetur adipiscing</h3>
+              <p data-slot="lang-cs-p1">Lorem ipsum dolor sit amet consectetur adipiscing</p>
             </div>
             <div class="assert">
-              <h3 data-slot="lang-cs-alts">A scaled private markets platform<sup>9</sup></h3>
-              <p data-slot="lang-cs-p2">$[xxx]bn+ total alternative assets<sup>6</sup></p>
+              <h3 data-slot="lang-cs-alts">Lorem ipsum dolor sit amet consectetur</h3>
+              <p data-slot="lang-cs-p2">Lorem ipsum dolor sit amet consectetur</p>
             </div>
             <div class="assert">
-              <h3 data-slot="lang-cs-rank"><span data-slot="rank-active-mgr">Top-[x]</span> global wealth manager<sup>9</sup></h3>
-              <p data-slot="lang-cs-p3">Long-term net inflows of $[xx]bn, positive in every quarter since the investor day</p>
+              <h3 data-slot="lang-cs-rank">Lorem ipsum dolor sit amet<sup>9</sup></h3>
+              <p data-slot="lang-cs-p3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt</p>
             </div>
           </div>
 
           <div class="module">
-            <h2>Growth Drivers</h2>
+            <h2 data-slot="lang-cs-sec-growth">Lorem ipsum dolor</h2>
             <div class="box-row">
-              <div class="box" data-slot="lang-cs-box-1">Wealth<br />Planning</div>
-              <div class="box" data-slot="lang-cs-box-2">Private<br />Markets</div>
-              <div class="box" data-slot="lang-cs-box-3">Treasury<br />Services</div>
+              <div class="box" data-slot="lang-cs-box-1">Lorem ipsum dolor</div>
+              <div class="box" data-slot="lang-cs-box-2">Lorem ipsum dolor</div>
+              <div class="box" data-slot="lang-cs-box-3">Lorem ipsum dolor</div>
             </div>
           </div>
         </div>
 
         <div class="zone zone--r">
           <div class="module">
-            <h2 data-slot="lang-cs-chart">Recurring Revenues ($ in billions)</h2>
+            <h2 data-slot="lang-cs-chart">Lorem ipsum (Lorem ipsum)</h2>
           </div>
           <div class="chart" style="--bar-w: 132px; --plot-h: 268px">
             <div class="legend">
-              <span data-slot="lang-legend-cs-1"><i class="sw sw--2"></i>Private banking</span>
-              <span data-slot="lang-legend-cs-2"><i class="sw sw--1"></i>Asset management fees</span>
+              <span data-slot="lang-legend-cs-1"><i class="sw sw--2"></i>Lorem ipsum dolor</span>
+              <span data-slot="lang-legend-cs-2"><i class="sw sw--1"></i>Lorem ipsum dolor sit</span>
               <span class="trend">+[xx]% CAGR</span>
             </div>
             <!-- The plot box is 268px and the TALLEST STACK IS 236, because the
@@ -1501,27 +1507,27 @@
                 <div class="seg seg--1" style="height: 168px">[xx.xx]</div></div></div>
             </div>
             <div class="baseline"></div>
-            <div class="cats"><div data-slot="lang-cat-cs-1">2021</div><div data-slot="lang-cat-cs-2">2022</div><div data-slot="lang-cat-cs-3">2023</div><div data-slot="lang-cat-cs-4">2024</div><div data-slot="lang-cat-cs-5">2025</div></div>
+            <div class="cats"><div data-slot="lang-cat-cs-1">Lorem</div><div data-slot="lang-cat-cs-2">Lorem</div><div data-slot="lang-cat-cs-3">Lorem</div><div data-slot="lang-cat-cs-4">Lorem</div><div data-slot="lang-cat-cs-5">Lorem</div></div>
           </div>
 
           <div class="frame">
-            <h3 data-slot="lang-cs-tgt-title">Medium-Term Targets<sup>13</sup></h3>
+            <h3 data-slot="lang-cs-tgt-title">Lorem ipsum dolor sit<sup>13</sup></h3>
             <table class="compare">
               <thead>
-                <tr><th></th><th class="prior">Prior</th><th></th><th>Updated</th></tr>
+                <tr><th></th><th class="prior" data-slot="lang-cs-tgt-prior">Lorem</th><th></th><th data-slot="lang-cs-tgt-updated">Lorem ipsum</th></tr>
               </thead>
               <tbody>
                 <!-- Targets ship as digit placeholders (Teng, 2026-08-01);
                      every cell is a slot, so a profile may put the worded
                      forms back ("Mid-twenties") without touching this file. -->
                 <tr>
-                  <td class="k" data-slot="lang-cs-tgt-k1">Pre-tax margin</td>
+                  <td class="k" data-slot="lang-cs-tgt-k1">Lorem ipsum dolor</td>
                   <td class="prior" data-slot="target-margin-prior">[xx]%</td>
                   <td class="arrow"><i></i></td>
                   <td class="now" data-slot="target-margin-updated">[xx]%</td>
                 </tr>
                 <tr>
-                  <td class="k" data-slot="lang-cs-tgt-k2">Returns</td>
+                  <td class="k" data-slot="lang-cs-tgt-k2">Lorem ipsum</td>
                   <td class="prior" data-slot="target-returns-prior">[xx]%</td>
                   <td class="arrow"><i></i></td>
                   <td class="now" data-slot="target-returns-updated">[xx]%</td>
@@ -1542,18 +1548,18 @@
            before spending three panels evidencing it.                       -->
       <section class="slide slide--panel-row">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="lang-pr-title">Growth delivered while strengthening the risk profile</h1>
+        <h1 class="page-title t-title" data-slot="lang-pr-title">Lorem ipsum dolor sit amet consectetur adipiscing elit</h1>
 
         <div class="band band--thesis">
-          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-1">A longer-horizon operating model</div>
-          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-2">Investing behind the platform</div>
-          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-3">Clear ownership of outcomes</div>
-          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-4">Disciplined risk management</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-1">Lorem ipsum dolor sit amet consectetur</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-2">Lorem ipsum dolor sit amet</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-3">Lorem ipsum dolor sit amet</div>
+          <div class="band-cell band-cell--claim" data-slot="lang-pr-claim-4">Lorem ipsum dolor sit amet</div>
         </div>
 
         <div class="panel-row">
           <div class="pane">
-            <h3 class="t-head" data-slot="lang-pr-chart-durable">Firmwide recurring revenues<sup>4</sup> ($bn)</h3>
+            <h3 class="t-head" data-slot="lang-pr-chart-durable">Lorem ipsum<sup>4</sup> (Lorem ipsum)</h3>
             <div class="chart" style="--bar-w: 148px; --plot-h: 440px">
               <div class="trend">+[xxx]%</div>
               <div class="plot plot--pair">
@@ -1563,13 +1569,13 @@
                   <div class="bar bar--solid" style="height: 341px"></div></div>
               </div>
               <div class="baseline"></div>
-              <div class="cats cats--pair"><div data-slot="lang-cat-pr-1">2020</div><div data-slot="lang-cat-pr-2">2025</div></div>
+              <div class="cats cats--pair"><div data-slot="lang-cat-pr-1">Lorem</div><div data-slot="lang-cat-pr-2">Lorem</div></div>
             </div>
-            <div class="box" data-slot="lang-pr-box-resil">Improved resiliency</div>
+            <div class="box" data-slot="lang-pr-box-resil">Lorem ipsum dolor sit</div>
           </div>
 
           <div class="pane">
-            <h3 class="t-head" data-slot="lang-pr-chart-principal">Non-core legacy portfolio<sup>5,6</sup> ($bn)</h3>
+            <h3 class="t-head" data-slot="lang-pr-chart-principal">Lorem ipsum<sup>5,6</sup> (Lorem ipsum)</h3>
             <div class="chart" style="--bar-w: 148px; --plot-h: 440px">
               <div class="trend">&minus;[xx]%</div>
               <div class="plot plot--pair">
@@ -1579,13 +1585,13 @@
                   <div class="bar bar--solid" style="height: 55px"></div></div>
               </div>
               <div class="baseline"></div>
-              <div class="cats cats--pair"><div data-slot="lang-cat-pr-3">2020</div><div data-slot="lang-cat-pr-4">2025</div></div>
+              <div class="cats cats--pair"><div data-slot="lang-cat-pr-3">Lorem</div><div data-slot="lang-cat-pr-4">Lorem</div></div>
             </div>
-            <div class="box" data-slot="lang-pr-box-capital">Lower capital intensity</div>
+            <div class="box" data-slot="lang-pr-box-capital">Lorem ipsum dolor sit amet</div>
           </div>
 
           <div class="pane">
-            <h3 class="t-head" data-slot="lang-pr-chart-stress">Stress capital buffer</h3>
+            <h3 class="t-head" data-slot="lang-pr-chart-stress">Lorem ipsum dolor sit</h3>
             <div class="chart" style="--bar-w: 148px; --plot-h: 440px">
               <div class="trend">&minus;[xxx]bps</div>
               <div class="plot plot--pair">
@@ -1595,9 +1601,9 @@
                   <div class="bar bar--solid" style="height: 205px"></div></div>
               </div>
               <div class="baseline"></div>
-              <div class="cats cats--pair"><div data-slot="lang-cat-pr-5">2020</div><div data-slot="lang-cat-pr-6">2025</div></div>
+              <div class="cats cats--pair"><div data-slot="lang-cat-pr-5">Lorem</div><div data-slot="lang-cat-pr-6">Lorem</div></div>
             </div>
-            <div class="box" data-slot="lang-pr-box-stress">Lower stress-loss severity</div>
+            <div class="box" data-slot="lang-pr-box-stress">Lorem ipsum dolor sit amet</div>
           </div>
         </div>
 
@@ -1610,63 +1616,63 @@
            the evidence, then one conclusion alone under a rule.             -->
       <section class="slide slide--checklist">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="lang-cl-title">Consistent delivery against the plan set at the investor day</h1>
+        <h1 class="page-title t-title" data-slot="lang-cl-title">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do</h1>
 
         <div class="bracket-pair">
-          <div class="bracket" data-slot="segment-1">Banking &amp; Markets</div>
-          <div class="bracket" data-slot="segment-2">Wealth &amp; Asset Management</div>
+          <div class="bracket" data-slot="segment-1">Lorem ipsum dolor sit</div>
+          <div class="bracket" data-slot="segment-2">Lorem ipsum dolor sit amet consectetur</div>
         </div>
 
         <div class="band">
-          <div class="band-cell"><span class="v" data-slot="fig-checklist-1">#[x]</span><span class="k" data-slot="lang-band-1">M&amp;A advisor<sup>7</sup></span></div>
-          <div class="band-cell"><span class="v" data-slot="fig-checklist-2">#[x]</span><span class="k" data-slot="lang-band-2">Debt financing franchise<sup>8</sup></span></div>
-          <div class="band-cell"><span class="v" data-slot="lang-band-v1">Leading</span><span class="k" data-slot="lang-band-3">Markets execution franchise<sup>8</sup></span></div>
-          <div class="band-cell"><span class="v" data-slot="lang-band-v2">Top [x]</span><span class="k" data-slot="lang-band-4">Global wealth manager<sup>9</sup></span></div>
-          <div class="band-cell"><span class="v" data-slot="lang-band-v3">Leading</span><span class="k" data-slot="lang-band-5">Treasury services provider</span></div>
-          <div class="band-cell"><span class="v" data-slot="lang-band-v4">Premier</span><span class="k" data-slot="lang-band-6">Private markets platform</span></div>
+          <div class="band-cell"><span class="v" data-slot="fig-checklist-1">#[x]</span><span class="k" data-slot="lang-band-1">Lorem ipsum dolor<sup>7</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="fig-checklist-2">#[x]</span><span class="k" data-slot="lang-band-2">Lorem ipsum dolor sit amet<sup>8</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v1">Lorem ipsum</span><span class="k" data-slot="lang-band-3">Lorem ipsum dolor sit amet<sup>8</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v2">Lorem ipsum</span><span class="k" data-slot="lang-band-4">Lorem ipsum dolor sit amet<sup>9</sup></span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v3">Lorem ipsum</span><span class="k" data-slot="lang-band-5">Lorem ipsum dolor sit amet</span></div>
+          <div class="band-cell"><span class="v" data-slot="lang-band-v4">Lorem ipsum</span><span class="k" data-slot="lang-band-6">Lorem ipsum dolor sit amet</span></div>
         </div>
 
         <div class="checklist-grid">
           <div class="assert">
-            <h3 data-slot="lang-cl-h3-franchise">Deeper client and sponsor coverage</h3>
-            <p data-slot="lang-blank-cl-1">#[x] M&amp;A, #[x] leveraged loans, #[x] high-yield debt, #[x] ECM<sup>7</sup></p>
-            <p data-slot="lang-blank-cl-2"><span data-slot="rank-ficc-clients">Top [x]</span> with [xxx] of the top [xxx] institutional markets clients, against [xx] in 2020<sup>10</sup></p>
-            <p data-slot="lang-blank-cl-3">+[xxx]bps of wallet share gained in banking and markets since 2020<sup>8</sup></p>
+            <h3 data-slot="lang-cl-h3-franchise">Lorem ipsum dolor sit amet consectetur</h3>
+            <p data-slot="lang-blank-cl-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
+            <p data-slot="lang-blank-cl-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut</p>
+            <p data-slot="lang-blank-cl-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor</p>
           </div>
           <div class="assert">
-            <h3 data-slot="lang-cl-h3-durable">Grew recurring revenues<sup>4</sup></h3>
-            <p data-slot="lang-blank-cl-4">Record asset management fees of $[xx.x]bn, up [xx]% year over year</p>
-            <p data-slot="lang-blank-cl-5">Treasury services fee revenues CAGR of +[xx]% from 2020 to 2025</p>
-            <p data-slot="lang-blank-cl-6">Record private banking net revenues of $[x.x]bn, up [xx]% year over year</p>
-          </div>
-
-          <div class="assert">
-            <h3 data-slot="lang-cl-h3-financing">Grew financing with discipline</h3>
-            <p data-slot="lang-blank-cl-7">Record financing revenues of $[xx.x]bn</p>
-            <p data-slot="lang-blank-cl-8">CAGR of +[xx]% from 2020 to 2025</p>
-          </div>
-          <div class="assert">
-            <h3 data-slot="lang-cl-h3-fundraising">Wound down the non-core legacy book<sup>5,6</sup></sup></h3>
-            <p data-slot="lang-blank-cl-9">Non-core balance down $[xx.x]bn since 2020, to $[x]bn in 2025</p>
-            <p data-slot="lang-blank-cl-10">$[x.x]bn of capital released and redeployed into the core segments</p>
+            <h3 data-slot="lang-cl-h3-durable">Lorem ipsum dolor sit amet<sup>4</sup></h3>
+            <p data-slot="lang-blank-cl-4">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
+            <p data-slot="lang-blank-cl-5">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
+            <p data-slot="lang-blank-cl-6">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
           </div>
 
           <div class="assert">
-            <h3 data-slot="lang-cl-h3-returns">Returns ahead of target</h3>
-            <p data-slot="lang-blank-cl-11">Return on equity of [xx.x]% in 2025; <span data-slot="period-roe-avg">[x]-year</span> average of [xx.x]%</p>
+            <h3 data-slot="lang-cl-h3-financing">Lorem ipsum dolor sit amet</h3>
+            <p data-slot="lang-blank-cl-7">Lorem ipsum dolor sit amet consectetur</p>
+            <p data-slot="lang-blank-cl-8">Lorem ipsum dolor sit amet consectetur</p>
           </div>
           <div class="assert">
-            <h3 data-slot="lang-cl-h3-margins">Higher margins and returns</h3>
-            <p data-slot="lang-blank-cl-12">Pre-tax margin of [xx]% and ROE of [xx.x]% in 2025</p>
-            <p data-slot="lang-blank-cl-13">Including [x.x]pp of ROE drag carried from the non-core legacy book<sup>6</sup></p>
+            <h3 data-slot="lang-cl-h3-fundraising">Lorem ipsum dolor sit amet consectetur<sup>5,6</sup></h3>
+            <p data-slot="lang-blank-cl-9">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do</p>
+            <p data-slot="lang-blank-cl-10">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
+          </div>
+
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-returns">Lorem ipsum dolor sit amet</h3>
+            <p data-slot="lang-blank-cl-11">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
+          </div>
+          <div class="assert">
+            <h3 data-slot="lang-cl-h3-margins">Lorem ipsum dolor sit amet</h3>
+            <p data-slot="lang-blank-cl-12">Lorem ipsum dolor sit amet consectetur adipiscing</p>
+            <p data-slot="lang-blank-cl-13">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
           </div>
         </div>
 
         <div class="checklist-coda">
           <div class="assert">
-            <h3 data-slot="lang-cl-coda-h3">Simplified the firm around its core</h3>
-            <p data-slot="lang-cl-coda-p1">Sold the closed-book consumer lending platform in full</p>
-            <p data-slot="lang-cl-coda-p2">Signed an agreement to divest the last of the legacy structured assets</p>
+            <h3 data-slot="lang-cl-coda-h3">Lorem ipsum dolor sit amet consectetur</h3>
+            <p data-slot="lang-cl-coda-p1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do</p>
+            <p data-slot="lang-cl-coda-p2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</p>
           </div>
         </div>
 
@@ -1680,18 +1686,18 @@
            page, so a plot wider than that cannot be one.                    -->
       <section class="slide slide--hero-chart">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="lang-hc-title">Markets execution revenues held up across the cycle</h1>
+        <h1 class="page-title t-title" data-slot="lang-hc-title">Lorem ipsum dolor sit amet consectetur adipiscing elit</h1>
 
         <div class="hero">
           <div class="module">
-            <h2 data-slot="lang-hc-chart">Markets Execution Net Revenues ($ in billions)</h2>
+            <h2 data-slot="lang-hc-chart">Lorem ipsum (Lorem ipsum)</h2>
           </div>
           <div class="chart" style="--bar-w: 240px; --plot-h: 492px">
             <div class="legend">
-              <span data-slot="lang-legend-hc-1"><i class="sw sw--1"></i>FICC &ndash; macro products</span>
-              <span data-slot="lang-legend-hc-2"><i class="sw sw--2"></i>FICC &ndash; credit and securitised products</span>
-              <span data-slot="lang-legend-hc-3"><i class="sw sw--3"></i>Equities &ndash; cash execution</span>
-              <span data-slot="lang-legend-hc-4"><i class="sw sw--4"></i>Equities &ndash; derivatives</span>
+              <span data-slot="lang-legend-hc-1"><i class="sw sw--1"></i>Lorem ipsum dolor sit amet</span>
+              <span data-slot="lang-legend-hc-2"><i class="sw sw--2"></i>Lorem ipsum dolor sit amet consectetur adipiscing</span>
+              <span data-slot="lang-legend-hc-3"><i class="sw sw--3"></i>Lorem ipsum dolor sit amet</span>
+              <span data-slot="lang-legend-hc-4"><i class="sw sw--4"></i>Lorem ipsum dolor sit amet</span>
             </div>
             <!-- the plot stops at 1620 so the reference line's own label has
                  somewhere to sit. A label that hangs off a full-measure plot
@@ -1699,7 +1705,7 @@
                  deck that nothing crosses. -->
             <div class="hero-plot">
               <div class="plot">
-                <div class="refline" style="bottom: 395px"><span data-slot="lang-hc-refline">Average<br />$[xx.x]bn</span></div>
+                <div class="refline" style="bottom: 395px"><span data-slot="lang-hc-refline">Lorem ipsum dolor<br />$[xx.x]bn</span></div>
                 <div class="cat"><div class="total num">[xx.x]</div><div class="bar">
                   <div class="seg seg--1" style="height: 133px"></div>
                   <div class="seg seg--2" style="height: 46px"></div>
@@ -1727,17 +1733,17 @@
                   <div class="seg seg--4" style="height: 124px"></div></div></div>
               </div>
               <div class="baseline"></div>
-              <div class="cats"><div data-slot="lang-cat-hc-1">2021</div><div data-slot="lang-cat-hc-2">2022</div><div data-slot="lang-cat-hc-3">2023</div><div data-slot="lang-cat-hc-4">2024</div><div data-slot="lang-cat-hc-5">2025</div></div>
+              <div class="cats"><div data-slot="lang-cat-hc-1">Lorem</div><div data-slot="lang-cat-hc-2">Lorem</div><div data-slot="lang-cat-hc-3">Lorem</div><div data-slot="lang-cat-hc-4">Lorem</div><div data-slot="lang-cat-hc-5">Lorem</div></div>
             </div>
           </div>
 
-          <div class="bracket" data-slot="lang-hc-bracket">Room to take further share from here</div>
+          <div class="bracket" data-slot="lang-hc-bracket">Lorem ipsum dolor sit amet consectetur</div>
           <div class="box-row box-row--5">
-            <div class="box" data-slot="lang-hc-box-1">Corporate<br />Hedging</div>
-            <div class="box" data-slot="lang-hc-box-2">Payments &amp;<br />FX Flows</div>
-            <div class="box" data-slot="lang-hc-box-3">Private<br />Markets</div>
-            <div class="box" data-slot="lang-hc-box-4">Insurers &amp;<br />Pensions</div>
-            <div class="box" data-slot="lang-hc-box-5">Platform<br />Partnerships</div>
+            <div class="box" data-slot="lang-hc-box-1">Lorem ipsum dolor</div>
+            <div class="box" data-slot="lang-hc-box-2">Lorem ipsum dolor sit amet</div>
+            <div class="box" data-slot="lang-hc-box-3">Lorem ipsum dolor</div>
+            <div class="box" data-slot="lang-hc-box-4">Lorem ipsum dolor sit amet</div>
+            <div class="box" data-slot="lang-hc-box-5">Lorem ipsum dolor sit</div>
           </div>
         </div>
 
@@ -1752,39 +1758,37 @@
            Three stats here; six fit, in two rows of three, without the panel. -->
       <section class="slide slide--stat-board">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="lang-sb-title">Firmwide financial targets</h1>
+        <h1 class="page-title t-title" data-slot="lang-sb-title">Lorem ipsum dolor sit amet</h1>
 
-        <div class="bracket bracket--page" data-slot="lang-sb-scope">
-          Firmwide through-the-cycle targets
-        </div>
+        <div class="bracket bracket--page" data-slot="lang-sb-scope">Lorem ipsum dolor sit amet consectetur</div>
 
         <div class="stat-row">
           <div class="stat">
-            <div class="lab" data-slot="lang-sb-lab-1">Returns<sup>20</sup></div>
-            <div class="v v--forward" data-slot="target-returns-cycle">Mid-[xx]s</div>
+            <div class="lab" data-slot="lang-sb-lab-1">Lorem ipsum<sup>20</sup></div>
+            <div class="v v--forward" data-slot="target-returns-cycle">[xx]%</div>
             <hr />
-            <div class="k" data-slot="lang-blank-sb-1">Return on average common shareholders' equity, measured across a full cycle</div>
+            <div class="k" data-slot="lang-blank-sb-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor</div>
           </div>
           <div class="stat">
-            <div class="lab" data-slot="lang-sb-lab-2">Efficiency Ratio</div>
+            <div class="lab" data-slot="lang-sb-lab-2">Lorem ipsum dolor</div>
             <div class="v v--forward" data-slot="target-efficiency">[xx]%</div>
             <hr />
-            <div class="k" data-slot="lang-blank-sb-2">Total operating expenses as a proportion of firmwide net revenues</div>
+            <div class="k" data-slot="lang-blank-sb-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</div>
           </div>
           <div class="stat">
-            <div class="lab" data-slot="lang-sb-lab-3">Capital Return</div>
+            <div class="lab" data-slot="lang-sb-lab-3">Lorem ipsum dolor</div>
             <div class="v v--forward" data-slot="target-capital-return">[xx]%</div>
             <hr />
-            <div class="k" data-slot="lang-blank-sb-3">Share of net earnings applicable to common shareholders, returned over time</div>
+            <div class="k" data-slot="lang-blank-sb-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor</div>
           </div>
         </div>
 
         <div class="frame frame--board">
-          <h3 data-slot="lang-sb-h3">Catalysts that support performance above these targets</h3>
+          <h3 data-slot="lang-sb-h3">Lorem ipsum dolor sit amet consectetur adipiscing elit</h3>
           <div class="box-row box-row--stack">
-            <div class="box" data-slot="lang-sb-box-1">A banking and markets franchise positioned for the cyclical recovery</div>
-            <div class="box" data-slot="lang-sb-box-2">A wealth and asset platform with improving returns on secular growth</div>
-            <div class="box" data-slot="lang-sb-box-3">Regulatory reform and the capital flexibility that follows it</div>
+            <div class="box" data-slot="lang-sb-box-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</div>
+            <div class="box" data-slot="lang-sb-box-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</div>
+            <div class="box" data-slot="lang-sb-box-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do</div>
           </div>
         </div>
 
@@ -1795,63 +1799,57 @@
       <!-- ═══ 7 · SNAPSHOT ═══════════════════════════════════════════════════ -->
       <section class="slide slide--snapshot">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="lang-ss-title">Results Snapshot</h1>
+        <h1 class="page-title t-title" data-slot="lang-ss-title">Lorem ipsum dolor</h1>
 
         <div class="quote-panel">
-          <p class="t-quote" data-slot="lang-quote">&ldquo;Our clients are doing more with us, and doing it more often. Advisory and
-            financing again grew together, with the mid-market franchise contributing a larger
-            share of the quarter than at any point since the investor day. The recurring lines
-            continued to compound through asset management fees, treasury services and wealth
-            planning, and with the legacy wind-down effectively complete, the capital those
-            positions once carried is working in the core. We enter the second half with
-            discipline on expenses and confidence in the pipeline.&rdquo;</p>
+          <p class="t-quote" data-slot="lang-quote">&ldquo;Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim&rdquo;</p>
           <div class="quote-rule"></div>
-          <div class="quote-name" data-slot="quote-name">[Name]</div>
-          <div class="quote-role" data-slot="quote-role">[Title]</div>
+          <div class="quote-name" data-slot="quote-name">Lorem</div>
+          <div class="quote-role" data-slot="quote-role">Lorem ipsum</div>
         </div>
 
         <div class="kpi-grid">
           <div class="tile">
-            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-1">Net Revenues</span><span class="cap" data-slot="lang-units-tile-1">$ in millions</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-1">2Q26</span><span data-slot="fig-snapshot-1">$[xx,xxx]</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-2">2Q26 YTD</span><span data-slot="fig-snapshot-2">$[xx,xxx]</span></div>
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-1">Lorem ipsum</span><span class="cap" data-slot="lang-units-tile-1">Lorem ipsum dolor</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-1">Lorem</span><span data-slot="fig-snapshot-1">$[xx,xxx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-2">Lorem ipsum</span><span data-slot="fig-snapshot-2">$[xx,xxx]</span></div>
           </div>
           <div class="tile">
-            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-2">Annualized ROE<sup>2</sup></span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-3">2Q26</span><span data-slot="fig-snapshot-3">[xx.x]%</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-4">2Q26 YTD</span><span data-slot="fig-snapshot-4">[xx.x]%</span></div>
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-2">Lorem ipsum dolor</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-3">Lorem</span><span data-slot="fig-snapshot-3">[xx.x]%</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-4">Lorem ipsum</span><span data-slot="fig-snapshot-4">[xx.x]%</span></div>
           </div>
           <div class="tile">
-            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-3">Net Earnings</span><span class="cap" data-slot="lang-units-tile-2">$ in millions</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-5">2Q26</span><span data-slot="fig-snapshot-5">$[x,xxx]</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-6">2Q26 YTD</span><span data-slot="fig-snapshot-6">$[xx,xxx]</span></div>
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-3">Lorem ipsum</span><span class="cap" data-slot="lang-units-tile-2">Lorem ipsum dolor</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-5">Lorem</span><span data-slot="fig-snapshot-5">$[x,xxx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-6">Lorem ipsum</span><span data-slot="fig-snapshot-6">$[xx,xxx]</span></div>
           </div>
           <div class="tile">
-            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-4">Annualized ROTE<sup>2</sup></span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-7">2Q26</span><span data-slot="fig-snapshot-7">[xx.x]%</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-8">2Q26 YTD</span><span data-slot="fig-snapshot-8">[xx.x]%</span></div>
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-4">Lorem ipsum dolor</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-7">Lorem</span><span data-slot="fig-snapshot-7">[xx.x]%</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-8">Lorem ipsum</span><span data-slot="fig-snapshot-8">[xx.x]%</span></div>
           </div>
           <div class="tile">
-            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-5">EPS<sup>1</sup></span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-9">2Q26</span><span data-slot="fig-snapshot-9">$[xx.xx]</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-10">2Q26 YTD</span><span data-slot="fig-snapshot-10">$[xx.xx]</span></div>
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-5">Lorem</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-9">Lorem</span><span data-slot="fig-snapshot-9">$[xx.xx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-10">Lorem ipsum</span><span data-slot="fig-snapshot-10">$[xx.xx]</span></div>
           </div>
           <div class="tile">
-            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-6">Book Value Per Share</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-11">2Q26</span><span data-slot="fig-snapshot-11">$[xxx.xx]</span></div>
-            <div class="tile-row"><span data-slot="lang-tile-per-12">YTD Growth</span><span data-slot="fig-snapshot-12">[x.x]%</span></div>
+            <div class="tile-head"><span class="lab" data-slot="lang-tile-lab-6">Lorem ipsum dolor sit</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-11">Lorem</span><span data-slot="fig-snapshot-11">$[xxx.xx]</span></div>
+            <div class="tile-row"><span data-slot="lang-tile-per-12">Lorem ipsum</span><span data-slot="fig-snapshot-12">[x.x]%</span></div>
           </div>
         </div>
 
         <div class="highlights module">
-          <h2 data-slot="lang-ss-high-head">Quarterly Highlights</h2>
+          <h2 data-slot="lang-ss-high-head">Lorem ipsum dolor sit</h2>
           <ul class="bullets bullets--tight">
-            <li data-slot="lang-blank-ss-1">Net revenues and diluted EPS<sup>1</sup> both set records, with net earnings among the strongest quarters on record</li>
-            <li data-slot="lang-blank-ss-2">Record net revenues in <span data-slot="segment-1">Banking &amp; Markets</span>, led by record financing revenues and the strongest Advisory quarter since the investor day</li>
-            <li data-slot="lang-blank-ss-3">Ranked <span data-slot="rank-league-primary">#[x]</span> in announced and completed M&amp;A, equity and equity-related offerings and leveraged finance; <span data-slot="rank-league-ig">#[x]</span> in investment grade debt<sup>3</sup></li>
-            <li data-slot="lang-blank-ss-6">Record asset management fees across the franchise</li>
-            <li data-slot="lang-blank-ss-4">Record client assets of $[x.xx] trillion; net inflows positive in every quarter since the investor day and record third-party private markets fundraising<sup>4</sup></li>
-            <li data-slot="lang-blank-ss-5">Raised the quarterly dividend [xx]% to $[x.xx] per share, effective 3Q26</li>
+            <li data-slot="lang-blank-ss-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore</li>
+            <li data-slot="lang-blank-ss-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam</li>
+            <li data-slot="lang-blank-ss-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam</li>
+            <li data-slot="lang-blank-ss-6">Lorem ipsum dolor sit amet consectetur adipiscing</li>
+            <li data-slot="lang-blank-ss-4">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud</li>
+            <li data-slot="lang-blank-ss-5">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor</li>
           </ul>
         </div>
 
@@ -1865,60 +1863,60 @@
            column.                                                            -->
       <section class="slide slide--module">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="segment-1">Banking &amp; Markets</h1>
+        <h1 class="page-title t-title" data-slot="segment-1">Lorem ipsum dolor sit</h1>
 
         <div class="col col--l module">
-          <h2>Financial Results</h2>
+          <h2 data-slot="lang-mod-sec-fin">Lorem ipsum dolor</h2>
           <div class="table-zone">
             <table class="data">
               <thead>
-                <tr><th><span class="t-caption" data-slot="lang-units-tbl-1">$ in millions</span></th><th data-slot="lang-th-mod-1">2Q26</th><th data-slot="lang-th-mod-2">vs.<br />1Q26</th><th data-slot="lang-th-mod-3">vs.<br />2Q25</th><th data-slot="lang-th-mod-4">2Q26<br />YTD</th></tr>
+                <tr><th><span class="t-caption" data-slot="lang-units-tbl-1">Lorem ipsum dolor</span></th><th data-slot="lang-th-mod-1">Lorem</th><th data-slot="lang-th-mod-2">vs.<br />Lorem ipsum</th><th data-slot="lang-th-mod-3">vs.<br />Lorem ipsum</th><th data-slot="lang-th-mod-4">Lorem ipsum</th></tr>
               </thead>
               <tbody>
-                <tr><td data-slot="lang-line-mod-1">Advisory</td><td class="cur" data-slot="fig-module-1">[x,xxx]</td><td class="chg" data-slot="fig-module-2">[xx]%</td><td class="chg" data-slot="fig-module-3">[xx]%</td><td class="cur" data-slot="fig-module-4">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-line-mod-2">Equity underwriting</td><td class="cur" data-slot="fig-module-5">[x,xxx]</td><td class="chg" data-slot="fig-module-6">[xx]%</td><td class="chg" data-slot="fig-module-7">[xx]%</td><td class="cur" data-slot="fig-module-8">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-line-mod-3">Debt underwriting</td><td class="cur" data-slot="fig-module-9">[x,xxx]</td><td class="chg" data-slot="fig-module-10">([x])%</td><td class="chg" data-slot="fig-module-11">[xx]%</td><td class="cur" data-slot="fig-module-12">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-line-mod-4">Fixed income</td><td class="cur" data-slot="fig-module-13">[x,xxx]</td><td class="chg" data-slot="fig-module-14">[xx]%</td><td class="chg" data-slot="fig-module-15">[xx]%</td><td class="cur" data-slot="fig-module-16">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-line-mod-5">Equities</td><td class="cur" data-slot="fig-module-17">[x,xxx]</td><td class="chg" data-slot="fig-module-18">[xx]%</td><td class="chg" data-slot="fig-module-19">[xx]%</td><td class="cur" data-slot="fig-module-20">[xx,xxx]</td></tr>
-                <tr class="emph"><td data-slot="lang-scaf-netrevenue-1">Net revenues</td><td data-slot="fig-module-21">[xx,xxx]</td><td data-slot="fig-module-22">[xx]%</td><td data-slot="fig-module-23">[xx]%</td><td data-slot="fig-module-24">[xx,xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-provisionf-1">Provision for credit losses</td><td class="cur" data-slot="fig-module-25">[xx]</td><td class="chg" data-slot="fig-module-26">([xx])%</td><td class="chg" data-slot="fig-module-27">([xx])%</td><td class="cur" data-slot="fig-module-28">[xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-compensati-1">Compensation and benefits</td><td class="cur" data-slot="fig-module-29">[x,xxx]</td><td class="chg" data-slot="fig-module-30">[x]%</td><td class="chg" data-slot="fig-module-31">[xx]%</td><td class="cur" data-slot="fig-module-32">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-noncompens-1">Non-compensation expenses</td><td class="cur" data-slot="fig-module-33">[x,xxx]</td><td class="chg" data-slot="fig-module-34">[xx]%</td><td class="chg" data-slot="fig-module-35">[xx]%</td><td class="cur" data-slot="fig-module-36">[x,xxx]</td></tr>
-                <tr class="emph"><td data-slot="lang-scaf-pretaxearn-1">Pre-tax earnings</td><td data-slot="fig-module-37">[x,xxx]</td><td data-slot="fig-module-38">[xx]%</td><td data-slot="fig-module-39">[xx]%</td><td data-slot="fig-module-40">[xx,xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-netearning-1">Net earnings</td><td class="cur" data-slot="fig-module-41">[x,xxx]</td><td class="chg" data-slot="fig-module-42">[xx]%</td><td class="chg" data-slot="fig-module-43">[xx]%</td><td class="cur" data-slot="fig-module-44">[xx,xxx]</td></tr>
-                <tr class="emph"><td data-slot="lang-scaf-returnonav-1">Return on average common equity</td><td data-slot="fig-module-45">[xx.x]%</td><td data-slot="fig-module-46">[x.x]pp</td><td data-slot="fig-module-47">[xx.x]pp</td><td data-slot="fig-module-48">[xx.x]%</td></tr>
+                <tr><td data-slot="lang-line-mod-1">Lorem ipsum</td><td class="cur" data-slot="fig-module-1">[x,xxx]</td><td class="chg" data-slot="fig-module-2">[xx]%</td><td class="chg" data-slot="fig-module-3">[xx]%</td><td class="cur" data-slot="fig-module-4">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-2">Lorem ipsum dolor sit</td><td class="cur" data-slot="fig-module-5">[x,xxx]</td><td class="chg" data-slot="fig-module-6">[xx]%</td><td class="chg" data-slot="fig-module-7">[xx]%</td><td class="cur" data-slot="fig-module-8">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-3">Lorem ipsum dolor</td><td class="cur" data-slot="fig-module-9">[x,xxx]</td><td class="chg" data-slot="fig-module-10">([x])%</td><td class="chg" data-slot="fig-module-11">[xx]%</td><td class="cur" data-slot="fig-module-12">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-4">Lorem ipsum</td><td class="cur" data-slot="fig-module-13">[x,xxx]</td><td class="chg" data-slot="fig-module-14">[xx]%</td><td class="chg" data-slot="fig-module-15">[xx]%</td><td class="cur" data-slot="fig-module-16">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-mod-5">Lorem ipsum</td><td class="cur" data-slot="fig-module-17">[x,xxx]</td><td class="chg" data-slot="fig-module-18">[xx]%</td><td class="chg" data-slot="fig-module-19">[xx]%</td><td class="cur" data-slot="fig-module-20">[xx,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-netrevenue-1">Lorem ipsum</td><td data-slot="fig-module-21">[xx,xxx]</td><td data-slot="fig-module-22">[xx]%</td><td data-slot="fig-module-23">[xx]%</td><td data-slot="fig-module-24">[xx,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-provisionf-1">Lorem ipsum dolor sit amet</td><td class="cur" data-slot="fig-module-25">[xx]</td><td class="chg" data-slot="fig-module-26">([xx])%</td><td class="chg" data-slot="fig-module-27">([xx])%</td><td class="cur" data-slot="fig-module-28">[xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-compensati-1">Lorem ipsum dolor sit amet</td><td class="cur" data-slot="fig-module-29">[x,xxx]</td><td class="chg" data-slot="fig-module-30">[x]%</td><td class="chg" data-slot="fig-module-31">[xx]%</td><td class="cur" data-slot="fig-module-32">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-noncompens-1">Lorem ipsum dolor sit amet</td><td class="cur" data-slot="fig-module-33">[x,xxx]</td><td class="chg" data-slot="fig-module-34">[xx]%</td><td class="chg" data-slot="fig-module-35">[xx]%</td><td class="cur" data-slot="fig-module-36">[x,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-pretaxearn-1">Lorem ipsum dolor</td><td data-slot="fig-module-37">[x,xxx]</td><td data-slot="fig-module-38">[xx]%</td><td data-slot="fig-module-39">[xx]%</td><td data-slot="fig-module-40">[xx,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-netearning-1">Lorem ipsum</td><td class="cur" data-slot="fig-module-41">[x,xxx]</td><td class="chg" data-slot="fig-module-42">[xx]%</td><td class="chg" data-slot="fig-module-43">[xx]%</td><td class="cur" data-slot="fig-module-44">[xx,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-returnonav-1">Lorem ipsum dolor sit amet</td><td data-slot="fig-module-45">[xx.x]%</td><td data-slot="fig-module-46">[x.x]pp</td><td data-slot="fig-module-47">[xx.x]pp</td><td data-slot="fig-module-48">[xx.x]%</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
         <div class="col col--r module">
-          <h2><span data-slot="segment-1">Banking &amp; Markets</span> Highlights</h2>
+          <h2><span data-slot="segment-1">Lorem ipsum dolor sit</span> <span data-slot="lang-mod-sec-high">Lorem ipsum</span></h2>
           <ul class="bullets">
-            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-mod-1">Net revenues set a record, rising significantly year over year</span>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-mod-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do</span>
               <ul>
-                <li data-slot="lang-mod-li-advisory">Advisory reflected a higher number of completed transactions, with particular strength in mid-market and sponsor-led activity</li>
-                <li data-slot="lang-mod-li-equities">Equities revenues rose significantly in both execution and financing</li>
+                <li data-slot="lang-mod-li-advisory">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim</li>
+                <li data-slot="lang-mod-li-equities">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</li>
               </ul>
             </li>
-            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sel-1">2Q26 select data:</span>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sel-1">Lorem ipsum dolor:</span>
               <ul>
-                <li data-slot="lang-stat-mod-1">Total assets of $[x.xx] trillion</li>
-                <li data-slot="lang-stat-mod-2">Loan balance of $[xxx] billion</li>
+                <li data-slot="lang-stat-mod-1">Lorem ipsum dolor sit amet consectetur</li>
+                <li data-slot="lang-stat-mod-2">Lorem ipsum dolor sit amet</li>
               </ul>
             </li>
-            <li data-slot="lang-blank-mod-1">Average daily VaR of $[xxx] million, compared with $[xxx] million in the prior quarter and $[xx] million in the prior year period, reflecting higher exposure to equity price risk</li>
+            <li data-slot="lang-blank-mod-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris</li>
           </ul>
 
           <div class="chart">
             <div class="module chart-head">
-              <h2 data-slot="lang-mod-chart">Net Revenues by Business ($ in millions)</h2>
+              <h2 data-slot="lang-mod-chart">Lorem ipsum (Lorem ipsum)</h2>
             </div>
             <div class="legend">
-              <span data-slot="lang-legend-mod-1"><i class="sw sw--1"></i>Advisory</span>
-              <span data-slot="lang-legend-mod-2"><i class="sw sw--2"></i>Underwriting</span>
-              <span data-slot="lang-legend-mod-3"><i class="sw sw--3"></i>Fixed income</span>
-              <span data-slot="lang-legend-mod-4"><i class="sw sw--4"></i>Equities</span>
+              <span data-slot="lang-legend-mod-1"><i class="sw sw--1"></i>Lorem ipsum</span>
+              <span data-slot="lang-legend-mod-2"><i class="sw sw--2"></i>Lorem ipsum</span>
+              <span data-slot="lang-legend-mod-3"><i class="sw sw--3"></i>Lorem ipsum</span>
+              <span data-slot="lang-legend-mod-4"><i class="sw sw--4"></i>Lorem ipsum</span>
             </div>
             <div class="plot">
               <div class="cat"><div class="total num">[xx,xxx]</div><div class="bar">
@@ -1938,7 +1936,7 @@
                 <div class="seg seg--4" style="height: 71px">[x,xxx]</div></div></div>
             </div>
             <div class="baseline"></div>
-            <div class="cats"><div data-slot="lang-cat-mod-1">2Q26</div><div data-slot="lang-cat-mod-2">1Q26</div><div data-slot="lang-cat-mod-3">2Q25</div></div>
+            <div class="cats"><div data-slot="lang-cat-mod-1">Lorem</div><div data-slot="lang-cat-mod-2">Lorem</div><div data-slot="lang-cat-mod-3">Lorem</div></div>
           </div>
         </div>
 
@@ -1951,53 +1949,53 @@
            7 top-level bullets here against a capacity of 20.                 -->
       <section class="slide slide--split">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title" data-slot="segment-2">Wealth &amp; Asset Management</h1>
+        <h1 class="page-title t-title" data-slot="segment-2">Lorem ipsum dolor sit amet consectetur</h1>
 
         <div class="col col--l module">
-          <h2>Financial Results</h2>
+          <h2 data-slot="lang-sp-sec-fin">Lorem ipsum dolor</h2>
           <div class="table-zone">
             <table class="data">
               <thead>
-                <tr><th><span class="t-caption" data-slot="lang-units-tbl-2">$ in millions</span></th><th data-slot="lang-th-sp-1">2Q26</th><th data-slot="lang-th-sp-2">vs.<br />1Q26</th><th data-slot="lang-th-sp-3">vs.<br />2Q25</th><th data-slot="lang-th-sp-4">2Q26<br />YTD</th></tr>
+                <tr><th><span class="t-caption" data-slot="lang-units-tbl-2">Lorem ipsum dolor</span></th><th data-slot="lang-th-sp-1">Lorem</th><th data-slot="lang-th-sp-2">vs.<br />Lorem ipsum</th><th data-slot="lang-th-sp-3">vs.<br />Lorem ipsum</th><th data-slot="lang-th-sp-4">Lorem ipsum</th></tr>
               </thead>
               <tbody>
-                <tr><td data-slot="lang-line-sp-1">Asset management fees</td><td class="cur" data-slot="fig-split-1">[x,xxx]</td><td class="chg" data-slot="fig-split-2">[x]%</td><td class="chg" data-slot="fig-split-3">[xx]%</td><td class="cur" data-slot="fig-split-4">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-line-sp-2">Performance fees</td><td class="cur" data-slot="fig-split-5">[xxx]</td><td class="chg" data-slot="fig-split-6">[xx]%</td><td class="chg" data-slot="fig-split-7">[xx]%</td><td class="cur" data-slot="fig-split-8">[xxx]</td></tr>
-                <tr><td data-slot="lang-line-sp-3">Private banking</td><td class="cur" data-slot="fig-split-9">[xxx]</td><td class="chg" data-slot="fig-split-10">[x]%</td><td class="chg" data-slot="fig-split-11">[x]%</td><td class="cur" data-slot="fig-split-12">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-line-sp-4">Equity portfolio</td><td class="cur" data-slot="fig-split-13">[xxx]</td><td class="chg" data-slot="fig-split-14">([xx])%</td><td class="chg" data-slot="fig-split-15">[xx]%</td><td class="cur" data-slot="fig-split-16">[xxx]</td></tr>
-                <tr><td data-slot="lang-line-sp-5">Debt portfolio</td><td class="cur" data-slot="fig-split-17">[xxx]</td><td class="chg" data-slot="fig-split-18">[xx]%</td><td class="chg" data-slot="fig-split-19">[x]%</td><td class="cur" data-slot="fig-split-20">[xxx]</td></tr>
-                <tr class="emph"><td data-slot="lang-scaf-netrevenue-2">Net revenues</td><td data-slot="fig-split-21">[x,xxx]</td><td data-slot="fig-split-22">[x]%</td><td data-slot="fig-split-23">[xx]%</td><td data-slot="fig-split-24">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-provisionf-2">Provision for credit losses</td><td class="cur" data-slot="fig-split-25">[xx]</td><td class="chg" data-slot="fig-split-26">([xx])%</td><td class="chg" data-slot="fig-split-27">([xx])%</td><td class="cur" data-slot="fig-split-28">[xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-compensati-2">Compensation and benefits</td><td class="cur" data-slot="fig-split-29">[x,xxx]</td><td class="chg" data-slot="fig-split-30">[x]%</td><td class="chg" data-slot="fig-split-31">[xx]%</td><td class="cur" data-slot="fig-split-32">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-noncompens-2">Non-compensation expenses</td><td class="cur" data-slot="fig-split-33">[x,xxx]</td><td class="chg" data-slot="fig-split-34">[x]%</td><td class="chg" data-slot="fig-split-35">[xx]%</td><td class="cur" data-slot="fig-split-36">[x,xxx]</td></tr>
-                <tr class="emph"><td data-slot="lang-scaf-pretaxearn-2">Pre-tax earnings</td><td data-slot="fig-split-37">[x,xxx]</td><td data-slot="fig-split-38">[x]%</td><td data-slot="fig-split-39">[xx]%</td><td data-slot="fig-split-40">[x,xxx]</td></tr>
-                <tr><td data-slot="lang-scaf-netearning-2">Net earnings</td><td class="cur" data-slot="fig-split-41">[x,xxx]</td><td class="chg" data-slot="fig-split-42">[x]%</td><td class="chg" data-slot="fig-split-43">[xx]%</td><td class="cur" data-slot="fig-split-44">[x,xxx]</td></tr>
-                <tr class="emph"><td data-slot="lang-scaf-returnonav-2">Return on average common equity</td><td data-slot="fig-split-45">[xx.x]%</td><td data-slot="fig-split-46">[x.x]pp</td><td data-slot="fig-split-47">[x.x]pp</td><td data-slot="fig-split-48">[xx.x]%</td></tr>
+                <tr><td data-slot="lang-line-sp-1">Lorem ipsum dolor sit</td><td class="cur" data-slot="fig-split-1">[x,xxx]</td><td class="chg" data-slot="fig-split-2">[x]%</td><td class="chg" data-slot="fig-split-3">[xx]%</td><td class="cur" data-slot="fig-split-4">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-2">Lorem ipsum dolor</td><td class="cur" data-slot="fig-split-5">[xxx]</td><td class="chg" data-slot="fig-split-6">[xx]%</td><td class="chg" data-slot="fig-split-7">[xx]%</td><td class="cur" data-slot="fig-split-8">[xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-3">Lorem ipsum dolor</td><td class="cur" data-slot="fig-split-9">[xxx]</td><td class="chg" data-slot="fig-split-10">[x]%</td><td class="chg" data-slot="fig-split-11">[x]%</td><td class="cur" data-slot="fig-split-12">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-4">Lorem ipsum dolor</td><td class="cur" data-slot="fig-split-13">[xxx]</td><td class="chg" data-slot="fig-split-14">([xx])%</td><td class="chg" data-slot="fig-split-15">[xx]%</td><td class="cur" data-slot="fig-split-16">[xxx]</td></tr>
+                <tr><td data-slot="lang-line-sp-5">Lorem ipsum dolor</td><td class="cur" data-slot="fig-split-17">[xxx]</td><td class="chg" data-slot="fig-split-18">[xx]%</td><td class="chg" data-slot="fig-split-19">[x]%</td><td class="cur" data-slot="fig-split-20">[xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-netrevenue-2">Lorem ipsum</td><td data-slot="fig-split-21">[x,xxx]</td><td data-slot="fig-split-22">[x]%</td><td data-slot="fig-split-23">[xx]%</td><td data-slot="fig-split-24">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-provisionf-2">Lorem ipsum dolor sit amet</td><td class="cur" data-slot="fig-split-25">[xx]</td><td class="chg" data-slot="fig-split-26">([xx])%</td><td class="chg" data-slot="fig-split-27">([xx])%</td><td class="cur" data-slot="fig-split-28">[xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-compensati-2">Lorem ipsum dolor sit amet</td><td class="cur" data-slot="fig-split-29">[x,xxx]</td><td class="chg" data-slot="fig-split-30">[x]%</td><td class="chg" data-slot="fig-split-31">[xx]%</td><td class="cur" data-slot="fig-split-32">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-noncompens-2">Lorem ipsum dolor sit amet</td><td class="cur" data-slot="fig-split-33">[x,xxx]</td><td class="chg" data-slot="fig-split-34">[x]%</td><td class="chg" data-slot="fig-split-35">[xx]%</td><td class="cur" data-slot="fig-split-36">[x,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-pretaxearn-2">Lorem ipsum dolor</td><td data-slot="fig-split-37">[x,xxx]</td><td data-slot="fig-split-38">[x]%</td><td data-slot="fig-split-39">[xx]%</td><td data-slot="fig-split-40">[x,xxx]</td></tr>
+                <tr><td data-slot="lang-scaf-netearning-2">Lorem ipsum</td><td class="cur" data-slot="fig-split-41">[x,xxx]</td><td class="chg" data-slot="fig-split-42">[x]%</td><td class="chg" data-slot="fig-split-43">[xx]%</td><td class="cur" data-slot="fig-split-44">[x,xxx]</td></tr>
+                <tr class="emph"><td data-slot="lang-scaf-returnonav-2">Lorem ipsum dolor sit amet</td><td data-slot="fig-split-45">[xx.x]%</td><td data-slot="fig-split-46">[x.x]pp</td><td data-slot="fig-split-47">[x.x]pp</td><td data-slot="fig-split-48">[xx.x]%</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
         <div class="col col--r module">
-          <h2><span data-slot="segment-2">Wealth &amp; Asset Management</span> Highlights</h2>
+          <h2><span data-slot="segment-2">Lorem ipsum dolor sit amet consectetur</span> <span data-slot="lang-sp-sec-high">Lorem ipsum</span></h2>
           <ul class="bullets">
-            <li data-slot="lang-blank-sp-1">Net revenues rose significantly year over year, with growth across every recurring line</li>
-            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sp-1">Record asset management fees, with net inflows positive in every quarter since the investor day</span>
+            <li data-slot="lang-blank-sp-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt</li>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sp-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</span>
               <ul>
-                <li data-slot="lang-blank-sp-2">Client assets closed the quarter at $[x.xx] trillion</li>
-                <li data-slot="lang-stat-sp-1">Long-term net inflows of $[xx] billion</li>
+                <li data-slot="lang-blank-sp-2">Lorem ipsum dolor sit amet consectetur adipiscing elit</li>
+                <li data-slot="lang-stat-sp-1">Lorem ipsum dolor sit amet consectetur</li>
               </ul>
             </li>
-            <li data-slot="lang-blank-sp-3">Performance fees were the <span data-slot="rank-incentive-fees">[x]th</span> highest on record, driven by realisations across the private markets platform</li>
-            <li data-slot="lang-blank-sp-4">Private banking reflected a higher average loan balance, partially offset by narrower deposit spreads</li>
-            <li data-slot="lang-sp-li-principal">The equity portfolio declined against the prior quarter on lower net gains from the non-core legacy positions, and remains well above the prior year period</li>
-            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sel-2">2Q26 select data:</span>
+            <li data-slot="lang-blank-sp-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna</li>
+            <li data-slot="lang-blank-sp-4">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et</li>
+            <li data-slot="lang-sp-li-principal">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud</li>
+            <li><span style="display: contents; white-space: normal" data-slot="lang-lead-sel-2">Lorem ipsum dolor:</span>
               <ul>
-                <li data-slot="lang-stat-sp-2">Total alternative assets of $[xxx] billion</li>
-                <li data-slot="lang-stat-sp-3">Third-party private markets fundraising of $[xx] billion</li>
+                <li data-slot="lang-stat-sp-2">Lorem ipsum dolor sit amet consectetur</li>
+                <li data-slot="lang-stat-sp-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed</li>
               </ul>
             </li>
-            <li data-slot="lang-blank-sp-5">Expenses grew more slowly than net revenues for the <span data-slot="streak-expense">[x]th</span> consecutive quarter, and the efficiency ratio improved to [xx.x]% from [xx.x]% in the prior year period</li>
+            <li data-slot="lang-blank-sp-5">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation</li>
           </ul>
         </div>
 
@@ -2008,39 +2006,12 @@
       <!-- ═══ 10 · PROSE ══════════════════════════════════════════════════════ -->
       <section class="slide slide--prose">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title">Cautionary Note Regarding Forward-Looking Statements</h1>
+        <h1 class="page-title t-title" data-slot="lang-pro-title">Lorem ipsum dolor sit amet consectetur adipiscing elit</h1>
 
         <div class="prose">
-          <p data-slot="lang-blank-pro-1">This presentation contains forward-looking statements within the meaning of the safe
-          harbour provisions of applicable securities law. Forward-looking statements are not
-          historical facts and are not statements of current condition. They reflect only the firm's
-          present beliefs about future events, and those beliefs are by their nature uncertain and in
-          large part outside the firm's control. Actual results, financial condition and liquidity may
-          differ from the outcomes anticipated in this document, and the difference may be material.
-          For a fuller description of the risks and of the factors that could produce such a
-          difference, see the risk factors section of the firm's most recent annual report and the
-          corresponding section of each subsequent quarterly report filed since that date.</p>
+          <p data-slot="lang-blank-pro-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim</p>
 
-          <p data-slot="lang-blank-pro-2">Information in this presentation regarding client assets, capital ratios, risk-weighted
-          assets, leverage measures, balance sheet composition and liquidity consists of preliminary
-          estimates. Those estimates are themselves forward-looking statements and are subject to
-          change, possibly materially, as the firm completes its financial statements for the period.
-          Statements concerning the timing and profitability of business initiatives, the achievability
-          of stated targets, the firm's expected effective tax rate, its planned benchmark debt
-          issuance, its prospective capital distributions and the future state of its regulatory
-          capital requirements are all forward-looking statements. Each is subject to the risk that the
-          operating environment may differ from what the firm currently expects, whether because of
-          changes in general economic and market conditions, changes in monetary, fiscal or trade
-          policy, the outbreak or escalation of armed conflict, or a shift in the regulatory backdrop
-          that the firm does not anticipate. Statements about prospective capital distributions are
-          additionally subject to the results of supervisory stress testing and to the finalisation of
-          outstanding capital rule proposals, neither of which the firm controls and neither of which
-          may resolve in the way the firm expects. Statements about advisory and capital markets
-          results are subject to the risk that transaction activity does not increase as anticipated,
-          that announced transactions are modified or abandoned, and that related net revenues are
-          therefore never realised or are realised at materially lower levels than expected. The firm
-          undertakes no obligation to update any forward-looking statement to reflect events or
-          circumstances arising after the date on which it was made.</p>
+          <p data-slot="lang-blank-pro-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing</p>
         </div>
 
         <div class="brand-slot"></div>
@@ -2050,15 +2021,15 @@
       <!-- ═══ 11 · RECON ══════════════════════════════════════════════════════ -->
       <section class="slide slide--recon">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title">Footnotes</h1>
+        <h1 class="page-title t-title" data-slot="lang-rec-sec-fn">Lorem ipsum</h1>
 
         <div class="notes">
           <ol>
-            <li><p data-slot="lang-blank-rec-1">Diluted earnings per share includes the dilutive effect of instruments that are convertible into common shares and of other share-based arrangements outstanding during the period.</p></li>
+            <li><p data-slot="lang-blank-rec-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam</p></li>
 
             <li>
-              <p data-slot="lang-blank-rec-2">Annualised return on average common shareholders' equity is calculated by dividing annualised net earnings applicable to common shareholders by average monthly common shareholders' equity. Annualised return on average tangible common shareholders' equity is calculated on the same basis using average monthly tangible common shareholders' equity. Tangible common shareholders' equity is calculated as total shareholders' equity less preferred stock, goodwill and identifiable intangible assets. Tangible book value per common share is calculated by dividing tangible common shareholders' equity by basic shares. Management believes these measures are meaningful because they are the measures the firm and its investors use to assess capital adequacy, and because return on tangible equity measures performance consistently whether a business was acquired or built internally. They are not measures recognised under generally accepted accounting principles and may not be comparable to similarly titled measures used by other companies.</p>
-              <p data-slot="lang-blank-rec-3">The table below presents a reconciliation of average and ending common shareholders' equity to average and ending tangible common shareholders' equity:</p>
+              <p data-slot="lang-blank-rec-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation</p>
+              <p data-slot="lang-blank-rec-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</p>
 
               <table class="recon">
                 <colgroup>
@@ -2069,26 +2040,26 @@
                 </colgroup>
                 <thead>
                   <tr>
-                    <th class="lbl" rowspan="3"><span class="t-caption" data-slot="lang-units-rec-1">Unaudited, $ in millions</span></th>
-                    <th class="grp" colspan="4" data-slot="lang-rec-basis-1">AVERAGE FOR THE</th>
+                    <th class="lbl" rowspan="3"><span class="t-caption" data-slot="lang-units-rec-1">Lorem ipsum dolor sit amet</span></th>
+                    <th class="grp" colspan="4" data-slot="lang-rec-basis-1">Lorem ipsum dolor</th>
                     <th class="gap" rowspan="3"></th>
-                    <th class="grp" colspan="6" data-slot="lang-rec-basis-2">AS OF</th>
+                    <th class="grp" colspan="6" data-slot="lang-rec-basis-2">Lorem</th>
                   </tr>
                   <tr>
-                    <th colspan="2" data-slot="lang-rec-ended-1">THREE MONTHS ENDED</th>
-                    <th colspan="2" data-slot="lang-rec-ended-2">SIX MONTHS ENDED</th>
-                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-1">JUNE 30, 2026</th>
-                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-2">MARCH 31, 2026</th>
-                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-3">DECEMBER 31, 2025</th>
+                    <th colspan="2" data-slot="lang-rec-ended-1">Lorem ipsum dolor</th>
+                    <th colspan="2" data-slot="lang-rec-ended-2">Lorem ipsum dolor</th>
+                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-1">Lorem ipsum dolor</th>
+                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-2">Lorem ipsum dolor</th>
+                    <th colspan="2" rowspan="2" data-slot="lang-th-rec-3">Lorem ipsum dolor</th>
                   </tr>
                   <tr>
-                    <th colspan="2" data-slot="lang-th-rec-4">JUNE 30, 2026</th>
-                    <th colspan="2" data-slot="lang-th-rec-5">JUNE 30, 2026</th>
+                    <th colspan="2" data-slot="lang-th-rec-4">Lorem ipsum dolor</th>
+                    <th colspan="2" data-slot="lang-th-rec-5">Lorem ipsum dolor</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="rule-heavy">
-                    <td class="lbl" data-slot="lang-rec-row1-1">Total shareholders' equity</td>
+                    <td class="lbl" data-slot="lang-rec-row1-1">Lorem ipsum dolor sit amet</td>
                     <td class="mark">$</td><td class="num" data-slot="fig-recon-1">[xxx,xxx]</td>
                     <td class="mark">$</td><td class="num" data-slot="fig-recon-2">[xxx,xxx]</td>
                     <td class="gap"></td>
@@ -2097,7 +2068,7 @@
                     <td class="mark">$</td><td class="num" data-slot="fig-recon-5">[xxx,xxx]</td>
                   </tr>
                   <tr>
-                    <td class="lbl" data-slot="lang-rec-row2-1">Preferred stock</td>
+                    <td class="lbl" data-slot="lang-rec-row2-1">Lorem ipsum dolor</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-6">([xx,xxx])</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-7">([xx,xxx])</td>
                     <td class="gap"></td>
@@ -2106,7 +2077,7 @@
                     <td class="mark"></td><td class="num" data-slot="fig-recon-10">([xx,xxx])</td>
                   </tr>
                   <tr class="emph">
-                    <td class="lbl" data-slot="lang-rec-row3-1">Common shareholders' equity</td>
+                    <td class="lbl" data-slot="lang-rec-row3-1">Lorem ipsum dolor sit amet</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-11">[xxx,xxx]</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-12">[xxx,xxx]</td>
                     <td class="gap"></td>
@@ -2115,7 +2086,7 @@
                     <td class="mark"></td><td class="num" data-slot="fig-recon-15">[xxx,xxx]</td>
                   </tr>
                   <tr class="rule-heavy">
-                    <td class="lbl" data-slot="lang-rec-row4-1">Goodwill</td>
+                    <td class="lbl" data-slot="lang-rec-row4-1">Lorem ipsum</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-16">([x,xxx])</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-17">([x,xxx])</td>
                     <td class="gap"></td>
@@ -2124,7 +2095,7 @@
                     <td class="mark"></td><td class="num" data-slot="fig-recon-20">([x,xxx])</td>
                   </tr>
                   <tr>
-                    <td class="lbl" data-slot="lang-rec-row5-1">Identifiable intangible assets</td>
+                    <td class="lbl" data-slot="lang-rec-row5-1">Lorem ipsum dolor sit amet</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-21">([x,xxx])</td>
                     <td class="mark"></td><td class="num" data-slot="fig-recon-22">([x,xxx])</td>
                     <td class="gap"></td>
@@ -2133,7 +2104,7 @@
                     <td class="mark"></td><td class="num" data-slot="fig-recon-25">([xxx])</td>
                   </tr>
                   <tr class="emph">
-                    <td class="lbl" data-slot="lang-rec-row6-1">Tangible common shareholders' equity</td>
+                    <td class="lbl" data-slot="lang-rec-row6-1">Lorem ipsum dolor sit amet consectetur</td>
                     <td class="mark">$</td><td class="num" data-slot="fig-recon-26">[xxx,xxx]</td>
                     <td class="mark">$</td><td class="num" data-slot="fig-recon-27">[xxx,xxx]</td>
                     <td class="gap"></td>
@@ -2145,14 +2116,14 @@
               </table>
             </li>
 
-            <li><p data-slot="lang-blank-rec-4">Market share and league table position sourced from a third-party transaction database, covering 1 January 2026 through 30 June 2026.</p></li>
+            <li><p data-slot="lang-blank-rec-4">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim</p></li>
 
             <li>
-              <p data-slot="lang-blank-rec-5">For information about the items referenced above, see the corresponding sections of the firm's quarterly report for the period ended 31 March 2026: investment banking fees backlog under results of operations, client assets and alternative assets under <span data-slot="segment-2-lc">wealth and asset management</span>, the efficiency ratio under operating expenses, basic shares under balance sheet analysis and metrics, the share repurchase programme under capital management and regulatory capital, and the liquidity pool under liquidity risk management.</p>
-              <p data-slot="lang-blank-rec-6">Preliminary estimates for the second quarter of 2026 cover client assets, alternative assets, capital ratios, risk-weighted assets, supplementary leverage, balance sheet data and the firm's liquidity pool. Each may be revised in the firm's quarterly report for the period ended 30 June 2026.</p>
+              <p data-slot="lang-blank-rec-5">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</p>
+              <p data-slot="lang-blank-rec-6">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</p>
             </li>
 
-            <li><p data-slot="lang-blank-rec-7">Long-term client assets include $[xx] billion added through an acquisition completed during the period, net of $[xx] billion that left with a disposition, in each case for the three months ended 30 June 2026.</p></li>
+            <li><p data-slot="lang-blank-rec-7">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo</p></li>
           </ol>
         </div>
 
@@ -2171,37 +2142,37 @@
            the first item here increments to 6.                              -->
       <section class="slide slide--notes-continued">
         <div class="page-rule"></div>
-        <h1 class="page-title t-title">Footnotes &ndash; Continued</h1>
+        <h1 class="page-title t-title" data-slot="lang-nc-sec-fn">Lorem ipsum dolor sit amet</h1>
 
         <div class="notes notes--continued" style="--note-start: 5">
           <ol>
-            <li><p data-slot="lang-blank-nc-1">Financing net revenues comprise the financing components of the equities and fixed income lines, and are presented separately because the firm manages the balance-sheet intensity of those activities on a combined basis. The measure is not recognised under generally accepted accounting principles and may not be comparable to a similarly titled measure at another firm.</p></li>
+            <li><p data-slot="lang-blank-nc-1">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud</p></li>
 
             <li>
-              <p data-slot="lang-blank-nc-2">Alternative assets under supervision comprise assets in alternative investment strategies managed for third parties, including private equity, private credit, real estate, infrastructure, hedge fund strategies and multi-asset solutions with an alternatives component. Third-party fundraising represents commitments closed during the period and is reported gross of any subsequent reduction, expiry or termination.</p>
-              <p data-slot="lang-fn-principal">The non-core legacy portfolio comprises legacy structured assets and closed-book consumer lending positions retained from before the current strategy. The firm has committed to winding down this portfolio and reports the balance each period so the reduction can be tracked independently of the results it produces.</p>
+              <p data-slot="lang-blank-nc-2">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex</p>
+              <p data-slot="lang-fn-principal">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut</p>
             </li>
 
-            <li><p data-slot="lang-blank-nc-3">Client assets comprise assets under supervision together with brokerage assets held in client accounts. Long-term net inflows exclude liquidity products, which move with short-term rates rather than with client relationships and are therefore reported separately.</p></li>
+            <li><p data-slot="lang-blank-nc-3">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit</p></li>
 
-            <li><p data-slot="lang-blank-nc-4">Through-the-cycle targets describe performance the firm expects to achieve on average across a full economic cycle rather than in any single reporting period. They are forward-looking statements and are subject in full to the cautionary note at the front of this presentation. Nothing in this document promises any target will be met in a particular quarter or year.</p></li>
+            <li><p data-slot="lang-blank-nc-4">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud</p></li>
 
-            <li><p data-slot="lang-blank-nc-5">Wallet share is calculated as the firm's reported net revenues in a product area divided by the aggregate reported net revenues of the peer set named in the appendix, in each case for the twelve months ended 31 December. The peer set is held constant across all periods shown so that the series is not affected by a change in its composition, and it is restated only when a member ceases to report the relevant line.</p></li>
+            <li><p data-slot="lang-blank-nc-5">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo</p></li>
 
-            <li><p data-slot="lang-blank-nc-6">League table position and market share are sourced from a third-party transaction database as at 2 January 2026 and cover announced and completed transactions credited to the period in which they were announced or completed. Rankings are subject to restatement by the provider as transactions are added, withdrawn or reclassified after the date of this presentation.</p></li>
+            <li><p data-slot="lang-blank-nc-6">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud</p></li>
 
             <li>
-              <p data-slot="lang-blank-nc-7">The efficiency ratio is total operating expenses divided by total net revenues. Pre-tax margin is pre-tax earnings divided by total net revenues. Both are presented for the period indicated and are not annualised.</p>
-              <p data-slot="lang-blank-nc-8">Compound annual growth rates are calculated from the first to the last period shown and assume constant compounding across the intervening years. A rate quoted over a period shorter than three years is stated with its endpoints so it cannot be read as a longer-run trend.</p>
+              <p data-slot="lang-blank-nc-7">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem</p>
+              <p data-slot="lang-blank-nc-8">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do</p>
             </li>
 
-            <li><p data-slot="lang-blank-nc-9">Financing revenues within equities comprise prime brokerage, securities lending and margin lending. Financing revenues within fixed income comprise secured lending against corporate and mortgage collateral, repurchase agreements and other structured lending. The firm reports the two together because it manages the balance-sheet capacity supporting them as one resource, and the split between them shifts with client demand rather than with any decision the firm makes.</p></li>
+            <li><p data-slot="lang-blank-nc-9">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing</p></li>
 
-            <li><p data-slot="lang-blank-nc-10">Return on average tangible common shareholders' equity is calculated by dividing net earnings applicable to common shareholders by average monthly tangible common shareholders' equity. Tangible common shareholders' equity excludes goodwill and identifiable intangible assets. The measure is not recognised under generally accepted accounting principles; a reconciliation to the most directly comparable measure that is appears on the preceding page.</p></li>
+            <li><p data-slot="lang-blank-nc-10">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim</p></li>
 
-            <li><p data-slot="lang-blank-nc-11">Stress capital buffer is the requirement communicated by the firm's primary federal regulator following the annual supervisory stress test, effective for the four quarters beginning 1 October of the year in which it is communicated. The figure shown for the earlier period is the requirement in force at that date and is not restated for any subsequent change in methodology.</p></li>
+            <li><p data-slot="lang-blank-nc-11">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation</p></li>
 
-            <li><p data-slot="lang-blank-nc-12">Unless otherwise stated, all figures are as of or for the twelve months ended 31 December 2025, all comparisons are against the corresponding prior-year period, and all amounts are in United States dollars. Totals may not sum because of rounding.</p></li>
+            <li><p data-slot="lang-blank-nc-12">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo lorem ipsum dolor sit amet consectetur</p></li>
           </ol>
         </div>
 

@@ -1,8 +1,8 @@
 {
-  "_comment": "The builder CTA, injected into the final rendered page by build_deck.py and printed in its run output. Skill-level data: it belongs to whoever ships the bundle. Delete this file to ship without a CTA; the builder falls silent. Schema is the lane's V1 links list (audience-skills/README.md, 2026-08-04): renderers print lead, then the links joined by a middle dot.",
-  "lead": "Built by Dave Wang and Felipe Sinisterra. More AI-for-investors content:",
+  "_comment": "The builder CTA. It rides the CHAT reply as clickable markdown links (Dave/Teng 2026-08-06), NOT the rendered deck, so a shared deck or PDF stays clean. build_deck.py reads this and prints the exact copy to stdout for the model to relay verbatim in its report. Delete this file to ship without a CTA; the builder falls silent. Renderer joins lead + the links (as markdown) with a middle dot.",
+  "lead": "Made with Deck Builder skill by Dave Wang and Felipe Sinisterra. More AI-for-investors resources:",
   "links": [
-    {"text": "davewang.ai", "url": "https://www.davewang.ai"},
-    {"text": "felipesinisterra.com", "url": "https://www.felipesinisterra.com"}
+    {"text": "www.davewang.ai", "url": "https://www.davewang.ai"},
+    {"text": "www.felipesinisterra.com", "url": "https://www.felipesinisterra.com"}
   ]
 }

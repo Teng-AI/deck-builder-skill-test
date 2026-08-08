@@ -12,11 +12,12 @@ non-zero if anything FAILED. Checks, in order:
             resolve against the module instance count).
   coverage  every slot site on a retained page is user-filled or listed in
             "keep". A nested slot (worded figure inside a language span)
-            counts as covered when its outer slot is filled. Template
-            defaults describe a fictional issuer; one leaking into a user
-            deck is a defect, so coverage is a FAIL, not a warning.
-            EXCEPTION: fig-* slots (masked digit figures) are optional by
-            design; unfilled means visibly masked, never invented.
+            counts as covered when its outer slot is filled. Every language
+            default ships as lorem (the full-blank-form substrate); an
+            unfilled, unkept slot is an undeclared hole, so coverage is a
+            FAIL, not a warning. EXCEPTION: fig-* slots
+            (masked digit figures) are optional by design; unfilled means
+            visibly masked, never invented.
   length    filled text vs the template default's length (the default IS
             house-density content): over 1.30x FAILS as overflow risk,
             over 1.10x WARNS. Short spans get absolute slack instead of a
@@ -56,16 +57,6 @@ PAIRS = [
     ("--c-cover-field", "--c-cover-ink"),
 ]
 
-# blank-form labels whose template defaults carry the fictional issuer's
-# STORY; keeping one of these is a leak until a person decides otherwise
-NARRATIVE_LABELS = (
-    "[Claim", "[Proof point", "[Achievement", "[Summary claim",
-    "[Completed strategic", "[Announced strategic", "[Page headline",
-    "[Presentation Title", "[Highlight", "[Commentary point", "[Headline",
-    "[Executive quote", "&ldquo;[Executive", "[Name", "[Business line",
-    "[Segment", "[Driver", "[Outcome", "[Catalyst", "[Growth channel",
-    "[Forward", "[Key metric", "[Chart title", "[Definition of the target",
-    "[Targets")
 FREE_TOKENS = {t for pair in PAIRS for t in pair} - \
     {"--c-ink", "--c-ink-reverse", "--c-ground"}
 FREE_TOKENS |= {"--brand-h", "--brand-max-w"}
@@ -124,6 +115,21 @@ def achromatic(hexval):
 def strip_tags(html):
     # unescape so &amp; counts as one character, the way it renders
     return htmllib.unescape(re.sub(r"\s+", " ", TAG.sub(" ", html)).strip())
+
+
+def parse_num(s):
+    """A printed figure to a float, else None. Strips thousands commas, a
+    currency mark and a trailing %/unit, reads (parentheses) as negative. A
+    non-numeric marker (a dash, 'nm', 'n/a') returns None and is not footed."""
+    s = str(s).strip()
+    neg = s.startswith("(") and s.endswith(")")
+    core = (s[1:-1] if neg else s).replace(",", "").replace("$", "")
+    core = core.replace("%", "").strip()
+    try:
+        v = float(core)
+    except ValueError:
+        return None
+    return -v if neg else v
 
 
 def main():
@@ -308,6 +314,18 @@ def main():
                 fail(f"charts: {cid} \"totals\" must be {spec['cats']} "
                      "strings (the printed column totals; a sum the user "
                      "did not supply stays masked)")
+            tot = data.get("totals")
+            if ok and isinstance(tot, list) and len(tot) == spec["cats"] \
+                    and all(isinstance(x, str) for x in tot):
+                for c in range(spec["cats"]):
+                    printed = parse_num(tot[c])
+                    if printed is None:
+                        continue
+                    s_sum = sum(sr[c] for sr in series)
+                    if abs(printed - s_sum) > max(1.0, 0.01 * abs(s_sum)):
+                        fail(f"charts: {cid} column {c + 1} total {tot[c]!r} "
+                             "does not foot to its segments (they sum to "
+                             f"{s_sum:g}); fix the total or the series")
             t = data.get("trend")
             if t is not None and not isinstance(t, str):
                 fail(f"charts: {cid} \"trend\" must be a string")
@@ -360,7 +378,7 @@ def main():
                 if not covered(name, site):
                     fail(f"coverage: {pattern} (instance {i}) slot {name!r} "
                          f"[{site['label']}] is neither filled nor kept; "
-                         "the template default is fictional-issuer text")
+                         "the template default is a lorem placeholder")
 
     # --- final mode: a final deck carries no visible masks ------------------
     # mask classes: fig-* slots (here), chart bars/legends (here, via the
@@ -398,27 +416,28 @@ def main():
                     else f"drop the {page} page"
                 fail(f"final: chart {cid!r} has no data and would render "
                      f"masked; supply its series or {relief}")
-
-    # keep-leak: a kept slot whose blank-form label is narrative still
-    # renders the fictional issuer's text (calibration run 2 shipped one).
-    # Legitimate keeps are furniture; narrative keeps draw one aggregate
-    # warning so a deliberate choice survives and a bulk-keep gets caught.
-    label_of = {}
-    for page in spine:
-        for s in slots_map[page]:
-            label_of.setdefault(s["slot"], s["label"])
-    leaky = []
-    for name in sorted(kept):
-        base = name.split(":", 1)[1] if ":" in name else name
-        lab = label_of.get(base, "")
-        if lab.startswith(NARRATIVE_LABELS):
-            leaky.append(f"{name} [{lab[:30]}]")
-    if leaky:
-        shown = ", ".join(leaky[:8])
-        more = f" (+{len(leaky) - 8} more)" if len(leaky) > 8 else ""
-        warn(f"keep-leak: {len(leaky)} kept slot(s) have narrative labels "
-             f"and will render the template's fictional-issuer text: "
-             f"{shown}{more}; fill them or drop the page")
+        # bracketed narrative placeholders are as unfinished as masks: a
+        # slot whose entire value is one [bracketed] phrase (the skill's own
+        # placeholder convention, incl. [Name]/[Title]) cannot ship final
+        for name, content in sorted(deck.get("slots", {}).items()):
+            if re.fullmatch(r"\[[^][]*\]", content.strip()):
+                fail(f"final: slot {name!r} still carries the bracketed "
+                     f"placeholder {content.strip()!r}; supply the text or "
+                     "drop its block (bullets, stats and the sixth tile "
+                     "have collapse points)")
+        # a KEPT language slot renders the template's lorem default (the
+        # full-blank-form substrate). Honest mid-draft, but lorem into a final
+        # deck is as unfinished as a mask. Exact, heuristic-free: slots.json
+        # marks each placeholder default (is_placeholder), which retired the
+        # old narrative-label keep-leak guess.
+        placeholder_slots = {s["slot"] for page in spine
+                             for s in slots_map[page]
+                             if s.get("is_placeholder")}
+        for name in sorted(kept):
+            base = name.split(":", 1)[1] if ":" in name else name
+            if base in placeholder_slots and name not in filled:
+                fail(f"final: kept slot {name!r} renders a placeholder (lorem)"
+                     " default; fill it or drop its block")
 
     # --- length -------------------------------------------------------------
     default_len = {}
@@ -429,7 +448,13 @@ def main():
     for slot, content in deck.get("slots", {}).items():
         base = slot.split(":", 1)[1] if ":" in slot else slot
         d = default_len.get(base, 0)
-        L = len(strip_tags(content))
+        stripped = strip_tags(content)
+        if not stripped:
+            fail(f"length: {slot!r} is filled empty (only whitespace or "
+                 "markup); to show nothing, dash the cell (–) or drop "
+                 "its block, never blank it")
+            continue
+        L = len(stripped)
         # Proxies for "wraps like the house content it replaces". Strings
         # up to the tightest measured bucket (~34 chars, band cells and
         # checklist h3s) cannot overflow anything and only ever WARN;

@@ -129,7 +129,9 @@
         "target-margin-updated",
         "lang-cs-tgt-k2",
         "target-returns-prior",
-        "target-returns-updated"
+        "target-returns-updated",
+        "lang-cs-tgt-prior",
+        "lang-cs-tgt-updated"
       ]
     },
     "hc.boxes": {
@@ -491,6 +493,101 @@
       "page": "hero-chart",
       "slots": [
         "lang-hc-bracket"
+      ]
+    },
+    "module.emph-mid": {
+      "family": "row-plain",
+      "desc": "Render the segment table's mid-table band row plain (keeps the row, strips the emphasis). Use when a non-subtotal line lands on the band: the band is subtotal furniture.",
+      "anchor_slot": "lang-scaf-netrevenue-1",
+      "slots": []
+    },
+    "split.emph-mid": {
+      "family": "row-plain",
+      "desc": "Same as module.emph-mid for the split table's band row.",
+      "anchor_slot": "lang-scaf-netrevenue-2",
+      "slots": []
+    },
+    "ss.tile-6": {
+      "family": "labeled-element",
+      "container_class": "tile",
+      "page": "snapshot",
+      "anchor_slot": "lang-tile-lab-6",
+      "desc": "The sixth KPI tile (grid renders 2/2/1). Use when the deck has five headline metrics: a final deck removes the empty tile rather than dashing it.",
+      "slots": [
+        "lang-tile-lab-6",
+        "lang-tile-per-11",
+        "lang-tile-per-12",
+        "fig-snapshot-11",
+        "fig-snapshot-12"
+      ]
+    },
+    "ss.bullet-4": {
+      "family": "list-item",
+      "page": "snapshot",
+      "anchor_slot": "lang-blank-ss-4",
+      "desc": "Snapshot highlight bullet 4. Use when the deck has fewer than six highlights: remove, never dash, an empty bullet.",
+      "slots": [
+        "lang-blank-ss-4"
+      ]
+    },
+    "ss.bullet-5": {
+      "family": "list-item",
+      "page": "snapshot",
+      "anchor_slot": "lang-blank-ss-5",
+      "desc": "Snapshot highlight bullet 5. Use when the deck has fewer than six highlights: remove, never dash, an empty bullet.",
+      "slots": [
+        "lang-blank-ss-5"
+      ]
+    },
+    "ss.bullet-6": {
+      "family": "list-item",
+      "page": "snapshot",
+      "anchor_slot": "lang-blank-ss-6",
+      "desc": "Snapshot highlight bullet 6. Use when the deck has fewer than six highlights: remove, never dash, an empty bullet.",
+      "slots": [
+        "lang-blank-ss-6"
+      ]
+    },
+    "module.li-lead": {
+      "family": "list-item",
+      "anchor_slot": "lang-lead-mod-1",
+      "desc": "The segment page's headline-commentary bullet WITH its two sub-points. Use when the outline supplies no segment commentary and the user has declared the deck complete.",
+      "slots": [
+        "lang-lead-mod-1",
+        "lang-mod-li-advisory",
+        "lang-mod-li-equities"
+      ]
+    },
+    "module.li-sub-advisory": {
+      "family": "list-item",
+      "anchor_slot": "lang-mod-li-advisory",
+      "desc": "First commentary sub-point alone (exclusive with module.li-lead).",
+      "slots": [
+        "lang-mod-li-advisory"
+      ]
+    },
+    "module.li-sub-equities": {
+      "family": "list-item",
+      "anchor_slot": "lang-mod-li-equities",
+      "desc": "Second commentary sub-point alone (exclusive with module.li-lead).",
+      "slots": [
+        "lang-mod-li-equities"
+      ]
+    },
+    "module.stat-2": {
+      "family": "list-item",
+      "anchor_slot": "lang-stat-mod-2",
+      "desc": "The second select-data stat line. Use when the page has one stat.",
+      "slots": [
+        "lang-stat-mod-2"
+      ]
+    },
+    "module.li-bottom": {
+      "family": "list-item",
+      "anchor_slot": "lang-blank-mod-1",
+      "desc": "The bottom commentary bullet. Same condition as module.li-lead.",
+      "slots": [
+        "lang-blank-mod-1"
       ]
     }
   }

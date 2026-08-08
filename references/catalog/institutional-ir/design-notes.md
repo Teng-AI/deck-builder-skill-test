@@ -65,13 +65,15 @@ Families:
 | `cover-*`, `quote-name/role` | Cover strings, quote attribution | cover-title lines are re-wrapped into hang spans by the builder; write plain `line<br />line` |
 | `segment-1`, `segment-2` (+ `-lc` lowercase) | Business segment names | One value fills every occurrence across pages; consistency is automatic |
 | `lang-*` | All narrative language | Sub-families: `lang-blank-*` bullets and footnotes, `lang-th-*` table heads, `lang-line-*` P&L lines, `lang-legend-*`, `lang-cat-*` chart categories, `lang-units-*` unit captions, `lang-tile-*` KPI tiles, `lang-band-*` claim band |
-| `lang-scaf-*` | Financial-statement scaffold lines (Net revenues, Provision for credit losses, ...) | Genre boilerplate. Keep unless the user's statement genuinely differs |
-| `target-*`, `rank-*`, `period-*`, `streak-*` | Worded figures (targets, ranks, streaks) | These are figures in word form; they take the user's real values |
+| `lang-scaf-*` | Financial-statement scaffold lines (the P&L structure) | Blank-form lorem like every language slot; fill from the outline and the genre's standard statement lines |
+| `target-*` | Worded figures (targets) in word form | Numbers: keep their `[xx]%` masks, unfilled stays masked. (The old `rank-*`/`period-*`/`streak-*` worded figures nested inside narrative sentences, so the full-blank-form substrate subsumes them into the outer's lorem; you write the whole sentence.) |
 | `fig-*` | Digit figures in tables and tiles (skill's synced copy only; the sync step slots them, the lane template keeps raw masks) | OPTIONAL: unfilled stays visibly masked, never invented. slots.json labels carry the mask shape plus row context. Chart-zone figures are deliberately not slotted; bar geometry is synthetic, so real labels over fixed bars would misrepresent |
 
 **Coverage rule: a retained page must have every slot either user-filled or
-explicitly kept.** The template's neutral defaults describe a fictional issuer; a
-default leaking into a user deck is a defect the checks fail on, not a fallback.
+explicitly kept.** In the skill's synced copy, every language slot's default is
+lorem (the full-blank-form substrate) and `slots.json` carries the descriptive
+label the model fills from. An unfilled, unkept slot is an undeclared hole the
+checks fail on; a kept lorem slot is honest mid-draft but fails once `final`.
 
 **Chart period axes are slotted** (`lang-cat-cs-1..5`, `lang-cat-hc-1..5`,
 `lang-cat-pr-1..6` in panel order, `lang-cat-mod-1..3`; added 2026-08-05 after a
@@ -132,9 +134,9 @@ drafting and wrong in a deck being shipped, where the genre's marker for
   and 3 carry unit-caption slots; dollar metrics elsewhere use suffix
   notation in the figure itself (e.g. "$88.0M").
 - **An outline with no cover date**: fill `cover-date` with the current
-  month and year and flag it in the report for the user to correct.
-  Keeping the default leaks the fictional issuer's date, and the slot
-  cannot be masked.
+  month and year, no day ("August 2026", never "6 August 2026"), and flag
+  it in the report for the user to correct. Keeping the default leaks the
+  fictional issuer's date, and the slot cannot be masked.
 
 ## Data-driven charts (v1.1)
 
@@ -202,7 +204,10 @@ that declaration converts TODOs into false claims of absence. What it does:
 - The check gains teeth: any fig slot on a retained page still masked (not
   filled, not dashed, not inside a dropped block) FAILS, and any declared
   chart on a retained page without `charts` data FAILS (relief: supply the
-  series, drop `module.chart`, or drop the narrative page).
+  series, drop `module.chart`, or drop the narrative page). Any slot whose
+  whole value is one [bracketed] placeholder (the numbers-only convention,
+  including [Name]/[Title]) also FAILS (v1.4): supply the text or drop its
+  block via the bullet/stat/tile points below.
 - The build empties the chart furniture no slot controls: a stacked or pair
   total the user never stated renders as nothing (the div stays, so bar
   baselines hold), and a pair trend without a `trend` value renders empty.
@@ -217,7 +222,11 @@ cells that are absent inside an otherwise-reported row, set `final`,
 re-check, rebuild. **A final deck carries no fully-dashed rows or columns**:
 a row or column of nothing but dashes means its collapse point was the
 right move, and shipping it dashed is the second-best outcome the drops
-exist to prevent. The final-mode FAIL list is the sweep's worklist; a
+exist to prevent. The same rule covers the fixed grids (v1.4, Teng's call
+on the Bluestone run): an empty sixth tile or spare highlight bullet is
+REMOVED via `ss.tile-6` / `ss.bullet-*`, never shipped as a dashed ghost,
+and unfilled commentary bullets go via the `module.li-*` / `module.stat-2`
+points rather than shipping bracketed placeholders. The final-mode FAIL list is the sweep's worklist; a
 clean final check is the machine's statement that no visible mask remains.
 
 ## Collapse points (v1.1)
@@ -233,6 +242,11 @@ them in `drop` (module ids take `m<N>:` prefixes):
 | `module.col-4` | column 4 alone | two comparison periods but no fourth column (v1.3); exclusive with `cols-34` |
 | `module.chart` | the segment fee chart block | the deck is final and the outline never supplied its series |
 | `split.row-1..5`, `split.scaf-*`, `split.cols-34`, `split.col-4` | the same shapes on the split table (v1.3) | same conditions as their module twins |
+| `module.emph-mid`, `split.emph-mid` | the emphasis treatment on the mid-table band row (the row itself stays) | the mid-table band is SUBTOTAL furniture; when a plain line item lands on it (a long expense stack overflowing onto the band), strip the emphasis so the table does not assert a hierarchy the data lacks (v1.3.3) |
+| `ss.tile-6` | the sixth KPI tile (grid renders 2/2/1) | the deck has five headline metrics; a final deck REMOVES the empty tile, never ships it dashed (v1.4) |
+| `ss.bullet-4..6` | one snapshot highlight bullet each | fewer than six highlights; remove, never dash, an empty bullet (v1.4) |
+| `module.li-lead` | the headline-commentary bullet with its two sub-points | the outline supplied no segment commentary and the user declared the deck complete (v1.4) |
+| `module.li-sub-advisory/-equities`, `module.stat-2`, `module.li-bottom` | one commentary sub-point / the second stat line / the bottom bullet | partial commentary: drop only the pieces the outline never filled (v1.4). Sub-point drops are exclusive with `module.li-lead` (it already removes them) |
 | `cs.targets` | the chart-split targets frame | no targets are being (re)announced there |
 | `hc.boxes` | the hero growth-channel boxes | nothing earns the row |
 | `hc.refline` | the hero's fixed dashed reference line | no reference value is true at its measured height (v1.3.1) |
@@ -320,7 +334,7 @@ harmless, since both nearby branches are neutral-safe.
 | Primary + secondary, both gray | Collapses to the gray-primary row: two gray pairs are not separable |
 | Primary only, chromatic | Primary pair + the neutral slate fallback: `--c-s3: #3f4a54`/`--c-s3-ink: #ffffff`, `--c-s4: #aab4bd`/`--c-s4-ink: #101418` (pre-cleared 9.0:1 and 8.8:1) |
 | Primary only, gray | Gray carries every non-chart role (monochrome is genre-correct); the ramp AND `--c-forward` keep **this template's own defaults** untouched. A neutral brand does not fight a chromatic chart surface |
-| Three or more colours | First two in the order given, or ask which two; extras unused in v1 |
+| Three or more colours | First two in the order given, or ask which two; extras unused in v1. Name the unused colours in the run summary | 
 
 Phrase matters: the gray branch keeps "the template's default ramp", not "blue and
 teal". Each catalog entry ships its own default ramp, so the rule ports to every

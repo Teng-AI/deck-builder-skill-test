@@ -3,7 +3,7 @@
     "template": "template.html",
     "blank_profile": "placeholder-heavy.json",
     "what": "Derived slot map: page -> slots in DOM (display) order, labelled by the blank form's fill-types. Regenerate with research/tools/make-slots.py; never hand-edit.",
-    "slot_sites": 394
+    "slot_sites": 396
   },
   "pages": {
     "cover": [
@@ -11,13 +11,15 @@
         "slot": "cover-title",
         "label": "[Presentation Title]",
         "n": 1,
-        "default_len": 49
+        "default_len": 49,
+        "is_placeholder": true
       },
       {
         "slot": "cover-date",
         "label": "[Date]",
         "n": 2,
-        "default_len": 12
+        "default_len": 12,
+        "is_placeholder": true
       }
     ],
     "chart-split": [
@@ -25,160 +27,206 @@
         "slot": "lang-cs-title",
         "label": "[Page headline]",
         "n": 1,
-        "default_len": 59
+        "default_len": 61,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-cs-sec-high",
+        "label": "[Highlights section heading]",
+        "n": 2,
+        "default_len": 14,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-uhnw",
         "label": "[Claim #1]",
-        "n": 2,
-        "default_len": 45
+        "n": 3,
+        "default_len": 45,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-p1",
         "label": "[Proof point]",
-        "n": 3,
-        "default_len": 50
+        "n": 4,
+        "default_len": 50,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-alts",
         "label": "[Claim #2]",
-        "n": 4,
-        "default_len": 35
+        "n": 5,
+        "default_len": 35,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-p2",
         "label": "[Proof point]",
-        "n": 5,
-        "default_len": 36
+        "n": 6,
+        "default_len": 36,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-rank",
         "label": "[Claim #3] 9",
-        "n": 6,
-        "default_len": 31
-      },
-      {
-        "slot": "rank-active-mgr",
-        "label": "Top-[x]",
         "n": 7,
-        "default_len": 7,
-        "outer": "lang-cs-rank"
+        "default_len": 31,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-p3",
         "label": "[Proof point]",
         "n": 8,
-        "default_len": 82
+        "default_len": 82,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-cs-sec-growth",
+        "label": "[Growth-drivers section heading]",
+        "n": 9,
+        "default_len": 14,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-box-1",
         "label": "[Driver #1]",
-        "n": 9,
-        "default_len": 15
+        "n": 10,
+        "default_len": 15,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-box-2",
         "label": "[Driver #2]",
-        "n": 10,
-        "default_len": 15
+        "n": 11,
+        "default_len": 15,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-box-3",
         "label": "[Driver #3]",
-        "n": 11,
-        "default_len": 17
+        "n": 12,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-chart",
         "label": "[Key metric] ([units])",
-        "n": 12,
-        "default_len": 34
+        "n": 13,
+        "default_len": 34,
+        "is_placeholder": true
       },
       {
         "slot": "lang-legend-cs-1",
         "label": "[Series #1]",
-        "n": 13,
+        "n": 14,
         "default_len": 15,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--2\"></i>"
       },
       {
         "slot": "lang-legend-cs-2",
         "label": "[Series #2]",
-        "n": 14,
+        "n": 15,
         "default_len": 21,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--1\"></i>"
       },
       {
         "slot": "lang-cat-cs-1",
-        "label": "2021",
-        "n": 15,
-        "default_len": 4
+        "label": "[Chart-axis period]",
+        "n": 16,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-cs-2",
-        "label": "2022",
-        "n": 16,
-        "default_len": 4
+        "label": "[Chart-axis period]",
+        "n": 17,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-cs-3",
-        "label": "2023",
-        "n": 17,
-        "default_len": 4
+        "label": "[Chart-axis period]",
+        "n": 18,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-cs-4",
-        "label": "2024",
-        "n": 18,
-        "default_len": 4
+        "label": "[Chart-axis period]",
+        "n": 19,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-cs-5",
-        "label": "2025",
-        "n": 19,
-        "default_len": 4
+        "label": "[Chart-axis period]",
+        "n": 20,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-tgt-title",
         "label": "[Targets headline] 13",
-        "n": 20,
-        "default_len": 22
+        "n": 21,
+        "default_len": 22,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-cs-tgt-prior",
+        "label": "[Prior-period column header]",
+        "n": 22,
+        "default_len": 5,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-cs-tgt-updated",
+        "label": "[Updated column header]",
+        "n": 23,
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-tgt-k1",
         "label": "[Metric #1]",
-        "n": 21,
-        "default_len": 14
+        "n": 24,
+        "default_len": 14,
+        "is_placeholder": true
       },
       {
         "slot": "target-margin-prior",
         "label": "[xx]%",
-        "n": 22,
-        "default_len": 5
+        "n": 25,
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "target-margin-updated",
         "label": "[xx]%",
-        "n": 23,
-        "default_len": 5
+        "n": 26,
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cs-tgt-k2",
         "label": "[Metric #2]",
-        "n": 24,
-        "default_len": 7
+        "n": 27,
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "target-returns-prior",
         "label": "[xx]%",
-        "n": 25,
-        "default_len": 5
+        "n": 28,
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "target-returns-updated",
         "label": "[xx]%",
-        "n": 26,
-        "default_len": 5
+        "n": 29,
+        "default_len": 5,
+        "is_placeholder": true
       }
     ],
     "panel-row": [
@@ -186,103 +234,120 @@
         "slot": "lang-pr-title",
         "label": "[Page headline]",
         "n": 1,
-        "default_len": 53
+        "default_len": 53,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-claim-1",
         "label": "[Claim #1]",
         "n": 2,
-        "default_len": 32
+        "default_len": 32,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-claim-2",
         "label": "[Claim #2]",
         "n": 3,
-        "default_len": 29
+        "default_len": 29,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-claim-3",
         "label": "[Claim #3]",
         "n": 4,
-        "default_len": 27
+        "default_len": 27,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-claim-4",
         "label": "[Claim #4]",
         "n": 5,
-        "default_len": 27
+        "default_len": 27,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-chart-durable",
         "label": "[Metric #1] 4 ([units])",
         "n": 6,
-        "default_len": 35
+        "default_len": 35,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-pr-1",
-        "label": "2020",
+        "label": "[Chart-axis period]",
         "n": 7,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-pr-2",
-        "label": "2025",
+        "label": "[Chart-axis period]",
         "n": 8,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-box-resil",
         "label": "[Outcome #1]",
         "n": 9,
-        "default_len": 19
+        "default_len": 19,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-chart-principal",
         "label": "[Metric #2] 5,6 ([units])",
         "n": 10,
-        "default_len": 35
+        "default_len": 35,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-pr-3",
-        "label": "2020",
+        "label": "[Chart-axis period]",
         "n": 11,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-pr-4",
-        "label": "2025",
+        "label": "[Chart-axis period]",
         "n": 12,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-box-capital",
         "label": "[Outcome #2]",
         "n": 13,
-        "default_len": 23
+        "default_len": 23,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-chart-stress",
         "label": "[Metric #3]",
         "n": 14,
-        "default_len": 21
+        "default_len": 21,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-pr-5",
-        "label": "2020",
+        "label": "[Chart-axis period]",
         "n": 15,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-pr-6",
-        "label": "2025",
+        "label": "[Chart-axis period]",
         "n": 16,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-pr-box-stress",
         "label": "[Outcome #3]",
         "n": 17,
-        "default_len": 26
+        "default_len": 26,
+        "is_placeholder": true
       }
     ],
     "checklist": [
@@ -290,19 +355,22 @@
         "slot": "lang-cl-title",
         "label": "[Page headline]",
         "n": 1,
-        "default_len": 60
+        "default_len": 60,
+        "is_placeholder": true
       },
       {
         "slot": "segment-1",
         "label": "[Segment #1]",
         "n": 2,
-        "default_len": 21
+        "default_len": 22,
+        "is_placeholder": true
       },
       {
         "slot": "segment-2",
         "label": "[Segment #2]",
         "n": 3,
-        "default_len": 29
+        "default_len": 34,
+        "is_placeholder": true
       },
       {
         "slot": "fig-checklist-1",
@@ -314,7 +382,8 @@
         "slot": "lang-band-1",
         "label": "[Claim #1] 7",
         "n": 5,
-        "default_len": 17
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "fig-checklist-2",
@@ -326,201 +395,218 @@
         "slot": "lang-band-2",
         "label": "[Claim #2] 8",
         "n": 7,
-        "default_len": 26
+        "default_len": 26,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-v1",
         "label": "[Rank]",
         "n": 8,
-        "default_len": 7
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-3",
         "label": "[Claim #3] 8",
         "n": 9,
-        "default_len": 29
+        "default_len": 29,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-v2",
         "label": "[Rank]",
         "n": 10,
-        "default_len": 7
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-4",
         "label": "[Claim #4] 9",
         "n": 11,
-        "default_len": 23
+        "default_len": 23,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-v3",
         "label": "[Rank]",
         "n": 12,
-        "default_len": 7
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-5",
         "label": "[Claim #5]",
         "n": 13,
-        "default_len": 26
+        "default_len": 26,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-v4",
         "label": "[Rank]",
         "n": 14,
-        "default_len": 7
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "lang-band-6",
         "label": "[Claim #6]",
         "n": 15,
-        "default_len": 24
+        "default_len": 24,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-h3-franchise",
         "label": "[Achievement #1]",
         "n": 16,
-        "default_len": 34
+        "default_len": 34,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-1",
         "label": "[Proof point]",
         "n": 17,
-        "default_len": 68
+        "default_len": 68,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-2",
         "label": "[Proof point]",
         "n": 18,
-        "default_len": 90
-      },
-      {
-        "slot": "rank-ficc-clients",
-        "label": "Top [x]",
-        "n": 19,
-        "default_len": 7,
-        "outer": "lang-blank-cl-2"
+        "default_len": 90,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-3",
         "label": "[Proof point]",
-        "n": 20,
-        "default_len": 68
+        "n": 19,
+        "default_len": 73,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-h3-durable",
         "label": "[Achievement #2] 4",
-        "n": 21,
-        "default_len": 25
+        "n": 20,
+        "default_len": 25,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-4",
         "label": "[Proof point]",
-        "n": 22,
-        "default_len": 66
+        "n": 21,
+        "default_len": 66,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-5",
         "label": "[Proof point]",
-        "n": 23,
-        "default_len": 63
+        "n": 22,
+        "default_len": 63,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-6",
         "label": "[Proof point]",
-        "n": 24,
-        "default_len": 72
+        "n": 23,
+        "default_len": 66,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-h3-financing",
         "label": "[Achievement #3]",
-        "n": 25,
-        "default_len": 30
+        "n": 24,
+        "default_len": 30,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-7",
         "label": "[Proof point]",
-        "n": 26,
-        "default_len": 38
+        "n": 25,
+        "default_len": 38,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-8",
         "label": "[Proof point]",
-        "n": 27,
-        "default_len": 32
+        "n": 26,
+        "default_len": 32,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-h3-fundraising",
         "label": "[Achievement #4] 5,6",
-        "n": 28,
-        "default_len": 39
+        "n": 27,
+        "default_len": 39,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-9",
         "label": "[Proof point]",
-        "n": 29,
-        "default_len": 61
+        "n": 28,
+        "default_len": 61,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-10",
         "label": "[Proof point]",
-        "n": 30,
-        "default_len": 66
+        "n": 29,
+        "default_len": 66,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-h3-returns",
         "label": "[Achievement #5]",
-        "n": 31,
-        "default_len": 23
+        "n": 30,
+        "default_len": 23,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-11",
         "label": "[Proof point]",
-        "n": 32,
-        "default_len": 64
-      },
-      {
-        "slot": "period-roe-avg",
-        "label": "[x]-year",
-        "n": 33,
-        "default_len": 8,
-        "outer": "lang-blank-cl-11"
+        "n": 31,
+        "default_len": 64,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-h3-margins",
         "label": "[Achievement #6]",
-        "n": 34,
-        "default_len": 26
+        "n": 32,
+        "default_len": 31,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-12",
         "label": "[Proof point]",
-        "n": 35,
-        "default_len": 50
+        "n": 33,
+        "default_len": 50,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-cl-13",
         "label": "[Proof point]",
-        "n": 36,
-        "default_len": 69
+        "n": 34,
+        "default_len": 69,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-coda-h3",
         "label": "[Summary claim]",
-        "n": 37,
-        "default_len": 35
+        "n": 35,
+        "default_len": 35,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-coda-p1",
         "label": "[Completed strategic action]",
-        "n": 38,
-        "default_len": 54
+        "n": 36,
+        "default_len": 60,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cl-coda-p2",
         "label": "[Announced strategic action]",
-        "n": 39,
-        "default_len": 70
+        "n": 37,
+        "default_len": 70,
+        "is_placeholder": true
       }
     ],
     "hero-chart": [
@@ -528,19 +614,22 @@
         "slot": "lang-hc-title",
         "label": "[Page headline]",
         "n": 1,
-        "default_len": 51
+        "default_len": 51,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-chart",
         "label": "[Key metric] ([units])",
         "n": 2,
-        "default_len": 46
+        "default_len": 46,
+        "is_placeholder": true
       },
       {
         "slot": "lang-legend-hc-1",
         "label": "[Series #1]",
         "n": 3,
         "default_len": 27,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--1\"></i>"
       },
       {
@@ -548,6 +637,7 @@
         "label": "[Series #2]",
         "n": 4,
         "default_len": 44,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--2\"></i>"
       },
       {
@@ -555,6 +645,7 @@
         "label": "[Series #3]",
         "n": 5,
         "default_len": 31,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--3\"></i>"
       },
       {
@@ -562,79 +653,92 @@
         "label": "[Series #4]",
         "n": 6,
         "default_len": 28,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--4\"></i>"
       },
       {
         "slot": "lang-hc-refline",
         "label": "[Reference] $[xx.x]bn",
         "n": 7,
-        "default_len": 17
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-hc-1",
-        "label": "2021",
+        "label": "[Chart-axis period]",
         "n": 8,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-hc-2",
-        "label": "2022",
+        "label": "[Chart-axis period]",
         "n": 9,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-hc-3",
-        "label": "2023",
+        "label": "[Chart-axis period]",
         "n": 10,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-hc-4",
-        "label": "2024",
+        "label": "[Chart-axis period]",
         "n": 11,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-hc-5",
-        "label": "2025",
+        "label": "[Chart-axis period]",
         "n": 12,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-bracket",
         "label": "[Forward opportunity statement]",
         "n": 13,
-        "default_len": 36
+        "default_len": 36,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-box-1",
         "label": "[Growth channel #1]",
         "n": 14,
-        "default_len": 17
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-box-2",
         "label": "[Growth channel #2]",
         "n": 15,
-        "default_len": 23
+        "default_len": 23,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-box-3",
         "label": "[Growth channel #3]",
         "n": 16,
-        "default_len": 15
+        "default_len": 15,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-box-4",
         "label": "[Growth channel #4]",
         "n": 17,
-        "default_len": 23
+        "default_len": 23,
+        "is_placeholder": true
       },
       {
         "slot": "lang-hc-box-5",
         "label": "[Growth channel #5]",
         "n": 18,
-        "default_len": 21
+        "default_len": 21,
+        "is_placeholder": true
       }
     ],
     "stat-board": [
@@ -642,91 +746,106 @@
         "slot": "lang-sb-title",
         "label": "[Page headline]",
         "n": 1,
-        "default_len": 26
+        "default_len": 26,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-scope",
         "label": "[Targets scope]",
         "n": 2,
-        "default_len": 34
+        "default_len": 34,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-lab-1",
         "label": "[Metric #1] 20",
         "n": 3,
-        "default_len": 10
+        "default_len": 10,
+        "is_placeholder": true
       },
       {
         "slot": "target-returns-cycle",
         "label": "[xx]%",
         "n": 4,
-        "default_len": 9
+        "default_len": 9,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sb-1",
         "label": "[Definition of the target metric]",
         "n": 5,
-        "default_len": 75
+        "default_len": 75,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-lab-2",
         "label": "[Metric #2]",
         "n": 6,
-        "default_len": 16
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "target-efficiency",
         "label": "[xx]%",
         "n": 7,
-        "default_len": 5
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sb-2",
         "label": "[Definition of the target metric]",
         "n": 8,
-        "default_len": 65
+        "default_len": 65,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-lab-3",
         "label": "[Metric #3]",
         "n": 9,
-        "default_len": 14
+        "default_len": 14,
+        "is_placeholder": true
       },
       {
         "slot": "target-capital-return",
         "label": "[xx]%",
         "n": 10,
-        "default_len": 5
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sb-3",
         "label": "[Definition of the target metric]",
         "n": 11,
-        "default_len": 75
+        "default_len": 75,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-h3",
         "label": "[Forward catalysts headline]",
         "n": 12,
-        "default_len": 54
+        "default_len": 54,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-box-1",
         "label": "[Catalyst #1]",
         "n": 13,
-        "default_len": 68
+        "default_len": 69,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-box-2",
         "label": "[Catalyst #2]",
         "n": 14,
-        "default_len": 68
+        "default_len": 63,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sb-box-3",
         "label": "[Catalyst #3]",
         "n": 15,
-        "default_len": 61
+        "default_len": 61,
+        "is_placeholder": true
       }
     ],
     "snapshot": [
@@ -734,47 +853,54 @@
         "slot": "lang-ss-title",
         "label": "[Page headline]",
         "n": 1,
-        "default_len": 16
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "lang-quote",
         "label": "&ldquo;[Executive quote on the quarter, the strategy and the outlook]&rdquo;",
         "n": 2,
-        "default_len": 547
+        "default_len": 547,
+        "is_placeholder": true
       },
       {
         "slot": "quote-name",
         "label": "[Name]",
         "n": 3,
-        "default_len": 6
+        "default_len": 6,
+        "is_placeholder": true
       },
       {
         "slot": "quote-role",
         "label": "[Title]",
         "n": 4,
-        "default_len": 7
+        "default_len": 7,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-lab-1",
         "label": "[Metric #1]",
         "n": 5,
-        "default_len": 12
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "lang-units-tile-1",
         "label": "[Units]",
         "n": 6,
-        "default_len": 13
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-per-1",
         "label": "[Timeframe #1]",
         "n": 7,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-1",
-        "label": "$[xx,xxx] \u00b7 2Q26",
+        "label": "$[xx,xxx] \u00b7 Lorem",
         "n": 8,
         "default_len": 9
       },
@@ -782,11 +908,12 @@
         "slot": "lang-tile-per-2",
         "label": "[Timeframe #2]",
         "n": 9,
-        "default_len": 8
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-2",
-        "label": "$[xx,xxx] \u00b7 2Q26 YTD",
+        "label": "$[xx,xxx] \u00b7 Lorem ipsum",
         "n": 10,
         "default_len": 9
       },
@@ -794,17 +921,19 @@
         "slot": "lang-tile-lab-2",
         "label": "[Metric #2]",
         "n": 11,
-        "default_len": 16
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-per-3",
         "label": "[Timeframe #1]",
         "n": 12,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-3",
-        "label": "[xx.x]% \u00b7 2Q26",
+        "label": "[xx.x]% \u00b7 Lorem",
         "n": 13,
         "default_len": 7
       },
@@ -812,11 +941,12 @@
         "slot": "lang-tile-per-4",
         "label": "[Timeframe #2]",
         "n": 14,
-        "default_len": 8
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-4",
-        "label": "[xx.x]% \u00b7 2Q26 YTD",
+        "label": "[xx.x]% \u00b7 Lorem ipsum",
         "n": 15,
         "default_len": 7
       },
@@ -824,23 +954,26 @@
         "slot": "lang-tile-lab-3",
         "label": "[Metric #3]",
         "n": 16,
-        "default_len": 12
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "lang-units-tile-2",
         "label": "[Units]",
         "n": 17,
-        "default_len": 13
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-per-5",
         "label": "[Timeframe #1]",
         "n": 18,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-5",
-        "label": "$[x,xxx] \u00b7 2Q26",
+        "label": "$[x,xxx] \u00b7 Lorem",
         "n": 19,
         "default_len": 8
       },
@@ -848,11 +981,12 @@
         "slot": "lang-tile-per-6",
         "label": "[Timeframe #2]",
         "n": 20,
-        "default_len": 8
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-6",
-        "label": "$[xx,xxx] \u00b7 2Q26 YTD",
+        "label": "$[xx,xxx] \u00b7 Lorem ipsum",
         "n": 21,
         "default_len": 9
       },
@@ -860,17 +994,19 @@
         "slot": "lang-tile-lab-4",
         "label": "[Metric #4]",
         "n": 22,
-        "default_len": 17
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-per-7",
         "label": "[Timeframe #1]",
         "n": 23,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-7",
-        "label": "[xx.x]% \u00b7 2Q26",
+        "label": "[xx.x]% \u00b7 Lorem",
         "n": 24,
         "default_len": 7
       },
@@ -878,11 +1014,12 @@
         "slot": "lang-tile-per-8",
         "label": "[Timeframe #2]",
         "n": 25,
-        "default_len": 8
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-8",
-        "label": "[xx.x]% \u00b7 2Q26 YTD",
+        "label": "[xx.x]% \u00b7 Lorem ipsum",
         "n": 26,
         "default_len": 7
       },
@@ -890,17 +1027,19 @@
         "slot": "lang-tile-lab-5",
         "label": "[Metric #5]",
         "n": 27,
-        "default_len": 5
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-per-9",
         "label": "[Timeframe #1]",
         "n": 28,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-9",
-        "label": "$[xx.xx] \u00b7 2Q26",
+        "label": "$[xx.xx] \u00b7 Lorem",
         "n": 29,
         "default_len": 8
       },
@@ -908,11 +1047,12 @@
         "slot": "lang-tile-per-10",
         "label": "[Timeframe #2]",
         "n": 30,
-        "default_len": 8
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-10",
-        "label": "$[xx.xx] \u00b7 2Q26 YTD",
+        "label": "$[xx.xx] \u00b7 Lorem ipsum",
         "n": 31,
         "default_len": 8
       },
@@ -920,17 +1060,19 @@
         "slot": "lang-tile-lab-6",
         "label": "[Metric #6]",
         "n": 32,
-        "default_len": 20
+        "default_len": 20,
+        "is_placeholder": true
       },
       {
         "slot": "lang-tile-per-11",
         "label": "[Timeframe #1]",
         "n": 33,
-        "default_len": 4
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-11",
-        "label": "$[xxx.xx] \u00b7 2Q26",
+        "label": "$[xxx.xx] \u00b7 Lorem",
         "n": 34,
         "default_len": 9
       },
@@ -938,76 +1080,63 @@
         "slot": "lang-tile-per-12",
         "label": "[Timeframe #2]",
         "n": 35,
-        "default_len": 10
+        "default_len": 10,
+        "is_placeholder": true
       },
       {
         "slot": "fig-snapshot-12",
-        "label": "[x.x]% \u00b7 YTD Growth",
+        "label": "[x.x]% \u00b7 Lorem ipsum",
         "n": 36,
         "default_len": 6
       },
       {
         "slot": "lang-ss-high-head",
-        "label": "Quarterly Highlights",
+        "label": "[Highlights section heading]",
         "n": 37,
-        "default_len": 20
+        "default_len": 20,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-ss-1",
         "label": "[Highlight #1]",
         "n": 38,
-        "default_len": 105
+        "default_len": 105,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-ss-2",
         "label": "[Highlight #2]",
         "n": 39,
-        "default_len": 137
-      },
-      {
-        "slot": "segment-1",
-        "label": "[Segment #1]",
-        "n": 40,
-        "default_len": 21,
-        "outer": "lang-blank-ss-2"
+        "default_len": 138,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-ss-3",
         "label": "[Highlight #3]",
-        "n": 41,
-        "default_len": 138
-      },
-      {
-        "slot": "rank-league-primary",
-        "label": "#[x]",
-        "n": 42,
-        "default_len": 4,
-        "outer": "lang-blank-ss-3"
-      },
-      {
-        "slot": "rank-league-ig",
-        "label": "#[x]",
-        "n": 43,
-        "default_len": 4,
-        "outer": "lang-blank-ss-3"
+        "n": 40,
+        "default_len": 138,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-ss-6",
         "label": "[Highlight #4]",
-        "n": 44,
-        "default_len": 49
+        "n": 41,
+        "default_len": 49,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-ss-4",
         "label": "[Highlight #5]",
-        "n": 45,
-        "default_len": 155
+        "n": 42,
+        "default_len": 155,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-ss-5",
         "label": "[Highlight #6]",
-        "n": 46,
-        "default_len": 72
+        "n": 43,
+        "default_len": 72,
+        "is_placeholder": true
       }
     ],
     "module": [
@@ -1015,497 +1144,545 @@
         "slot": "segment-1",
         "label": "[Segment #1]",
         "n": 1,
-        "default_len": 21
+        "default_len": 22,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-mod-sec-fin",
+        "label": "[Financial-results section heading]",
+        "n": 2,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-units-tbl-1",
         "label": "[Units]",
-        "n": 2,
-        "default_len": 13
+        "n": 3,
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-mod-1",
         "label": "[Timeframe #1]",
-        "n": 3,
-        "default_len": 4
+        "n": 4,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-mod-2",
         "label": "vs. [Timeframe #2]",
-        "n": 4,
-        "default_len": 8
+        "n": 5,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-mod-3",
         "label": "vs. [Timeframe #3]",
-        "n": 5,
-        "default_len": 8
+        "n": 6,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-mod-4",
         "label": "[Timeframe #4]",
-        "n": 6,
-        "default_len": 8
+        "n": 7,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "lang-line-mod-1",
         "label": "[Business line]",
-        "n": 7,
-        "default_len": 8
+        "n": 8,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-1",
-        "label": "[x,xxx] \u00b7 Advisory",
-        "n": 8,
+        "label": "[x,xxx] \u00b7 Lorem ipsum",
+        "n": 9,
         "default_len": 7
       },
       {
         "slot": "fig-module-2",
-        "label": "[xx]% \u00b7 Advisory [x,xxx]",
-        "n": 9,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-3",
-        "label": "[xx]% \u00b7 Advisory [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx]",
         "n": 10,
         "default_len": 5
       },
       {
-        "slot": "fig-module-4",
-        "label": "[x,xxx] \u00b7 Advisory [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-3",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx] [xx]%",
         "n": 11,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-4",
+        "label": "[x,xxx] \u00b7 Lorem ipsum [x,xxx] [xx]% [xx]%",
+        "n": 12,
         "default_len": 7
       },
       {
         "slot": "lang-line-mod-2",
         "label": "[Business line]",
-        "n": 12,
-        "default_len": 19
+        "n": 13,
+        "default_len": 19,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-5",
-        "label": "[x,xxx] \u00b7 Equity underwriting",
-        "n": 13,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit",
+        "n": 14,
         "default_len": 7
       },
       {
         "slot": "fig-module-6",
-        "label": "[xx]% \u00b7 Equity underwriting [x,xxx]",
-        "n": 14,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-7",
-        "label": "[xx]% \u00b7 Equity underwriting [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit [x,xxx]",
         "n": 15,
         "default_len": 5
       },
       {
-        "slot": "fig-module-8",
-        "label": "[x,xxx] \u00b7 Equity underwriting [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-7",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit [x,xxx] [xx]%",
         "n": 16,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-8",
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit [x,xxx] [xx]% [xx]%",
+        "n": 17,
         "default_len": 7
       },
       {
         "slot": "lang-line-mod-3",
         "label": "[Business line]",
-        "n": 17,
-        "default_len": 17
+        "n": 18,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-9",
-        "label": "[x,xxx] \u00b7 Debt underwriting",
-        "n": 18,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor",
+        "n": 19,
         "default_len": 7
       },
       {
         "slot": "fig-module-10",
-        "label": "([x])% \u00b7 Debt underwriting [x,xxx]",
-        "n": 19,
+        "label": "([x])% \u00b7 Lorem ipsum dolor [x,xxx]",
+        "n": 20,
         "default_len": 6
       },
       {
         "slot": "fig-module-11",
-        "label": "[xx]% \u00b7 Debt underwriting [x,xxx] ([x])%",
-        "n": 20,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [x,xxx] ([x])%",
+        "n": 21,
         "default_len": 5
       },
       {
         "slot": "fig-module-12",
-        "label": "[x,xxx] \u00b7 Debt underwriting [x,xxx] ([x])% [xx]%",
-        "n": 21,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor [x,xxx] ([x])% [xx]%",
+        "n": 22,
         "default_len": 7
       },
       {
         "slot": "lang-line-mod-4",
         "label": "[Business line]",
-        "n": 22,
-        "default_len": 12
+        "n": 23,
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-13",
-        "label": "[x,xxx] \u00b7 Fixed income",
-        "n": 23,
+        "label": "[x,xxx] \u00b7 Lorem ipsum",
+        "n": 24,
         "default_len": 7
       },
       {
         "slot": "fig-module-14",
-        "label": "[xx]% \u00b7 Fixed income [x,xxx]",
-        "n": 24,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-15",
-        "label": "[xx]% \u00b7 Fixed income [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx]",
         "n": 25,
         "default_len": 5
       },
       {
-        "slot": "fig-module-16",
-        "label": "[x,xxx] \u00b7 Fixed income [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-15",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx] [xx]%",
         "n": 26,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-16",
+        "label": "[x,xxx] \u00b7 Lorem ipsum [x,xxx] [xx]% [xx]%",
+        "n": 27,
         "default_len": 7
       },
       {
         "slot": "lang-line-mod-5",
         "label": "[Business line]",
-        "n": 27,
-        "default_len": 8
+        "n": 28,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-17",
-        "label": "[x,xxx] \u00b7 Equities",
-        "n": 28,
+        "label": "[x,xxx] \u00b7 Lorem ipsum",
+        "n": 29,
         "default_len": 7
       },
       {
         "slot": "fig-module-18",
-        "label": "[xx]% \u00b7 Equities [x,xxx]",
-        "n": 29,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-19",
-        "label": "[xx]% \u00b7 Equities [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx]",
         "n": 30,
         "default_len": 5
       },
       {
-        "slot": "fig-module-20",
-        "label": "[xx,xxx] \u00b7 Equities [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-19",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx] [xx]%",
         "n": 31,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-20",
+        "label": "[xx,xxx] \u00b7 Lorem ipsum [x,xxx] [xx]% [xx]%",
+        "n": 32,
         "default_len": 8
       },
       {
         "slot": "lang-scaf-netrevenue-1",
         "label": "[P&amp;L line]",
-        "n": 32,
-        "default_len": 12
+        "n": 33,
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-21",
-        "label": "[xx,xxx] \u00b7 Net revenues",
-        "n": 33,
+        "label": "[xx,xxx] \u00b7 Lorem ipsum",
+        "n": 34,
         "default_len": 8
       },
       {
         "slot": "fig-module-22",
-        "label": "[xx]% \u00b7 Net revenues [xx,xxx]",
-        "n": 34,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-23",
-        "label": "[xx]% \u00b7 Net revenues [xx,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum [xx,xxx]",
         "n": 35,
         "default_len": 5
       },
       {
-        "slot": "fig-module-24",
-        "label": "[xx,xxx] \u00b7 Net revenues [xx,xxx] [xx]% [xx]%",
+        "slot": "fig-module-23",
+        "label": "[xx]% \u00b7 Lorem ipsum [xx,xxx] [xx]%",
         "n": 36,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-24",
+        "label": "[xx,xxx] \u00b7 Lorem ipsum [xx,xxx] [xx]% [xx]%",
+        "n": 37,
         "default_len": 8
       },
       {
         "slot": "lang-scaf-provisionf-1",
         "label": "[P&amp;L line]",
-        "n": 37,
-        "default_len": 27
+        "n": 38,
+        "default_len": 27,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-25",
-        "label": "[xx] \u00b7 Provision for credit losses",
-        "n": 38,
+        "label": "[xx] \u00b7 Lorem ipsum dolor sit amet",
+        "n": 39,
         "default_len": 4
       },
       {
         "slot": "fig-module-26",
-        "label": "([xx])% \u00b7 Provision for credit losses [xx]",
-        "n": 39,
-        "default_len": 7
-      },
-      {
-        "slot": "fig-module-27",
-        "label": "([xx])% \u00b7 Provision for credit losses [xx] ([xx])%",
+        "label": "([xx])% \u00b7 Lorem ipsum dolor sit amet [xx]",
         "n": 40,
         "default_len": 7
       },
       {
-        "slot": "fig-module-28",
-        "label": "[xxx] \u00b7 Provision for credit losses [xx] ([xx])% ([xx])%",
+        "slot": "fig-module-27",
+        "label": "([xx])% \u00b7 Lorem ipsum dolor sit amet [xx] ([xx])%",
         "n": 41,
+        "default_len": 7
+      },
+      {
+        "slot": "fig-module-28",
+        "label": "[xxx] \u00b7 Lorem ipsum dolor sit amet [xx] ([xx])% ([xx])%",
+        "n": 42,
         "default_len": 5
       },
       {
         "slot": "lang-scaf-compensati-1",
         "label": "[P&amp;L line]",
-        "n": 42,
-        "default_len": 25
+        "n": 43,
+        "default_len": 25,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-29",
-        "label": "[x,xxx] \u00b7 Compensation and benefits",
-        "n": 43,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet",
+        "n": 44,
         "default_len": 7
       },
       {
         "slot": "fig-module-30",
-        "label": "[x]% \u00b7 Compensation and benefits [x,xxx]",
-        "n": 44,
+        "label": "[x]% \u00b7 Lorem ipsum dolor sit amet [x,xxx]",
+        "n": 45,
         "default_len": 4
       },
       {
         "slot": "fig-module-31",
-        "label": "[xx]% \u00b7 Compensation and benefits [x,xxx] [x]%",
-        "n": 45,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit amet [x,xxx] [x]%",
+        "n": 46,
         "default_len": 5
       },
       {
         "slot": "fig-module-32",
-        "label": "[x,xxx] \u00b7 Compensation and benefits [x,xxx] [x]% [xx]%",
-        "n": 46,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet [x,xxx] [x]% [xx]%",
+        "n": 47,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-noncompens-1",
         "label": "[P&amp;L line]",
-        "n": 47,
-        "default_len": 25
+        "n": 48,
+        "default_len": 25,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-33",
-        "label": "[x,xxx] \u00b7 Non-compensation expenses",
-        "n": 48,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet",
+        "n": 49,
         "default_len": 7
       },
       {
         "slot": "fig-module-34",
-        "label": "[xx]% \u00b7 Non-compensation expenses [x,xxx]",
-        "n": 49,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-35",
-        "label": "[xx]% \u00b7 Non-compensation expenses [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit amet [x,xxx]",
         "n": 50,
         "default_len": 5
       },
       {
-        "slot": "fig-module-36",
-        "label": "[x,xxx] \u00b7 Non-compensation expenses [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-35",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit amet [x,xxx] [xx]%",
         "n": 51,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-36",
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet [x,xxx] [xx]% [xx]%",
+        "n": 52,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-pretaxearn-1",
         "label": "[P&amp;L line]",
-        "n": 52,
-        "default_len": 16
+        "n": 53,
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-37",
-        "label": "[x,xxx] \u00b7 Pre-tax earnings",
-        "n": 53,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor",
+        "n": 54,
         "default_len": 7
       },
       {
         "slot": "fig-module-38",
-        "label": "[xx]% \u00b7 Pre-tax earnings [x,xxx]",
-        "n": 54,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-39",
-        "label": "[xx]% \u00b7 Pre-tax earnings [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [x,xxx]",
         "n": 55,
         "default_len": 5
       },
       {
-        "slot": "fig-module-40",
-        "label": "[xx,xxx] \u00b7 Pre-tax earnings [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-39",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [x,xxx] [xx]%",
         "n": 56,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-40",
+        "label": "[xx,xxx] \u00b7 Lorem ipsum dolor [x,xxx] [xx]% [xx]%",
+        "n": 57,
         "default_len": 8
       },
       {
         "slot": "lang-scaf-netearning-1",
         "label": "[P&amp;L line]",
-        "n": 57,
-        "default_len": 12
+        "n": 58,
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-41",
-        "label": "[x,xxx] \u00b7 Net earnings",
-        "n": 58,
+        "label": "[x,xxx] \u00b7 Lorem ipsum",
+        "n": 59,
         "default_len": 7
       },
       {
         "slot": "fig-module-42",
-        "label": "[xx]% \u00b7 Net earnings [x,xxx]",
-        "n": 59,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-module-43",
-        "label": "[xx]% \u00b7 Net earnings [x,xxx] [xx]%",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx]",
         "n": 60,
         "default_len": 5
       },
       {
-        "slot": "fig-module-44",
-        "label": "[xx,xxx] \u00b7 Net earnings [x,xxx] [xx]% [xx]%",
+        "slot": "fig-module-43",
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx] [xx]%",
         "n": 61,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-module-44",
+        "label": "[xx,xxx] \u00b7 Lorem ipsum [x,xxx] [xx]% [xx]%",
+        "n": 62,
         "default_len": 8
       },
       {
         "slot": "lang-scaf-returnonav-1",
         "label": "[P&amp;L line]",
-        "n": 62,
-        "default_len": 31
+        "n": 63,
+        "default_len": 31,
+        "is_placeholder": true
       },
       {
         "slot": "fig-module-45",
-        "label": "[xx.x]% \u00b7 Return on average common equity",
-        "n": 63,
-        "default_len": 7
-      },
-      {
-        "slot": "fig-module-46",
-        "label": "[x.x]pp \u00b7 Return on average common equity [xx.x]%",
+        "label": "[xx.x]% \u00b7 Lorem ipsum dolor sit amet",
         "n": 64,
         "default_len": 7
       },
       {
-        "slot": "fig-module-47",
-        "label": "[xx.x]pp \u00b7 Return on average common equity [xx.x]% [x.x]pp",
+        "slot": "fig-module-46",
+        "label": "[x.x]pp \u00b7 Lorem ipsum dolor sit amet [xx.x]%",
         "n": 65,
+        "default_len": 7
+      },
+      {
+        "slot": "fig-module-47",
+        "label": "[xx.x]pp \u00b7 Lorem ipsum dolor sit amet [xx.x]% [x.x]pp",
+        "n": 66,
         "default_len": 8
       },
       {
         "slot": "fig-module-48",
-        "label": "[xx.x]% \u00b7 Return on average common equity [xx.x]% [x.x]pp ",
-        "n": 66,
+        "label": "[xx.x]% \u00b7 Lorem ipsum dolor sit amet [xx.x]% [x.x]pp [xx.x",
+        "n": 67,
         "default_len": 7
       },
       {
         "slot": "segment-1",
         "label": "[Segment #1]",
-        "n": 67,
-        "default_len": 21
+        "n": 68,
+        "default_len": 22,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-mod-sec-high",
+        "label": "[Highlights label]",
+        "n": 69,
+        "default_len": 10,
+        "is_placeholder": true
       },
       {
         "slot": "lang-lead-mod-1",
         "label": "[Headline result commentary]",
-        "n": 68,
-        "default_len": 62
+        "n": 70,
+        "default_len": 62,
+        "is_placeholder": true
       },
       {
         "slot": "lang-mod-li-advisory",
         "label": "[Commentary point]",
-        "n": 69,
-        "default_len": 125
+        "n": 71,
+        "default_len": 125,
+        "is_placeholder": true
       },
       {
         "slot": "lang-mod-li-equities",
         "label": "[Commentary point]",
-        "n": 70,
-        "default_len": 68
+        "n": 72,
+        "default_len": 68,
+        "is_placeholder": true
       },
       {
         "slot": "lang-lead-sel-1",
         "label": "[Select data]:",
-        "n": 71,
-        "default_len": 17
+        "n": 73,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-stat-mod-1",
         "label": "[Select metric]",
-        "n": 72,
-        "default_len": 32
+        "n": 74,
+        "default_len": 32,
+        "is_placeholder": true
       },
       {
         "slot": "lang-stat-mod-2",
         "label": "[Select metric]",
-        "n": 73,
-        "default_len": 30
+        "n": 75,
+        "default_len": 30,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-mod-1",
         "label": "[Commentary point]",
-        "n": 74,
-        "default_len": 178
+        "n": 76,
+        "default_len": 178,
+        "is_placeholder": true
       },
       {
         "slot": "lang-mod-chart",
         "label": "[Chart title] ([units])",
-        "n": 75,
-        "default_len": 40
+        "n": 77,
+        "default_len": 40,
+        "is_placeholder": true
       },
       {
         "slot": "lang-legend-mod-1",
         "label": "[Series #1]",
-        "n": 76,
+        "n": 78,
         "default_len": 8,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--1\"></i>"
       },
       {
         "slot": "lang-legend-mod-2",
         "label": "[Series #2]",
-        "n": 77,
+        "n": 79,
         "default_len": 12,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--2\"></i>"
       },
       {
         "slot": "lang-legend-mod-3",
         "label": "[Series #3]",
-        "n": 78,
+        "n": 80,
         "default_len": 12,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--3\"></i>"
       },
       {
         "slot": "lang-legend-mod-4",
         "label": "[Series #4]",
-        "n": 79,
+        "n": 81,
         "default_len": 8,
+        "is_placeholder": true,
         "markup_prefix": "<i class=\"sw sw--4\"></i>"
       },
       {
         "slot": "lang-cat-mod-1",
         "label": "[Timeframe #1]",
-        "n": 80,
-        "default_len": 4
+        "n": 82,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-mod-2",
         "label": "[Timeframe #2]",
-        "n": 81,
-        "default_len": 4
+        "n": 83,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-cat-mod-3",
         "label": "[Timeframe #3]",
-        "n": 82,
-        "default_len": 4
+        "n": 84,
+        "default_len": 4,
+        "is_placeholder": true
       }
     ],
     "split": [
@@ -1513,904 +1690,986 @@
         "slot": "segment-2",
         "label": "[Segment #2]",
         "n": 1,
-        "default_len": 29
+        "default_len": 34,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-sp-sec-fin",
+        "label": "[Financial-results section heading]",
+        "n": 2,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-units-tbl-2",
         "label": "[Units]",
-        "n": 2,
-        "default_len": 13
+        "n": 3,
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-sp-1",
         "label": "[Timeframe #1]",
-        "n": 3,
-        "default_len": 4
+        "n": 4,
+        "default_len": 4,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-sp-2",
         "label": "vs. [Timeframe #2]",
-        "n": 4,
-        "default_len": 8
+        "n": 5,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-sp-3",
         "label": "vs. [Timeframe #3]",
-        "n": 5,
-        "default_len": 8
+        "n": 6,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-sp-4",
         "label": "[Timeframe #4]",
-        "n": 6,
-        "default_len": 8
+        "n": 7,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "lang-line-sp-1",
         "label": "[Business line]",
-        "n": 7,
-        "default_len": 21
+        "n": 8,
+        "default_len": 21,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-1",
-        "label": "[x,xxx] \u00b7 Asset management fees",
-        "n": 8,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit",
+        "n": 9,
         "default_len": 7
       },
       {
         "slot": "fig-split-2",
-        "label": "[x]% \u00b7 Asset management fees [x,xxx]",
-        "n": 9,
+        "label": "[x]% \u00b7 Lorem ipsum dolor sit [x,xxx]",
+        "n": 10,
         "default_len": 4
       },
       {
         "slot": "fig-split-3",
-        "label": "[xx]% \u00b7 Asset management fees [x,xxx] [x]%",
-        "n": 10,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit [x,xxx] [x]%",
+        "n": 11,
         "default_len": 5
       },
       {
         "slot": "fig-split-4",
-        "label": "[x,xxx] \u00b7 Asset management fees [x,xxx] [x]% [xx]%",
-        "n": 11,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit [x,xxx] [x]% [xx]%",
+        "n": 12,
         "default_len": 7
       },
       {
         "slot": "lang-line-sp-2",
         "label": "[Business line]",
-        "n": 12,
-        "default_len": 16
+        "n": 13,
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-5",
-        "label": "[xxx] \u00b7 Performance fees",
-        "n": 13,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-split-6",
-        "label": "[xx]% \u00b7 Performance fees [xxx]",
+        "label": "[xxx] \u00b7 Lorem ipsum dolor",
         "n": 14,
         "default_len": 5
       },
       {
-        "slot": "fig-split-7",
-        "label": "[xx]% \u00b7 Performance fees [xxx] [xx]%",
+        "slot": "fig-split-6",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [xxx]",
         "n": 15,
         "default_len": 5
       },
       {
-        "slot": "fig-split-8",
-        "label": "[xxx] \u00b7 Performance fees [xxx] [xx]% [xx]%",
+        "slot": "fig-split-7",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [xxx] [xx]%",
         "n": 16,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-split-8",
+        "label": "[xxx] \u00b7 Lorem ipsum dolor [xxx] [xx]% [xx]%",
+        "n": 17,
         "default_len": 5
       },
       {
         "slot": "lang-line-sp-3",
         "label": "[Business line]",
-        "n": 17,
-        "default_len": 15
+        "n": 18,
+        "default_len": 15,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-9",
-        "label": "[xxx] \u00b7 Private banking",
-        "n": 18,
+        "label": "[xxx] \u00b7 Lorem ipsum dolor",
+        "n": 19,
         "default_len": 5
       },
       {
         "slot": "fig-split-10",
-        "label": "[x]% \u00b7 Private banking [xxx]",
-        "n": 19,
-        "default_len": 4
-      },
-      {
-        "slot": "fig-split-11",
-        "label": "[x]% \u00b7 Private banking [xxx] [x]%",
+        "label": "[x]% \u00b7 Lorem ipsum dolor [xxx]",
         "n": 20,
         "default_len": 4
       },
       {
-        "slot": "fig-split-12",
-        "label": "[x,xxx] \u00b7 Private banking [xxx] [x]% [x]%",
+        "slot": "fig-split-11",
+        "label": "[x]% \u00b7 Lorem ipsum dolor [xxx] [x]%",
         "n": 21,
+        "default_len": 4
+      },
+      {
+        "slot": "fig-split-12",
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor [xxx] [x]% [x]%",
+        "n": 22,
         "default_len": 7
       },
       {
         "slot": "lang-line-sp-4",
         "label": "[Business line]",
-        "n": 22,
-        "default_len": 16
+        "n": 23,
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-13",
-        "label": "[xxx] \u00b7 Equity portfolio",
-        "n": 23,
+        "label": "[xxx] \u00b7 Lorem ipsum dolor",
+        "n": 24,
         "default_len": 5
       },
       {
         "slot": "fig-split-14",
-        "label": "([xx])% \u00b7 Equity portfolio [xxx]",
-        "n": 24,
+        "label": "([xx])% \u00b7 Lorem ipsum dolor [xxx]",
+        "n": 25,
         "default_len": 7
       },
       {
         "slot": "fig-split-15",
-        "label": "[xx]% \u00b7 Equity portfolio [xxx] ([xx])%",
-        "n": 25,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [xxx] ([xx])%",
+        "n": 26,
         "default_len": 5
       },
       {
         "slot": "fig-split-16",
-        "label": "[xxx] \u00b7 Equity portfolio [xxx] ([xx])% [xx]%",
-        "n": 26,
+        "label": "[xxx] \u00b7 Lorem ipsum dolor [xxx] ([xx])% [xx]%",
+        "n": 27,
         "default_len": 5
       },
       {
         "slot": "lang-line-sp-5",
         "label": "[Business line]",
-        "n": 27,
-        "default_len": 14
+        "n": 28,
+        "default_len": 14,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-17",
-        "label": "[xxx] \u00b7 Debt portfolio",
-        "n": 28,
-        "default_len": 5
-      },
-      {
-        "slot": "fig-split-18",
-        "label": "[xx]% \u00b7 Debt portfolio [xxx]",
+        "label": "[xxx] \u00b7 Lorem ipsum dolor",
         "n": 29,
         "default_len": 5
       },
       {
-        "slot": "fig-split-19",
-        "label": "[x]% \u00b7 Debt portfolio [xxx] [xx]%",
+        "slot": "fig-split-18",
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [xxx]",
         "n": 30,
+        "default_len": 5
+      },
+      {
+        "slot": "fig-split-19",
+        "label": "[x]% \u00b7 Lorem ipsum dolor [xxx] [xx]%",
+        "n": 31,
         "default_len": 4
       },
       {
         "slot": "fig-split-20",
-        "label": "[xxx] \u00b7 Debt portfolio [xxx] [xx]% [x]%",
-        "n": 31,
+        "label": "[xxx] \u00b7 Lorem ipsum dolor [xxx] [xx]% [x]%",
+        "n": 32,
         "default_len": 5
       },
       {
         "slot": "lang-scaf-netrevenue-2",
         "label": "[P&amp;L line]",
-        "n": 32,
-        "default_len": 12
+        "n": 33,
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-21",
-        "label": "[x,xxx] \u00b7 Net revenues",
-        "n": 33,
+        "label": "[x,xxx] \u00b7 Lorem ipsum",
+        "n": 34,
         "default_len": 7
       },
       {
         "slot": "fig-split-22",
-        "label": "[x]% \u00b7 Net revenues [x,xxx]",
-        "n": 34,
+        "label": "[x]% \u00b7 Lorem ipsum [x,xxx]",
+        "n": 35,
         "default_len": 4
       },
       {
         "slot": "fig-split-23",
-        "label": "[xx]% \u00b7 Net revenues [x,xxx] [x]%",
-        "n": 35,
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx] [x]%",
+        "n": 36,
         "default_len": 5
       },
       {
         "slot": "fig-split-24",
-        "label": "[x,xxx] \u00b7 Net revenues [x,xxx] [x]% [xx]%",
-        "n": 36,
+        "label": "[x,xxx] \u00b7 Lorem ipsum [x,xxx] [x]% [xx]%",
+        "n": 37,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-provisionf-2",
         "label": "[P&amp;L line]",
-        "n": 37,
-        "default_len": 27
+        "n": 38,
+        "default_len": 27,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-25",
-        "label": "[xx] \u00b7 Provision for credit losses",
-        "n": 38,
+        "label": "[xx] \u00b7 Lorem ipsum dolor sit amet",
+        "n": 39,
         "default_len": 4
       },
       {
         "slot": "fig-split-26",
-        "label": "([xx])% \u00b7 Provision for credit losses [xx]",
-        "n": 39,
-        "default_len": 7
-      },
-      {
-        "slot": "fig-split-27",
-        "label": "([xx])% \u00b7 Provision for credit losses [xx] ([xx])%",
+        "label": "([xx])% \u00b7 Lorem ipsum dolor sit amet [xx]",
         "n": 40,
         "default_len": 7
       },
       {
-        "slot": "fig-split-28",
-        "label": "[xxx] \u00b7 Provision for credit losses [xx] ([xx])% ([xx])%",
+        "slot": "fig-split-27",
+        "label": "([xx])% \u00b7 Lorem ipsum dolor sit amet [xx] ([xx])%",
         "n": 41,
+        "default_len": 7
+      },
+      {
+        "slot": "fig-split-28",
+        "label": "[xxx] \u00b7 Lorem ipsum dolor sit amet [xx] ([xx])% ([xx])%",
+        "n": 42,
         "default_len": 5
       },
       {
         "slot": "lang-scaf-compensati-2",
         "label": "[P&amp;L line]",
-        "n": 42,
-        "default_len": 25
+        "n": 43,
+        "default_len": 25,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-29",
-        "label": "[x,xxx] \u00b7 Compensation and benefits",
-        "n": 43,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet",
+        "n": 44,
         "default_len": 7
       },
       {
         "slot": "fig-split-30",
-        "label": "[x]% \u00b7 Compensation and benefits [x,xxx]",
-        "n": 44,
+        "label": "[x]% \u00b7 Lorem ipsum dolor sit amet [x,xxx]",
+        "n": 45,
         "default_len": 4
       },
       {
         "slot": "fig-split-31",
-        "label": "[xx]% \u00b7 Compensation and benefits [x,xxx] [x]%",
-        "n": 45,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit amet [x,xxx] [x]%",
+        "n": 46,
         "default_len": 5
       },
       {
         "slot": "fig-split-32",
-        "label": "[x,xxx] \u00b7 Compensation and benefits [x,xxx] [x]% [xx]%",
-        "n": 46,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet [x,xxx] [x]% [xx]%",
+        "n": 47,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-noncompens-2",
         "label": "[P&amp;L line]",
-        "n": 47,
-        "default_len": 25
+        "n": 48,
+        "default_len": 25,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-33",
-        "label": "[x,xxx] \u00b7 Non-compensation expenses",
-        "n": 48,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet",
+        "n": 49,
         "default_len": 7
       },
       {
         "slot": "fig-split-34",
-        "label": "[x]% \u00b7 Non-compensation expenses [x,xxx]",
-        "n": 49,
+        "label": "[x]% \u00b7 Lorem ipsum dolor sit amet [x,xxx]",
+        "n": 50,
         "default_len": 4
       },
       {
         "slot": "fig-split-35",
-        "label": "[xx]% \u00b7 Non-compensation expenses [x,xxx] [x]%",
-        "n": 50,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor sit amet [x,xxx] [x]%",
+        "n": 51,
         "default_len": 5
       },
       {
         "slot": "fig-split-36",
-        "label": "[x,xxx] \u00b7 Non-compensation expenses [x,xxx] [x]% [xx]%",
-        "n": 51,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor sit amet [x,xxx] [x]% [xx]%",
+        "n": 52,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-pretaxearn-2",
         "label": "[P&amp;L line]",
-        "n": 52,
-        "default_len": 16
+        "n": 53,
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-37",
-        "label": "[x,xxx] \u00b7 Pre-tax earnings",
-        "n": 53,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor",
+        "n": 54,
         "default_len": 7
       },
       {
         "slot": "fig-split-38",
-        "label": "[x]% \u00b7 Pre-tax earnings [x,xxx]",
-        "n": 54,
+        "label": "[x]% \u00b7 Lorem ipsum dolor [x,xxx]",
+        "n": 55,
         "default_len": 4
       },
       {
         "slot": "fig-split-39",
-        "label": "[xx]% \u00b7 Pre-tax earnings [x,xxx] [x]%",
-        "n": 55,
+        "label": "[xx]% \u00b7 Lorem ipsum dolor [x,xxx] [x]%",
+        "n": 56,
         "default_len": 5
       },
       {
         "slot": "fig-split-40",
-        "label": "[x,xxx] \u00b7 Pre-tax earnings [x,xxx] [x]% [xx]%",
-        "n": 56,
+        "label": "[x,xxx] \u00b7 Lorem ipsum dolor [x,xxx] [x]% [xx]%",
+        "n": 57,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-netearning-2",
         "label": "[P&amp;L line]",
-        "n": 57,
-        "default_len": 12
+        "n": 58,
+        "default_len": 12,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-41",
-        "label": "[x,xxx] \u00b7 Net earnings",
-        "n": 58,
+        "label": "[x,xxx] \u00b7 Lorem ipsum",
+        "n": 59,
         "default_len": 7
       },
       {
         "slot": "fig-split-42",
-        "label": "[x]% \u00b7 Net earnings [x,xxx]",
-        "n": 59,
+        "label": "[x]% \u00b7 Lorem ipsum [x,xxx]",
+        "n": 60,
         "default_len": 4
       },
       {
         "slot": "fig-split-43",
-        "label": "[xx]% \u00b7 Net earnings [x,xxx] [x]%",
-        "n": 60,
+        "label": "[xx]% \u00b7 Lorem ipsum [x,xxx] [x]%",
+        "n": 61,
         "default_len": 5
       },
       {
         "slot": "fig-split-44",
-        "label": "[x,xxx] \u00b7 Net earnings [x,xxx] [x]% [xx]%",
-        "n": 61,
+        "label": "[x,xxx] \u00b7 Lorem ipsum [x,xxx] [x]% [xx]%",
+        "n": 62,
         "default_len": 7
       },
       {
         "slot": "lang-scaf-returnonav-2",
         "label": "[P&amp;L line]",
-        "n": 62,
-        "default_len": 31
+        "n": 63,
+        "default_len": 31,
+        "is_placeholder": true
       },
       {
         "slot": "fig-split-45",
-        "label": "[xx.x]% \u00b7 Return on average common equity",
-        "n": 63,
-        "default_len": 7
-      },
-      {
-        "slot": "fig-split-46",
-        "label": "[x.x]pp \u00b7 Return on average common equity [xx.x]%",
+        "label": "[xx.x]% \u00b7 Lorem ipsum dolor sit amet",
         "n": 64,
         "default_len": 7
       },
       {
-        "slot": "fig-split-47",
-        "label": "[x.x]pp \u00b7 Return on average common equity [xx.x]% [x.x]pp",
+        "slot": "fig-split-46",
+        "label": "[x.x]pp \u00b7 Lorem ipsum dolor sit amet [xx.x]%",
         "n": 65,
         "default_len": 7
       },
       {
-        "slot": "fig-split-48",
-        "label": "[xx.x]% \u00b7 Return on average common equity [xx.x]% [x.x]pp ",
+        "slot": "fig-split-47",
+        "label": "[x.x]pp \u00b7 Lorem ipsum dolor sit amet [xx.x]% [x.x]pp",
         "n": 66,
+        "default_len": 7
+      },
+      {
+        "slot": "fig-split-48",
+        "label": "[xx.x]% \u00b7 Lorem ipsum dolor sit amet [xx.x]% [x.x]pp [x.x]",
+        "n": 67,
         "default_len": 7
       },
       {
         "slot": "segment-2",
         "label": "[Segment #2]",
-        "n": 67,
-        "default_len": 29
+        "n": 68,
+        "default_len": 34,
+        "is_placeholder": true
+      },
+      {
+        "slot": "lang-sp-sec-high",
+        "label": "[Highlights label]",
+        "n": 69,
+        "default_len": 10,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sp-1",
         "label": "[Commentary point]",
-        "n": 68,
-        "default_len": 87
+        "n": 70,
+        "default_len": 87,
+        "is_placeholder": true
       },
       {
         "slot": "lang-lead-sp-1",
         "label": "[Headline commentary]",
-        "n": 69,
-        "default_len": 95
+        "n": 71,
+        "default_len": 95,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sp-2",
         "label": "[Commentary point]",
-        "n": 70,
-        "default_len": 52
+        "n": 72,
+        "default_len": 52,
+        "is_placeholder": true
       },
       {
         "slot": "lang-stat-sp-1",
         "label": "[Select metric]",
-        "n": 71,
-        "default_len": 38
+        "n": 73,
+        "default_len": 38,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sp-3",
         "label": "[Commentary point]",
-        "n": 72,
-        "default_len": 109
-      },
-      {
-        "slot": "rank-incentive-fees",
-        "label": "[x]th",
-        "n": 73,
-        "default_len": 5,
-        "outer": "lang-blank-sp-3"
+        "n": 74,
+        "default_len": 109,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sp-4",
         "label": "[Commentary point]",
-        "n": 74,
-        "default_len": 101
+        "n": 75,
+        "default_len": 101,
+        "is_placeholder": true
       },
       {
         "slot": "lang-sp-li-principal",
         "label": "[Commentary point]",
-        "n": 75,
-        "default_len": 155
+        "n": 76,
+        "default_len": 155,
+        "is_placeholder": true
       },
       {
         "slot": "lang-lead-sel-2",
         "label": "[Select data]:",
-        "n": 76,
-        "default_len": 17
+        "n": 77,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-stat-sp-2",
         "label": "[Select metric]",
-        "n": 77,
-        "default_len": 42
+        "n": 78,
+        "default_len": 42,
+        "is_placeholder": true
       },
       {
         "slot": "lang-stat-sp-3",
         "label": "[Select metric]",
-        "n": 78,
-        "default_len": 56
+        "n": 79,
+        "default_len": 56,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-sp-5",
         "label": "[Commentary point]",
-        "n": 79,
-        "default_len": 161
-      },
-      {
-        "slot": "streak-expense",
-        "label": "[x]th",
         "n": 80,
-        "default_len": 5,
-        "outer": "lang-blank-sp-5"
+        "default_len": 161,
+        "is_placeholder": true
       }
     ],
     "prose": [
       {
+        "slot": "lang-pro-title",
+        "label": "[Safe-harbour page title]",
+        "n": 1,
+        "default_len": 52,
+        "is_placeholder": true
+      },
+      {
         "slot": "lang-blank-pro-1",
         "label": "[Safe-harbour language from your legal team]",
-        "n": 1,
-        "default_len": 788
+        "n": 2,
+        "default_len": 758,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-pro-2",
         "label": "[Safe-harbour language from your legal team]",
-        "n": 2,
-        "default_len": 1769
+        "n": 3,
+        "default_len": 1527,
+        "is_placeholder": true
       }
     ],
     "recon": [
       {
+        "slot": "lang-rec-sec-fn",
+        "label": "[Footnotes heading]",
+        "n": 1,
+        "default_len": 9,
+        "is_placeholder": true
+      },
+      {
         "slot": "lang-blank-rec-1",
         "label": "[Reconciliation note]",
-        "n": 1,
-        "default_len": 179
+        "n": 2,
+        "default_len": 137,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-rec-2",
         "label": "[Reconciliation note]",
-        "n": 2,
-        "default_len": 1035
+        "n": 3,
+        "default_len": 797,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-rec-3",
         "label": "[Reconciliation note]",
-        "n": 3,
-        "default_len": 151
+        "n": 4,
+        "default_len": 94,
+        "is_placeholder": true
       },
       {
         "slot": "lang-units-rec-1",
         "label": "[Units]",
-        "n": 4,
-        "default_len": 24
+        "n": 5,
+        "default_len": 24,
+        "is_placeholder": true
       },
       {
         "slot": "lang-rec-basis-1",
         "label": "[Period basis]",
-        "n": 5,
-        "default_len": 15
+        "n": 6,
+        "default_len": 15,
+        "is_placeholder": true
       },
       {
         "slot": "lang-rec-basis-2",
         "label": "[Period basis]",
-        "n": 6,
-        "default_len": 5
+        "n": 7,
+        "default_len": 5,
+        "is_placeholder": true
       },
       {
         "slot": "lang-rec-ended-1",
         "label": "[Period ended]",
-        "n": 7,
-        "default_len": 18
+        "n": 8,
+        "default_len": 18,
+        "is_placeholder": true
       },
       {
         "slot": "lang-rec-ended-2",
         "label": "[Period ended]",
-        "n": 8,
-        "default_len": 16
+        "n": 9,
+        "default_len": 16,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-rec-1",
         "label": "[DATE]",
-        "n": 9,
-        "default_len": 13
+        "n": 10,
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-rec-2",
         "label": "[DATE]",
-        "n": 10,
-        "default_len": 14
+        "n": 11,
+        "default_len": 14,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-rec-3",
         "label": "[DATE]",
-        "n": 11,
-        "default_len": 17
+        "n": 12,
+        "default_len": 17,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-rec-4",
         "label": "[DATE]",
-        "n": 12,
-        "default_len": 13
+        "n": 13,
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-th-rec-5",
         "label": "[DATE]",
-        "n": 13,
-        "default_len": 13
+        "n": 14,
+        "default_len": 13,
+        "is_placeholder": true
       },
       {
         "slot": "lang-rec-row1-1",
         "label": "[Line item]",
-        "n": 14,
-        "default_len": 26
+        "n": 15,
+        "default_len": 26,
+        "is_placeholder": true
       },
       {
         "slot": "fig-recon-1",
-        "label": "[xxx,xxx] \u00b7 Total shareholders' equity $",
-        "n": 15,
-        "default_len": 9
-      },
-      {
-        "slot": "fig-recon-2",
-        "label": "[xxx,xxx] \u00b7 Total shareholders' equity $ [xxx,xxx] $",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet $",
         "n": 16,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-3",
-        "label": "[xxx,xxx] \u00b7 Total shareholders' equity $ [xxx,xxx] $ [xxx,xx",
+        "slot": "fig-recon-2",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet $ [xxx,xxx] $",
         "n": 17,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-4",
-        "label": "[xxx,xxx] \u00b7 Total shareholders' equity $ [xxx,xxx] $ [xxx,xx",
+        "slot": "fig-recon-3",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet $ [xxx,xxx] $ [xxx,xx",
         "n": 18,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-5",
-        "label": "[xxx,xxx] \u00b7 Total shareholders' equity $ [xxx,xxx] $ [xxx,xx",
+        "slot": "fig-recon-4",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet $ [xxx,xxx] $ [xxx,xx",
         "n": 19,
+        "default_len": 9
+      },
+      {
+        "slot": "fig-recon-5",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet $ [xxx,xxx] $ [xxx,xx",
+        "n": 20,
         "default_len": 9
       },
       {
         "slot": "lang-rec-row2-1",
         "label": "[Line item]",
-        "n": 20,
-        "default_len": 15
+        "n": 21,
+        "default_len": 15,
+        "is_placeholder": true
       },
       {
         "slot": "fig-recon-6",
-        "label": "([xx,xxx]) \u00b7 Preferred stock",
-        "n": 21,
-        "default_len": 10
-      },
-      {
-        "slot": "fig-recon-7",
-        "label": "([xx,xxx]) \u00b7 Preferred stock ([xx,xxx])",
+        "label": "([xx,xxx]) \u00b7 Lorem ipsum dolor",
         "n": 22,
         "default_len": 10
       },
       {
-        "slot": "fig-recon-8",
-        "label": "([xx,xxx]) \u00b7 Preferred stock ([xx,xxx]) ([xx,xxx])",
+        "slot": "fig-recon-7",
+        "label": "([xx,xxx]) \u00b7 Lorem ipsum dolor ([xx,xxx])",
         "n": 23,
         "default_len": 10
       },
       {
-        "slot": "fig-recon-9",
-        "label": "([xx,xxx]) \u00b7 Preferred stock ([xx,xxx]) ([xx,xxx]) ([xx,xxx])",
+        "slot": "fig-recon-8",
+        "label": "([xx,xxx]) \u00b7 Lorem ipsum dolor ([xx,xxx]) ([xx,xxx])",
         "n": 24,
         "default_len": 10
       },
       {
-        "slot": "fig-recon-10",
-        "label": "([xx,xxx]) \u00b7 Preferred stock ([xx,xxx]) ([xx,xxx]) ([xx,xxx])",
+        "slot": "fig-recon-9",
+        "label": "([xx,xxx]) \u00b7 Lorem ipsum dolor ([xx,xxx]) ([xx,xxx]) ([xx,xxx",
         "n": 25,
+        "default_len": 10
+      },
+      {
+        "slot": "fig-recon-10",
+        "label": "([xx,xxx]) \u00b7 Lorem ipsum dolor ([xx,xxx]) ([xx,xxx]) ([xx,xxx",
+        "n": 26,
         "default_len": 10
       },
       {
         "slot": "lang-rec-row3-1",
         "label": "[Line item]",
-        "n": 26,
-        "default_len": 27
+        "n": 27,
+        "default_len": 27,
+        "is_placeholder": true
       },
       {
         "slot": "fig-recon-11",
-        "label": "[xxx,xxx] \u00b7 Common shareholders' equity",
-        "n": 27,
-        "default_len": 9
-      },
-      {
-        "slot": "fig-recon-12",
-        "label": "[xxx,xxx] \u00b7 Common shareholders' equity [xxx,xxx]",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet",
         "n": 28,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-13",
-        "label": "[xxx,xxx] \u00b7 Common shareholders' equity [xxx,xxx] [xxx,xxx]",
+        "slot": "fig-recon-12",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet [xxx,xxx]",
         "n": 29,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-14",
-        "label": "[xxx,xxx] \u00b7 Common shareholders' equity [xxx,xxx] [xxx,xxx] ",
+        "slot": "fig-recon-13",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet [xxx,xxx] [xxx,xxx]",
         "n": 30,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-15",
-        "label": "[xxx,xxx] \u00b7 Common shareholders' equity [xxx,xxx] [xxx,xxx] ",
+        "slot": "fig-recon-14",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet [xxx,xxx] [xxx,xxx] [",
         "n": 31,
+        "default_len": 9
+      },
+      {
+        "slot": "fig-recon-15",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet [xxx,xxx] [xxx,xxx] [",
+        "n": 32,
         "default_len": 9
       },
       {
         "slot": "lang-rec-row4-1",
         "label": "[Line item]",
-        "n": 32,
-        "default_len": 8
+        "n": 33,
+        "default_len": 8,
+        "is_placeholder": true
       },
       {
         "slot": "fig-recon-16",
-        "label": "([x,xxx]) \u00b7 Goodwill",
-        "n": 33,
-        "default_len": 9
-      },
-      {
-        "slot": "fig-recon-17",
-        "label": "([x,xxx]) \u00b7 Goodwill ([x,xxx])",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum",
         "n": 34,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-18",
-        "label": "([x,xxx]) \u00b7 Goodwill ([x,xxx]) ([x,xxx])",
+        "slot": "fig-recon-17",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum ([x,xxx])",
         "n": 35,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-19",
-        "label": "([x,xxx]) \u00b7 Goodwill ([x,xxx]) ([x,xxx]) ([x,xxx])",
+        "slot": "fig-recon-18",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum ([x,xxx]) ([x,xxx])",
         "n": 36,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-20",
-        "label": "([x,xxx]) \u00b7 Goodwill ([x,xxx]) ([x,xxx]) ([x,xxx]) ([x,xxx])",
+        "slot": "fig-recon-19",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum ([x,xxx]) ([x,xxx]) ([x,xxx])",
         "n": 37,
+        "default_len": 9
+      },
+      {
+        "slot": "fig-recon-20",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum ([x,xxx]) ([x,xxx]) ([x,xxx]) ([x,xx",
+        "n": 38,
         "default_len": 9
       },
       {
         "slot": "lang-rec-row5-1",
         "label": "[Line item]",
-        "n": 38,
-        "default_len": 30
+        "n": 39,
+        "default_len": 30,
+        "is_placeholder": true
       },
       {
         "slot": "fig-recon-21",
-        "label": "([x,xxx]) \u00b7 Identifiable intangible assets",
-        "n": 39,
-        "default_len": 9
-      },
-      {
-        "slot": "fig-recon-22",
-        "label": "([x,xxx]) \u00b7 Identifiable intangible assets ([x,xxx])",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum dolor sit amet",
         "n": 40,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-23",
-        "label": "([x,xxx]) \u00b7 Identifiable intangible assets ([x,xxx]) ([x,xxx",
+        "slot": "fig-recon-22",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum dolor sit amet ([x,xxx])",
         "n": 41,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-24",
-        "label": "([xxx]) \u00b7 Identifiable intangible assets ([x,xxx]) ([x,xxx",
+        "slot": "fig-recon-23",
+        "label": "([x,xxx]) \u00b7 Lorem ipsum dolor sit amet ([x,xxx]) ([x,xxx])",
         "n": 42,
+        "default_len": 9
+      },
+      {
+        "slot": "fig-recon-24",
+        "label": "([xxx]) \u00b7 Lorem ipsum dolor sit amet ([x,xxx]) ([x,xxx]) (",
+        "n": 43,
         "default_len": 7
       },
       {
         "slot": "fig-recon-25",
-        "label": "([xxx]) \u00b7 Identifiable intangible assets ([x,xxx]) ([x,xxx",
-        "n": 43,
+        "label": "([xxx]) \u00b7 Lorem ipsum dolor sit amet ([x,xxx]) ([x,xxx]) (",
+        "n": 44,
         "default_len": 7
       },
       {
         "slot": "lang-rec-row6-1",
         "label": "[Line item]",
-        "n": 44,
-        "default_len": 36
+        "n": 45,
+        "default_len": 36,
+        "is_placeholder": true
       },
       {
         "slot": "fig-recon-26",
-        "label": "[xxx,xxx] \u00b7 Tangible common shareholders' equity $",
-        "n": 45,
-        "default_len": 9
-      },
-      {
-        "slot": "fig-recon-27",
-        "label": "[xxx,xxx] \u00b7 Tangible common shareholders' equity $ [xxx,xxx]",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet consectetur $",
         "n": 46,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-28",
-        "label": "[xxx,xxx] \u00b7 Tangible common shareholders' equity $ [xxx,xxx]",
+        "slot": "fig-recon-27",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet consectetur $ [xxx,xx",
         "n": 47,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-29",
-        "label": "[xxx,xxx] \u00b7 Tangible common shareholders' equity $ [xxx,xxx]",
+        "slot": "fig-recon-28",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet consectetur $ [xxx,xx",
         "n": 48,
         "default_len": 9
       },
       {
-        "slot": "fig-recon-30",
-        "label": "[xxx,xxx] \u00b7 Tangible common shareholders' equity $ [xxx,xxx]",
+        "slot": "fig-recon-29",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet consectetur $ [xxx,xx",
         "n": 49,
+        "default_len": 9
+      },
+      {
+        "slot": "fig-recon-30",
+        "label": "[xxx,xxx] \u00b7 Lorem ipsum dolor sit amet consectetur $ [xxx,xx",
+        "n": 50,
         "default_len": 9
       },
       {
         "slot": "lang-blank-rec-4",
         "label": "[Reconciliation note]",
-        "n": 50,
-        "default_len": 133
+        "n": 51,
+        "default_len": 133,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-rec-5",
         "label": "[Reconciliation note]",
-        "n": 51,
-        "default_len": 519
-      },
-      {
-        "slot": "segment-2-lc",
-        "label": "[segment #2]",
         "n": 52,
-        "default_len": 27,
-        "outer": "lang-blank-rec-5"
+        "default_len": 188,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-rec-6",
         "label": "[Reconciliation note]",
         "n": 53,
-        "default_len": 291
+        "default_len": 188,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-rec-7",
         "label": "[Reconciliation note]",
         "n": 54,
-        "default_len": 208
+        "default_len": 208,
+        "is_placeholder": true
       }
     ],
     "notes-continued": [
       {
+        "slot": "lang-nc-sec-fn",
+        "label": "[Footnotes-continued heading]",
+        "n": 1,
+        "default_len": 27,
+        "is_placeholder": true
+      },
+      {
         "slot": "lang-blank-nc-1",
         "label": "[Footnote: definition or sourcing]",
-        "n": 1,
-        "default_len": 369
+        "n": 2,
+        "default_len": 369,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-2",
         "label": "[Footnote: definition or sourcing]",
-        "n": 2,
-        "default_len": 413
+        "n": 3,
+        "default_len": 409,
+        "is_placeholder": true
       },
       {
         "slot": "lang-fn-principal",
         "label": "[Footnote: metric definition]",
-        "n": 3,
-        "default_len": 314
+        "n": 4,
+        "default_len": 300,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-3",
         "label": "[Footnote: definition or sourcing]",
-        "n": 4,
-        "default_len": 263
+        "n": 5,
+        "default_len": 262,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-4",
         "label": "[Footnote: definition or sourcing]",
-        "n": 5,
-        "default_len": 366
+        "n": 6,
+        "default_len": 366,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-5",
         "label": "[Footnote: definition or sourcing]",
-        "n": 6,
-        "default_len": 416
+        "n": 7,
+        "default_len": 416,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-6",
         "label": "[Footnote: definition or sourcing]",
-        "n": 7,
-        "default_len": 366
+        "n": 8,
+        "default_len": 366,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-7",
         "label": "[Footnote: definition or sourcing]",
-        "n": 8,
-        "default_len": 213
+        "n": 9,
+        "default_len": 213,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-8",
         "label": "[Footnote: definition or sourcing]",
-        "n": 9,
-        "default_len": 271
+        "n": 10,
+        "default_len": 271,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-9",
         "label": "[Footnote: definition or sourcing]",
-        "n": 10,
-        "default_len": 470
+        "n": 11,
+        "default_len": 470,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-10",
         "label": "[Footnote: definition or sourcing]",
-        "n": 11,
-        "default_len": 449
+        "n": 12,
+        "default_len": 342,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-11",
         "label": "[Footnote: definition or sourcing]",
-        "n": 12,
-        "default_len": 375
+        "n": 13,
+        "default_len": 375,
+        "is_placeholder": true
       },
       {
         "slot": "lang-blank-nc-12",
         "label": "[Footnote: definition or sourcing]",
-        "n": 13,
-        "default_len": 246
+        "n": 14,
+        "default_len": 246,
+        "is_placeholder": true
       }
     ]
   }

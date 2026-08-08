@@ -56,14 +56,14 @@ is final.
   ROTE 13% -> 15%
 - Balance-sheet page: non-core assets $54bn (FY2022) -> $11bn (FY2026),
   down ~80%; allowance coverage 1.2% -> 1.6% of loans (+40bps); CET1
-  12.9% -> 14.4% (+150bps), 140 bps above requirement. Claims: consumer
-  finance exit complete; credit reserves strengthened; CET1 above target
+  12.9% -> 14.4% (+150bps), 140 bps above requirement. Claims: non-core
+  lending exit complete; credit reserves strengthened; CET1 above target
   range; liquidity at record levels
 - Delivered commitments (scorecard): #4 in middle-market M&A, #2 in U.S.
   sponsor coverage, Top 3 in retirement recordkeeping, fee-based revenue
   growth +58% since 2022, client assets +$500bn since 2022, non-core assets
   wound down ~80%. Six delivery sections with proof points (see deck.json);
-  coda: completed the sale of the closed-book consumer lending platform,
+  coda: completed the sale of the non-core loan portfolio,
   signed an agreement to divest the final tranche of legacy structured
   assets
 - Client franchise page: client relationships by segment, thousands

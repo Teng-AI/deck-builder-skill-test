@@ -23,10 +23,10 @@ What it does, in order:
   marks    PNGs with alpha, embedded as data URIs into the brand slots;
            paths resolve relative to the deck.json's directory.
   folios   renumbered contiguously in page order (the cover carries none).
-  cta      the footer strip on the LAST rendered page, from
-           references/cta.json. Absent file renders silence. When present,
-           the same line is printed to stdout so it reaches the chat
-           surface on every run.
+  cta      NOT rendered into the deck (Dave/Teng 2026-08-06): it rides the
+           chat reply as clickable markdown links. build_deck reads
+           references/cta.json and prints the exact copy to stdout for the
+           model to relay verbatim; an absent file prints nothing.
 
 Port of the lane's research/tools/brand.py (institutional-deck-templates),
 extended with the page plan and the CTA. The slot fill here uses a balance
@@ -34,6 +34,7 @@ scan instead of brand.py's non-greedy regex, so nested same-tag content
 cannot truncate a fill.
 """
 import base64
+import html as htmllib
 import json
 import pathlib
 import re
@@ -73,9 +74,27 @@ def fill_slot(html, name, content):
         n += 1
 
 
+_ENTITY = re.compile(r"&(?:#[0-9]+|#[xX][0-9a-fA-F]+|[a-zA-Z][a-zA-Z0-9]*);")
+
+
+def escape_fill(text):
+    """Escape a user text fill for safe innerHTML. '<' and '>' always become
+    entities (a fill carries no tags of its own), so a value like '<BBB'
+    renders as text instead of being swallowed as a bogus tag. A bare '&' is
+    escaped too, but an '&' that already opens a valid entity is left alone,
+    so deliberate typography in fills (&ldquo; &ndash; &amp;) survives."""
+    out, last = [], 0
+    for m in _ENTITY.finditer(text):
+        out.append(text[last:m.start()].replace("&", "&amp;"))
+        out.append(m.group(0))
+        last = m.end()
+    out.append(text[last:].replace("&", "&amp;"))
+    return "".join(out).replace("<", "&lt;").replace(">", "&gt;")
+
+
 def hang_wrap(content):
     lines = re.split(r"<br\s*/?>", content)
-    return "".join(f'<span class="hang hang-l{i + 1}">{line}</span>'
+    return "".join(f'<span class="hang hang-l{i + 1}">{escape_fill(line)}</span>'
                    for i, line in enumerate(lines))
 
 
@@ -204,6 +223,38 @@ def apply_drops(html, drops, blocks):
             if not m:
                 sys.exit(f"drop {did}: container .{blk['container_class']} not found")
             sec = sec[:m.start()] + sec[element_end(sec, sec.find(">", m.start()) + 1, "div"):]
+        elif fam == "list-item":
+            # removes the nearest enclosing <li> (nested sub-lists ride along)
+            m = re.search(rf'data-slot="{re.escape(pref + blk["anchor_slot"])}"', sec)
+            if not m:
+                sys.exit(f"drop {did}: anchor slot not found (already removed "
+                         "by an enclosing drop?)")
+            rs = sec.rfind("<li", 0, m.start())
+            sec = sec[:rs] + sec[element_end(sec, sec.find(">", rs) + 1, "li"):]
+        elif fam == "labeled-element":
+            # removes the container_class element that HOLDS the anchor slot
+            # (unlike "element", which takes the first match in the section)
+            m = re.search(rf'data-slot="{re.escape(pref + blk["anchor_slot"])}"', sec)
+            if not m:
+                sys.exit(f"drop {did}: anchor slot not found")
+            rs = sec.rfind(f'<div class="{blk["container_class"]}"', 0, m.start())
+            if rs < 0:
+                sys.exit(f"drop {did}: no .{blk['container_class']} encloses "
+                         "the anchor")
+            sec = sec[:rs] + sec[element_end(sec, sec.find(">", rs) + 1, "div"):]
+        elif fam == "row-plain":
+            # strips the emphasis treatment from a band row, keeping the row:
+            # the band is subtotal furniture, and a non-subtotal line landing
+            # on it must not inherit the subtotal's visual claim
+            m = re.search(rf'data-slot="{re.escape(pref + blk["anchor_slot"])}"', sec)
+            if not m:
+                sys.exit(f"drop {did}: anchor slot not found")
+            rs = sec.rfind("<tr", 0, m.start())
+            te = sec.find(">", rs)
+            tag = sec[rs:te]
+            if ' class="emph"' not in tag:
+                sys.exit(f"drop {did}: band row carries no emphasis to strip")
+            sec = sec[:rs] + tag.replace(' class="emph"', "", 1) + sec[te:]
         elif fam == "recon-asof":
             cg = sec.find("<colgroup>")
             cge = sec.find("</colgroup>")
@@ -447,11 +498,13 @@ def main():
 
     filled, missing = [], []
     for slot, content in deck.get("slots", {}).items():
-        if slot == "cover-title":
-            content = hang_wrap(content)
         base = slot.split(":", 1)[1] if ":" in slot else slot
-        if base in prefixes and not content.lstrip().startswith("<"):
-            content = prefixes[base] + content
+        if slot == "cover-title":
+            content = hang_wrap(content)          # splits on <br>, escapes each line
+        else:
+            content = escape_fill(content)        # '<'/'>' always; '&' unless an entity
+            if base in prefixes:
+                content = prefixes[base] + content  # trusted builder swatch markup
         html, n = fill_slot(html, slot, content)
         (filled if n else missing).append(f"{slot} x{n}" if n else slot)
     if missing:
@@ -517,32 +570,16 @@ def main():
     html = re.sub(r'(<div class="folio">)(\d+)(</div>)', renumber, html)
 
     # --- CTA ----------------------------------------------------------------
+    # The CTA rides the CHAT report as clickable markdown links, never the
+    # rendered deck (Teng/Dave 2026-08-06): a shared deck or PDF stays clean.
+    # The builder prints the exact copy for the model to relay verbatim.
     cta_line = None
     cta_path = REFS / "cta.json"
     if cta_path.exists():
         cta = json.loads(cta_path.read_text())
-        links_html = " · ".join(
-            f'<a href="{l["url"]}">{l["text"]}</a>' for l in cta["links"])
-        strip = (f'\n        <div class="cta-strip">{cta["lead"]} '
-                 f"{links_html}</div>\n      ")
-        last = html.rfind("</section>")
-        if last == -1:
-            sys.exit("no sections in output; cannot place the CTA strip")
-        html = html[:last] + strip + html[last:]
-        css = ("      .cta-strip { position: absolute; left: 50%;"
-               " transform: translateX(-50%);"
-               " bottom: calc(1080px - var(--g-foot-base));"
-               " font-size: var(--sz-caption); line-height: 1;"
-               " color: var(--c-ink-soft); white-space: nowrap; }\n"
-               "      .cta-strip a { color: inherit;"
-               " text-decoration: none; }\n")
-        html, n = re.subn(r"(?=  </head>)",
-                          f"    <style id=\"cta\">\n{css}    </style>\n",
-                          html, count=1)
-        if n != 1:
-            sys.exit("could not find </head> to carry the CTA style")
-        cta_line = cta["lead"] + " " + " · ".join(
-            l["text"] for l in cta["links"])
+        links_md = " · ".join(
+            f'[{l["text"]}]({l["url"]})' for l in cta["links"])
+        cta_line = f'{cta["lead"]} {links_md}'
 
     # --- write --------------------------------------------------------------
     out = pathlib.Path(sys.argv[sys.argv.index("--out") + 1]) \
@@ -559,6 +596,9 @@ def main():
     print(f"{out}  ({out.stat().st_size // 1024} KB)")
     print(f"  pages: {pages_out} (folios 1..{counter['n']};"
           " the cover carries none)")
+    print("  fonts: pulled from Google Fonts, so the HTML needs a network "
+          "connection to look right; for an offline or emailed copy, print "
+          "it to PDF in a browser (that embeds the faces)")
     if masked:
         print(f"  figures still masked: {masked} sites (each is a TODO for "
               "the user; name the pages that hold them in your report)")
@@ -576,7 +616,8 @@ def main():
               "deck's own values")
     print(f"  slots filled: {len(filled)}   tokens: {len(tokens)}")
     if cta_line:
-        print(f"  CTA: {cta_line}")
+        print("  CTA (include verbatim in your chat reply as clickable links, "
+              f"NOT in the deck): {cta_line}")
     else:
         print("  CTA: none (references/cta.json absent)")
 
